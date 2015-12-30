@@ -27,7 +27,10 @@ Powershell required.
 
 - Make sure that smartmontools utils are installed:
 - install the script smartctl-disks-discovery.ps1
-- test the script by running it with powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1".  
+- test the script by running it with  
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1".  
+``` 
 You should receive JSON object in the output output
 - Add the following lines in zabbix_agentd.conf file (note the path to smartctl.exe):  
 ```
