@@ -1,6 +1,6 @@
 #Description
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.  
-LLD is used for disks discovery.  
+LLD is used for disks discovery.  Only devices with SMART enabled will be discovered.
 
 #Installation:  
 ##Linux:  
