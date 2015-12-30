@@ -1,6 +1,5 @@
 #Description
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.  
-Please note that current version has items and application names in Russian.  
 LLD is used for disks discovery.  
 
 #Installation:  
