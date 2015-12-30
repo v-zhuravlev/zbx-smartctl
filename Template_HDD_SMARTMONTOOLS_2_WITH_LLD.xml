@@ -25,7 +25,7 @@
             <discovery_rules>
                 <discovery_rule>
                     <name>smartctl-disks-discovery</name>
-                    <type>7</type>
+                    <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>uHDD.discovery</key>
@@ -51,7 +51,7 @@
                     <item_prototypes>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 5 Reallocated Sectors Count</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -90,7 +90,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 9 Количество наработанных часов</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>1</multiplier>
                             <snmp_oid/>
@@ -129,7 +129,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 10 Spin_Retry_Count</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -168,7 +168,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 194 Temperature</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -207,7 +207,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 197 Current_Pending_Sector</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -246,7 +246,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 198 Offline_Uncorrectable</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -285,7 +285,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 199 UDMA_CRC_Error</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -363,7 +363,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME} Модель</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -402,7 +402,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME} Общее состояние</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
@@ -441,7 +441,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME} Серийный номер</name>
-                            <type>7</type>
+                            <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
