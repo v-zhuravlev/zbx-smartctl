@@ -60,7 +60,7 @@ $line=$_;
 
     print "\t{\n";
     print "\t\t\"{#DISKNAME}\":\"$disk\",\n";
-    print "\t\t\"{#SMART_ENABLED}\":\"$smart_enabled\",\n";
+    print "\t\t\"{#SMART_ENABLED}\":\"$smart_enabled\"\n";
     print "\t}\n";
 
 }
