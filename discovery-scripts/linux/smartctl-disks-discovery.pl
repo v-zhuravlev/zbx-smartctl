@@ -7,7 +7,7 @@ $first = 1;
 print "{\n";
 print "\t\"data\":[\n\n";
 
-for (`/bin/lsblk -d -n -o NAME`)
+for (`/bin/lsblk -d -n -o NAME -e 1,11,43,147`)
 {
 #DISK LOOP
 $smart_avail=0;
