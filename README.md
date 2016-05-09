@@ -44,5 +44,29 @@ UserParameter=uHDD.errorlog.[*], for /F "tokens=4" %a in ('C:\usr\zabbix\smartmo
 UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
+
+##MAC OSX: 
+zabbix_agentd_osx_installer
+https://github.com/mipmip/zabbix_agentd_osx_installer/releases
+ 
+- Make sure that smartmontools utils are installed:
+smartmontools_osx_installer  
+http://builds.smartmontools.org/ 
+
+- install the script smartctl-disks-discovery.pl in /usr/local/bin/
+- test the script by running it. You should receive JSON object in the script output
+  
+```
+
+Add the following lines in zabbix_agentd.conf file:  
+```
+#############SMARTMON
+UserParameter=uHDD[*],smartctl -A /dev/$1| grep "$2"| tail -1| cut -c 88-|cut -f1 -d' '
+UserParameter=uHDD.model.[*],smartctl -i /dev/$1 |grep "Device Model"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.sn.[*],smartctl -i /dev/$1 |grep "Serial Number"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.health.[*],smartctl -H /dev/$1 |grep "test"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.errorlog.[*],smartctl -l error /dev/$1 |grep "ATA Error Count"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.discovery,/usr/local/bin/smartctl-disks-discovery.pl
+
 #More info:  
 http://habrahabr.ru/company/zabbix/blog/196218/  
