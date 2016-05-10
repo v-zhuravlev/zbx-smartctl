@@ -46,17 +46,11 @@ UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File
 
 
 ##MAC OSX: 
-zabbix_agentd_osx_installer
-https://github.com/mipmip/zabbix_agentd_osx_installer/releases
- 
+zabbix_agentd_osx_installer https://github.com/mipmip/zabbix_agentd_osx_installer/releases  
 - Make sure that smartmontools utils are installed:
-smartmontools_osx_installer  
-http://builds.smartmontools.org/ 
-
+smartmontools_osx_installer  http://builds.smartmontools.org/   
 - install the script smartctl-disks-discovery.pl in /usr/local/bin/
 - test the script by running it. You should receive JSON object in the script output
-  
-
 
 Add the following lines in zabbix_agentd.conf file:  
 ```
