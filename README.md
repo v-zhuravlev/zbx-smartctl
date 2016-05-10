@@ -55,7 +55,7 @@ http://builds.smartmontools.org/
 - install the script smartctl-disks-discovery.pl in /usr/local/bin/
 - test the script by running it. You should receive JSON object in the script output
   
-```
+
 
 Add the following lines in zabbix_agentd.conf file:  
 ```
@@ -66,6 +66,6 @@ UserParameter=uHDD.sn.[*],smartctl -i /dev/$1 |grep "Serial Number"| cut -f2 -d:
 UserParameter=uHDD.health.[*],smartctl -H /dev/$1 |grep "test"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.errorlog.[*],smartctl -l error /dev/$1 |grep "ATA Error Count"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.discovery,/usr/local/bin/smartctl-disks-discovery.pl
-
+```
 #More info:  
 http://habrahabr.ru/company/zabbix/blog/196218/  
