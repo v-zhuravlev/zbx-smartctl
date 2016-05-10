@@ -1,6 +1,6 @@
 #Description
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.  
-*main* branch has the template for Zabbix 3.0. Check other project's branches for Zabbix 2.4 and Zabbix 2.2 templates  
+*main* branch has the template for Zabbix 3.0. Check other project's branches for [Zabbix 2.4](https://github.com/v-zhuravlev/zbx-smartctl/tree/zabbix2.4_template) and [Zabbix 2.2](https://github.com/v-zhuravlev/zbx-smartctl/tree/zabbix2.2_template) templates  
 LLD is used for disks discovery.  Only devices with SMART enabled will be discovered.
 
 #Installation:  
