@@ -3,61 +3,61 @@
 #must be run as root
 $first = 1;
 
+#add path if needed into $smartctl_cmd
+$smartctl_cmd = "smartctl";
+
 print "{\n";
 print "\t\"data\":[\n\n";
 
-for (`smartctl --scan`)
-{
-#splitting line like "/dev/sda -d scsi # /dev/sda, SCSI device"
-$disk_path = (split(/ /))[0];
-$disk = (split(/\//,$disk_path))[2];
-#DISK LOOP
-$smart_avail=0;
-$smart_enabled=0;
-$smart_enable_tried=0;
-chomp($disk);
+for (`$smartctl_cmd --scan`) {
 
+    #splitting line like "/dev/sda -d scsi # /dev/sda, SCSI device"
+    $disk_path = ( split(/ /) )[0];
+    $disk = ( split( /\//, $disk_path ) )[2];
 
-    print "\t,\n" if not $first;
+    #DISK LOOP
+    $smart_avail        = 0;
+    $smart_enabled      = 0;
+    $smart_enable_tried = 0;
+    chomp($disk);
+
+    print ",\n" if not $first;
     $first = 0;
 
+    #SMART STATUS LOOP
+    foreach (`$smartctl_cmd -i /dev/$disk | grep SMART`) {
 
-#SMART STATUS LOOP
-foreach(`smartctl -i /dev/$disk | grep SMART`)
-{
-
-$line=$_;
+        $line = $_;
 
         # if SMART available -> continue
-        if ($line = /Available/){
-                $smart_avail=1;
-                next;
-                        }
+        if ( $line = /Available/ ) {
+            $smart_avail = 1;
+            next;
+        }
 
         #if SMART is disabled then try to enable it (also offline tests etc)
-        if ($line = /Disabled/ & $smart_enable_tried == 0){
+        if ( $line = /Disabled/ & $smart_enable_tried == 0 ) {
 
-                foreach(`smartctl -i /dev/$disk -s on -o on -S on | grep SMART`) {
+            foreach (`smartctl -i /dev/$disk -s on -o on -S on | grep SMART`) {
 
-                        if (/SMART Enabled/){
-                                $smart_enabled=1;
-                                next;
-                        }
+                if (/SMART Enabled/) {
+                    $smart_enabled = 1;
+                    next;
                 }
-        $smart_enable_tried=1;
+            }
+            $smart_enable_tried = 1;
         }
 
-        if ($line = /Enabled/){
-        $smart_enabled=1;
+        if ( $line = /Enabled/ ) {
+            $smart_enabled = 1;
         }
 
+    }
 
-}
-
-    print "\t{\n";
-    print "\t\t\"{#DISKNAME}\":\"$disk\",\n";
-    print "\t\t\"{#SMART_ENABLED}\":\"$smart_enabled\"\n";
-    print "\t}\n";
+    print "\t\t{\n";
+    print "\t\t\t\"{#DISKNAME}\":\"$disk\",\n";
+    print "\t\t\t\"{#SMART_ENABLED}\":\"$smart_enabled\"\n";
+    print "\t\t}";
 
 }
 
