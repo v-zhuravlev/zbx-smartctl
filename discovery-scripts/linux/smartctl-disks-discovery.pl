@@ -6,14 +6,29 @@ $first = 1;
 #add path if needed into $smartctl_cmd
 $smartctl_cmd = "smartctl";
 
+my @disks;
+if ($^O eq 'darwin') { # if MAC OSX
+
+        while (glob( '/dev/disk*' )) {
+            if ($_ =~ /\/(disk+[0-9])$/) {push @disks,$1;}
+        }
+}
+else {
+        for (`$smartctl_cmd --scan`) {
+            #splitting line like "/dev/sda -d scsi # /dev/sda, SCSI device"
+            $disk_path = ( split(/ /) )[0];
+            $disk = ( split( /\//, $disk_path ) )[2];
+            chomp($disk);
+            push @disks,$disk;
+        }
+}
+
+#print "Disks are @disks";
 print "{\n";
 print "\t\"data\":[\n\n";
 
-for (`$smartctl_cmd --scan`) {
+foreach my $disk (@disks) {
 
-    #splitting line like "/dev/sda -d scsi # /dev/sda, SCSI device"
-    $disk_path = ( split(/ /) )[0];
-    $disk = ( split( /\//, $disk_path ) )[2];
 
     #DISK LOOP
     $smart_avail        = 0;
