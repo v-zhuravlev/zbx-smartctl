@@ -6,10 +6,10 @@ set serials=dummy_serial
 set /a first=1
 
 echo {"data":[
-for /f "tokens=1 delims= " %%i in ('!smartctl_path! --scan') do (
-	
+for /f "tokens=1,2,3 delims= " %%i in ('!smartctl_path! --scan') do (
+	set smart_enabled=0
     set duplicate=0
-    for /F "tokens=3*" %%a in ('!smartctl_path! -i %%i ^| find "Serial Number"') do (
+    for /F "tokens=3*" %%a in ('!smartctl_path! -i %%i %%j %%k^| find "Serial Number"') do (
         set serial=%%a
     )
 
@@ -18,14 +18,16 @@ for /f "tokens=1 delims= " %%i in ('!smartctl_path! --scan') do (
         set serials=%serials% !serial!
 
     
-	FOR /F "tokens=1" %%a IN ('!smartctl_path! -i %%i ^|find "SMART" ^| find /C "Available"') DO (
-		set /a smart_enabled=%%a
+	FOR /F "tokens=1" %%a IN ('!smartctl_path! -i %%i %%j %%k ^|find "SMART" ^| find /C "Enabled"') DO (
+		if %%a gtr 0 (
+        set /a smart_enabled=1
+        )
 	)
     if not !duplicate! == 1 (
             if not !first! ==1 (
                 echo ,
             )
-            echo {"{#DISKNAME}":"%%i","{#SMART_ENABLED}":"!smart_enabled!"}
+            echo {"{#DISKNAME}":"%%i %%j %%k","{#SMART_ENABLED}":"!smart_enabled!"}
             set /a first=0
     )
 )
