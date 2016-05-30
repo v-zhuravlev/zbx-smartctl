@@ -27,48 +27,41 @@ else {
 print "{\n";
 print "\t\"data\":[\n\n";
 
-foreach my $disk (@disks) {
-
-
+@serials;
+DISKLOOP:foreach my $disk (@disks) {
     #DISK LOOP
-    $smart_avail        = 0;
     $smart_enabled      = 0;
-    $smart_enable_tried = 0;
+
     chomp($disk);
-
-    print ",\n" if not $first;
-    $first = 0;
-
     #SMART STATUS LOOP
-    foreach (`$smartctl_cmd -i /dev/$disk | grep SMART`) {
+    foreach $line (`$smartctl_cmd -i /dev/$disk`) {
+        
+        if ($line =~ /^Serial Number: +(.+)$/) {
+            #print "Serial number is".$1."\n";
+            if (grep /$1/,@serials) {
+                #print "disk already exist skipping\n";
+                next DISKLOOP;
+            }
+            else {
+                push @serials,$1;
+            }
+        } elsif ($line =~ /^SMART.+?: +(.+)$/)  {
+            #print "$1\n";
 
-        $line = $_;
-
-        # if SMART available -> continue
-        if ( $line = /Available/ ) {
-            $smart_avail = 1;
-            next;
-        }
-
-        #if SMART is disabled then try to enable it (also offline tests etc)
-        if ( $line = /Disabled/ & $smart_enable_tried == 0 ) {
-
-            foreach (`smartctl -i /dev/$disk -s on -o on -S on | grep SMART`) {
-
-                if (/SMART Enabled/) {
-                    $smart_enabled = 1;
-                    next;
+            if ( $1 =~ /Enabled/ ) {
+                $smart_enabled = 1;
+            }
+            #if SMART is disabled then try to enable it (also offline tests etc)
+            elsif ( $1 =~ /Disabled/ ) {
+                foreach (`smartctl -s on -o on -S on /dev/$disk`) {
+                    if (/SMART Enabled/) {  $smart_enabled = 1; }
                 }
             }
-            $smart_enable_tried = 1;
-        }
-
-        if ( $line = /Enabled/ ) {
-            $smart_enabled = 1;
-        }
-
+        }         
     }
-
+    
+    print ",\n" if not $first;
+    $first = 0;
     print "\t\t{\n";
     print "\t\t\t\"{#DISKNAME}\":\"$disk\",\n";
     print "\t\t\t\"{#SMART_ENABLED}\":\"$smart_enabled\"\n";
