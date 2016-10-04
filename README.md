@@ -43,6 +43,9 @@ UserParameter=uHDD.errorlog.[*], for /F "tokens=4" %a in ('C:\usr\zabbix\smartmo
 UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
+#License
+GPL v3 or newer.
+
 ```
 #More info:
 http://habrahabr.ru/company/zabbix/blog/196218/
