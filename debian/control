@@ -1,4 +1,4 @@
-Source: zabbix-agent-extra-smartctl
+Source: zabbix-extra-smartctl
 Section: admin
 Priority: extra
 Maintainer: Alexey Vazhnov <vazhnov@yandex.ru>
