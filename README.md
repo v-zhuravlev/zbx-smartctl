@@ -21,6 +21,8 @@ UserParameter=uHDD.health.[*],sudo smartctl -H /dev/$1 |grep "test"| cut -f2 -d:
 UserParameter=uHDD.errorlog.[*],sudo smartctl -l error /dev/$1 |grep "ATA Error Count"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.discovery,sudo /usr/local/bin/smartctl-disks-discovery.pl
 ```
+###Building deb package
+You can create .deb package for Debian/Ubuntu distributions:
 
 ##Windows:
 Powershell required.
