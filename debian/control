@@ -1,0 +1,15 @@
+Source: zabbix-agent-extra-smartctl
+Section: admin
+Priority: extra
+Maintainer: Alexey Vazhnov <vazhnov@yandex.ru>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/v-zhuravlev/zbx-smartctl
+
+Package: zabbix-agent-extra-smartctl
+Architecture: all
+Depends: perl, zabbix-agent, smartmontools
+Recommends: redsolution-repo, samba, inkscape, unrar, gnome-spell, aspell-ru
+Description: Monitoring HDD/SSD smart with zabbix agent
+ Additional scripts and confgurations files for zabbix-agent
+ and sudoers, for monitoring HDD/SSD smart atributes.

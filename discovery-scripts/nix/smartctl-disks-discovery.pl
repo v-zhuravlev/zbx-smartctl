@@ -35,7 +35,7 @@ DISKLOOP:foreach my $disk (@disks) {
     chomp($disk);
     #SMART STATUS LOOP
     foreach $line (`$smartctl_cmd -i /dev/$disk`) {
-        
+
         if ($line =~ /^Serial Number: +(.+)$/) {
             #print "Serial number is".$1."\n";
             if (grep /$1/,@serials) {
@@ -57,9 +57,9 @@ DISKLOOP:foreach my $disk (@disks) {
                     if (/SMART Enabled/) {  $smart_enabled = 1; }
                 }
             }
-        }         
+        }
     }
-    
+
     print ",\n" if not $first;
     $first = 0;
     print "\t\t{\n";
