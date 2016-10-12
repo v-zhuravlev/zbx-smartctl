@@ -15,11 +15,11 @@ if ($^O eq 'darwin') { # if MAC OSX
 }
 else {
         for (`$smartctl_cmd --scan`) {
-            #splitting line like "/dev/sda -d scsi # /dev/sda, SCSI device"
-            $disk_path = ( split(/ /) )[0];
-            $disk = ( split( /\//, $disk_path ) )[2];
-            chomp($disk);
-            push @disks,$disk;
+            #splitting lines like "/dev/sda -d scsi # /dev/sda, SCSI device"
+            if ($_ =~ /^(\/dev\/)(.+?) -d.+/) {
+                $disk = $2;
+                push @disks,$disk;
+            }
         }
 }
 
