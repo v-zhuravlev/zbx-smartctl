@@ -23,6 +23,9 @@ UserParameter=uHDD.discovery,sudo /usr/local/bin/smartctl-disks-discovery.pl
 ```
 ###Building deb package
 You can create .deb package for Debian/Ubuntu distributions:
+```shell
+dpkg-buildpackage -tc -Zgzip
+```
 
 ##Windows:
 Powershell required.
