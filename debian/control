@@ -5,6 +5,7 @@ Maintainer: Alexey Vazhnov <vazhnov@yandex.ru>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
 Homepage: https://github.com/v-zhuravlev/zbx-smartctl
+Vcs-Git: https://github.com/v-zhuravlev/zbx-smartctl.git
 
 Package: zabbix-agent-extra-smartctl
 Architecture: all
