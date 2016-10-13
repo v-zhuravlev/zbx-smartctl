@@ -51,7 +51,7 @@ UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File
 #License
 GPL v3 or newer.
 
-#More info:
-http://habrahabr.ru/company/zabbix/blog/196218/
-http://www.lanana.org/docs/device-list/devices-2.6+.txt
-https://www.smartmontools.org/wiki/Supported_RAID-Controllers
+#More info:  
+http://habrahabr.ru/company/zabbix/blog/196218/  
+http://www.lanana.org/docs/device-list/devices-2.6+.txt  
+https://www.smartmontools.org/wiki/Supported_RAID-Controllers  
