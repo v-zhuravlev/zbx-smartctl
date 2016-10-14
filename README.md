@@ -22,7 +22,7 @@ UserParameter=uHDD.errorlog.[*],sudo smartctl -l error /dev/$1 |grep "ATA Error 
 UserParameter=uHDD.discovery,sudo /usr/local/bin/smartctl-disks-discovery.pl
 ```
 ###Building deb package
-You can create .deb package for Debian/Ubuntu distributions:
+You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu distributions:
 ```shell
 dpkg-buildpackage -tc -Zgzip
 ```
