@@ -21,6 +21,11 @@ UserParameter=uHDD.health.[*],sudo smartctl -H /dev/$1 |grep "test"| cut -f2 -d:
 UserParameter=uHDD.errorlog.[*],sudo smartctl -l error /dev/$1 |grep "ATA Error Count"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.discovery,sudo /usr/local/bin/smartctl-disks-discovery.pl
 ```
+###Building deb package
+You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu distributions:
+```shell
+dpkg-buildpackage -tc -Zgzip
+```
 
 ##Windows:
 Powershell required.

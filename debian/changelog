@@ -1,0 +1,5 @@
+zabbix-extra-smartctl (0.1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Alexey Vazhnov <vazhnov@yandex.ru>  Wed, 12 Oct 2016 00:19:27 +0500
