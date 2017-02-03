@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+case $1 in 
+    configure)
+	invoke-rc.d zabbix-agent restart
+esac
+
+#DEBHELPER#
