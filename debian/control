@@ -10,7 +10,6 @@ Vcs-Git: https://github.com/v-zhuravlev/zbx-smartctl.git
 Package: zabbix-agent-extra-smartctl
 Architecture: all
 Depends: perl, zabbix-agent, smartmontools, ${misc:Depends}
-Recommends: redsolution-repo, samba, inkscape, unrar, gnome-spell, aspell-ru
 Description: Monitoring HDD/SSD smart with zabbix agent
  Additional scripts and confgurations files for zabbix-agent
  and sudoers, for monitoring HDD/SSD smart atributes.
