@@ -14,13 +14,9 @@ if ($^O eq 'darwin') { # if MAC OSX
         }
 }
 else {
-        for (`$smartctl_cmd --scan`) {
+        for (`$smartctl_cmd --scan-open`) {
             #splitting lines like "/dev/sda -d scsi # /dev/sda, SCSI device"
             my @device = split / /, $_;
-            #replacing -d scsi by -d sat for geting SMART at sata devices
-            if (@device[2] =~ /scsi/) {
-                @device[2] = sat;
-            }
             #Adding full value from smartctl --scan to get SMART from not only /dev/sd devices but /dev/bus/0 -d megaraid,01 too
             $disk = "@device[0] @device[1] @device[2]";
                 push @disks,$disk;
