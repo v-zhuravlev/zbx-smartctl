@@ -16,10 +16,14 @@ if ($^O eq 'darwin') { # if MAC OSX
 else {
         for (`$smartctl_cmd --scan`) {
             #splitting lines like "/dev/sda -d scsi # /dev/sda, SCSI device"
-            if ($_ =~ /^(\/dev\/)(.+?) -d.+/) {
-                $disk = $2;
-                push @disks,$disk;
+            my @device = split / /, $_;
+            #replacing -d scsi by -d sat for geting SMART at sata devices
+            if (@device[2] =~ /scsi/) {
+                @device[2] = sat;
             }
+            #Adding full value from smartctl --scan to get SMART from not only /dev/sd devices but /dev/bus/0 -d megaraid,01 too
+            $disk = "@device[0] @device[1] @device[2]";
+                push @disks,$disk;
         }
 }
 
@@ -34,16 +38,16 @@ DISKLOOP:foreach my $disk (@disks) {
 
     chomp($disk);
     #SMART STATUS LOOP
-    foreach $line (`$smartctl_cmd -i /dev/$disk`) {
-
-        if ($line =~ /^Serial Number: +(.+)$/) {
-            #print "Serial number is".$1."\n";
-            if (grep /$1/,@serials) {
+    foreach $line (`$smartctl_cmd -i $disk`) {
+        #Some disks have "Number" and some "number", so
+        if ($line =~ /^Serial (N|n)umber: +(.+)$/) {
+            #print "Serial number is ".$2."\n";
+            if (grep /$2/,@serials) {
                 #print "disk already exist skipping\n";
                 next DISKLOOP;
             }
             else {
-                push @serials,$1;
+                push @serials,$2;
             }
         } elsif ($line =~ /^SMART.+?: +(.+)$/)  {
             #print "$1\n";
@@ -53,7 +57,7 @@ DISKLOOP:foreach my $disk (@disks) {
             }
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
-                foreach (`smartctl -s on -o on -S on /dev/$disk`) {
+                foreach (`smartctl -s on -o on -S on $disk`) {
                     if (/SMART Enabled/) {  $smart_enabled = 1; }
                 }
             }
