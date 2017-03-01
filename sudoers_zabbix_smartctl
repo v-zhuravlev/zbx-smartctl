@@ -1,1 +1,1 @@
-zabbix ALL=(ALL) NOPASSWD: /usr/sbin/smartctl,/usr/lib/zabbix/scripts/smartctl-disks-discovery.pl
+zabbix ALL=(ALL) NOPASSWD: /usr/sbin/smartctl,/etc/zabbix/scripts/smartctl-disks-discovery.pl

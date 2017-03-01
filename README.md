@@ -5,21 +5,21 @@ This is the template for Zabbix providing SMART monitoring for HDD using smartct
 #Installation:
 ##Linux/BSD/Mac OSX:
 - Make sure that smartmontools utils are installed:
-- install the script smartctl-disks-discovery.pl in /usr/local/bin/
+- install the script smartctl-disks-discovery.pl in /etc/zabbix/scripts/
 - test the script by running it. You should receive JSON object in the script output
 - add the following permissions into /etc/sudoers:
 ```
-zabbix ALL= (ALL) NOPASSWD: /usr/sbin/smartctl,/usr/local/bin/smartctl-disks-discovery.pl
+zabbix ALL= (ALL) NOPASSWD: /usr/sbin/smartctl,/etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
 Add the following lines in zabbix_agentd.conf file:
 ```
 #############SMARTMON
-UserParameter=uHDD[*], sudo smartctl -A /dev/$1| grep "$2"| tail -1| cut -c 88-|cut -f1 -d' '
-UserParameter=uHDD.model.[*],sudo smartctl -i /dev/$1 |grep "Device Model"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.sn.[*],sudo smartctl -i /dev/$1 |grep "Serial Number"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.health.[*],sudo smartctl -H /dev/$1 |grep "test"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.errorlog.[*],sudo smartctl -l error /dev/$1 |grep "ATA Error Count"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.discovery,sudo /usr/local/bin/smartctl-disks-discovery.pl
+UserParameter=uHDD[*], sudo smartctl -A $1| grep -i "$2"| tail -1| cut -c 88-|cut -f1 -d' '
+UserParameter=uHDD.model.[*],sudo smartctl -i $1 |grep -i "Device Model"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.sn.[*],sudo smartctl -i $1 |grep -i "Serial Number"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.health.[*],sudo smartctl -H $1 |grep -i "test"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.discovery,sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
 ###Building deb package
 You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu distributions:
