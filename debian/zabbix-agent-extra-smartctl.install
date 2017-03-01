@@ -1,3 +1,3 @@
 sudoers_zabbix_smartctl etc/sudoers.d
-discovery-scripts/nix/smartctl-disks-discovery.pl usr/lib/zabbix/scripts
+discovery-scripts/nix/smartctl-disks-discovery.pl etc/zabbix/scripts
 zabbix_smartctl.conf etc/zabbix/zabbix_agentd.conf.d
