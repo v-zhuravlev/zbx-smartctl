@@ -5,6 +5,7 @@ $first = 1;
 
 #add path if needed into $smartctl_cmd
 $smartctl_cmd = "smartctl";
+$sg_scan_cmd = "sg_scan";
 
 my @disks;
 if ($^O eq 'darwin') { # if MAC OSX
@@ -21,6 +22,14 @@ else {
             $disk = "@device[0] @device[1] @device[2]";
                 push @disks,$disk;
         }
+        for (`$sg_scan_cmd -i`) {
+           if ($_ =~ /\/dev/) {
+             my @device = split /:/,  $_;
+             $disk = "@device[0] -d sat";
+                push @disks,$disk;
+           }
+        }
+
 }
 
 #print "Disks are @disks";
