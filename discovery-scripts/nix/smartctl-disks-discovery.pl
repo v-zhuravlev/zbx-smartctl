@@ -15,11 +15,14 @@ if ($^O eq 'darwin') { # if MAC OSX
 }
 else {
         for (`$smartctl_cmd --scan-open`) {
-            #splitting lines like "/dev/sda -d scsi # /dev/sda, SCSI device"
-            my @device = split / /, $_;
-            #Adding full value from smartctl --scan to get SMART from not only /dev/sd devices but /dev/bus/0 -d megaraid,01 too
-            $disk = "@device[0] @device[1] @device[2]";
-                push @disks,$disk;
+            #splitting lines like  "/dev/sda -d scsi # /dev/sda, SCSI device"
+                                  #"/dev/sda [SAT] -d sat [ATA] (opened)" # in debian 6 and smartctl 5.4
+                                  #"/dev/sda -d sat # /dev/sda [SAT], ATA device" # in debian 8 and smartctl 6.4
+                                  #"/dev/bus/0 -d megaraid,01" for megaraid
+            my $disk_name = (split / /, $_)[0];
+            my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,]+)/;
+                push @disks,$disk_name.q{ }.$disk_args;
+
         }
 }
 
