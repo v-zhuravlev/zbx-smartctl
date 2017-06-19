@@ -1,9 +1,9 @@
-#Description
+# Description
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.
 *main* branch has the templates for Zabbix 3.0, 2.4 and 2.2. Only devices with SMART enabled will be discovered.
 
-#Installation:
-##Linux/BSD/Mac OSX:
+# Installation:
+## Linux/BSD/Mac OSX:
 - Make sure that smartmontools utils are installed:
 - install the script smartctl-disks-discovery.pl in /etc/zabbix/scripts/
 - test the script by running it. You should receive JSON object in the script output
@@ -21,13 +21,13 @@ UserParameter=uHDD.health.[*],sudo smartctl -H $1 |grep -i "test"| cut -f2 -d: |
 UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.discovery,sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
-###Building deb package
+### Building deb package
 You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu distributions:
 ```shell
 dpkg-buildpackage -tc -Zgzip
 ```
 
-##Windows:
+## Windows:
 Powershell required.
 
 - Make sure that smartmontools utils are installed:
@@ -48,10 +48,10 @@ UserParameter=uHDD.errorlog.[*], for /F "tokens=4" %a in ('C:\usr\zabbix\smartmo
 UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
-#License
+# License
 GPL v3 or newer.
 
-#More info:  
+# More info:  
 http://habrahabr.ru/company/zabbix/blog/196218/  
 http://www.lanana.org/docs/device-list/devices-2.6+.txt  
 https://www.smartmontools.org/wiki/Supported_RAID-Controllers  
