@@ -29,7 +29,7 @@ else {
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
         my ($disk_name) = $_ =~ /(\/(.+?))\s/;
-        my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,]+)/;
+        my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,\+]+)/;
 
         if ( $disk_name and $disk_args ) {
             push @input_disks,
