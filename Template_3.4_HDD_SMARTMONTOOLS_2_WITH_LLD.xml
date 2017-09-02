@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2017-09-02T23:20:25Z</date>
+    <date>2017-09-02T23:30:34Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -71,13 +71,55 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
+                            <name>{#DISKNAME}: smartctl -A</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Internal Items</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype/>
+                        </item_prototype>
+                        <item_prototype>
                             <name>{#DISKNAME}: Test result</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
                             <key>uHDD.health[&quot;{#DISKNAME}&quot;]</key>
                             <delay>5m</delay>
-                            <history>3d</history>
+                            <history>7d</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>1</value_type>
@@ -124,7 +166,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
-                            <delay>30m</delay>
+                            <delay>1h</delay>
                             <history>1d</history>
                             <trends>0</trends>
                             <status>0</status>
@@ -217,7 +259,7 @@
                             <snmp_oid/>
                             <key>uHDD.sn.[{#DISKNAME}]</key>
                             <delay>0</delay>
-                            <history>3d</history>
+                            <history>7d</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>1</value_type>
@@ -259,48 +301,6 @@
                             <master_item_prototype>
                                 <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#DISKNAME}: smartctl -A</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
-                            <delay>5m</delay>
-                            <history>1d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>4</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>Internal Items</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
                             <name>{#DISKNAME}: ID 5 Reallocated Sectors Count</name>
@@ -350,7 +350,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -400,7 +400,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -452,7 +452,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -503,7 +503,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -561,7 +561,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -611,7 +611,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -668,7 +668,7 @@ Intel SSDs report a normalized value from 100, a new drive, to a minimum of 1. I
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -718,7 +718,7 @@ Intel SSDs report a normalized value from 100, a new drive, to a minimum of 1. I
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -768,7 +768,7 @@ Intel SSDs report a normalized value from 100, a new drive, to a minimum of 1. I
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                     </item_prototypes>
