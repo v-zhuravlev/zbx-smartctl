@@ -1,6 +1,6 @@
 # Description
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.
-*main* branch has the templates for Zabbix 3.0, 2.4 and 2.2. Only devices with SMART enabled will be discovered.
+*main* branch has the template for Zabbix 3.4 with dependendent items support and also old templates for 3.2-3.0, 2.4, 2.2. Only devices with SMART enabled will be discovered.
 
 # Installation:
 ## Linux/BSD/Mac OSX:
