@@ -1,4 +1,4 @@
-$smartctl = "C:\usr\zabbix\smartmontools\bin\smartctl.exe"
+$smartctl = "C:\Program Files\smartmontools\bin\smartctl.exe"
 
 if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null) 
 { 
