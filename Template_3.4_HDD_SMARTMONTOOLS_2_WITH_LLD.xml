@@ -1,0 +1,1073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.4</version>
+    <date>2017-09-02T23:30:34Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template_HDD_SMARTMONTOOLS_2_WITH_LLD</template>
+            <name>Template_HDD_SMARTMONTOOLS_2_WITH_LLD</name>
+            <description>https://github.com/v-zhuravlev/zbx-smartctl&#13;
+3.4 version with dependent items. Please check your UserParameters.</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Internal Items</name>
+                </application>
+                <application>
+                    <name>Inventory</name>
+                </application>
+                <application>
+                    <name>SMART monitoring (smartctl)</name>
+                </application>
+            </applications>
+            <items/>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>smartctl-disks-discovery</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>uHDD.discovery</key>
+                    <delay>1h</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions>
+                            <condition>
+                                <macro>{#SMART_ENABLED}</macro>
+                                <value>1</value>
+                                <operator>8</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#DISKNAME}: smartctl -A</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Internal Items</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: Test result</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.health[&quot;{#DISKNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>1</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>test result: +(.+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: smartctl -i</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                            <delay>1h</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Internal Items</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: Device model</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.model.[{#DISKNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>1</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Inventory</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>[Dd]evice [Mm]odel: +(.+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: Serial number</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD.sn.[{#DISKNAME}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>1</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Inventory</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>[Ss]erial [Nn]umber: +(.+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 5 Reallocated Sectors Count</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},5 Reallocated]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>5 Reallocated.+ ([0-9]+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 190 Airflow Temperature</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Airflow_Temperature]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>°С</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Raw value</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>190.+Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 197 Current Pending Sector Count</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Current_Pending_Sector]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
+However, some drives will not immediately remap such sectors when written; instead the drive will first attempt to write to the problem sector and if the write operation is successful then the sector will be marked good (in this case, the &quot;Reallocation Event Count&quot; (0xC4) will not be increased). This is a serious shortcoming, for if such a drive contains marginal sectors that consistently fail only after some time has passed following a successful write operation, then the drive will never remap these problem sectors.&#13;
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>197 Current_Pending_Sector.+ ([0-9]+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 198 (Offline) Uncorrectable Sector Count</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Offline_Uncorrectable]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>Offline_Uncorrectable.+ ([0-9]+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 9 Power On Hours</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Power_On]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>s</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Count of hours in power-on state. The raw value of this attribute shows total count of hours (or minutes, or seconds, depending on manufacturer) in power-on state.&#13;
+&quot;By default, the total expected lifetime of a hard disk in perfect condition is defined as 5 years (running every day and night on all days). This is equal to 1825 days in 24/7 mode or 43800 hours.&quot;&#13;
+&#13;
+On some pre-2005 drives, this raw value may advance erratically and/or &quot;wrap around&quot; (reset to zero periodically).&#13;
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>Power_On_Hours.+ ([0-9]+)
+\1</params>
+                                </step>
+                                <step>
+                                    <type>1</type>
+                                    <params>3600</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 10 Spin Retry Count</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Spin_Retry_Count]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Count of retry of spin start attempts. This attribute stores a total count of the spin start attempts to reach the fully operational speed (under the condition that the first attempt was unsuccessful). An increase of this attribute value is a sign of problems in the hard disk mechanical subsystem.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>10 Spin_Retry_Count.+ ([0-9]+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: SSD Wearout: (ID 177 WLC/233 MWI)</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},SSD wearout]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>%</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>177 Wear Leveling Count:&#13;
+&quot;The Wear Leveling Count (WLC) SMART value gives us all the data we need. The current value stands for the remaining endurance of the drive in percentage, meaning that it starts from 100 and decreases linearly as the drive is written to. The raw WLC value counts the consumed P/E cycles, so if these two values are monitored while writing to the drive, sooner than later we will find the spot where the normalized value drops by one.&quot;&#13;
+http://www.anandtech.com/show/8239/update-on-samsung-850-pro-endurance-vnand-die-size&#13;
+&#13;
+Number of erase/program cycles per block on average. This attribute is intended to be an indicator of imminent wear-out. Normalized Equation: 100 – ( 100 * Average Erase Count / NAND max rated number of erase cycles)&#13;
+&#13;
+233 Media Wearout Indicator:&#13;
+Intel SSDs report a normalized value from 100, a new drive, to a minimum of 1. It decreases while the NAND erase cycles increase from 0 to the maximum-rated cycles.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(177 Wear_Leveling_Count|233 Media_Wearout_Indicator) +0x[0-9a-z]+ +([0-9]+)
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 194 Temperature</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},Temperature_Celsius]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>°С</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Current internal temperature.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>194 Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#DISKNAME}: ID 199 UltraDMA CRC Error Count</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>uHDD[{#DISKNAME},UDMA_CRC_Error]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>The count of errors in data transfer via the interface cable as determined by ICRC (Interface Cyclic Redundancy Check).</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>SMART monitoring (smartctl)</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>UDMA_CRC_Error.+ ([0-9]+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Airflow_Temperature].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Airflow_Temperature].last()}&lt;100</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Airflow_Temperature].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last()}&lt;100</expression>
+                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Airflow_Temperature].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Airflow_Temperature].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
+                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last()}&lt;100</expression>
+                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                                </dependency>
+                                <dependency>
+                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
+                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.[{#DISKNAME}].diff()}=1  and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.[{#DISKNAME}].strlen()}&gt;0</expression>
+                            <recovery_mode>2</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: Disk has been replaced (new serial number received)</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description>Last value: {ITEM.LASTVALUE1}.&#13;
+Device serial number has changed. Ack to close</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last()}&lt;100</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                            <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
+                            <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last()}&lt;100</expression>
+                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Offline_Uncorrectable].delta(7d)}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART (Offline) Uncorrectable Sector Count has been registered</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description>The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
+&#13;
+Trigger: Timeouts in 7 days if there are no new reallocated sectors.</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Current_Pending_Sector].delta(3d)}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART Current Pending Sector counter incremented</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
+However, some drives will not immediately remap such sectors when written; instead the drive will first attempt to write to the problem sector and if the write operation is successful then the sector will be marked good (in this case, the &quot;Reallocation Event Count&quot; (0xC4) will not be increased). This is a serious shortcoming, for if such a drive contains marginal sectors that consistently fail only after some time has passed following a successful write operation, then the drive will never remap these problem sectors.&#13;
+&#13;
+Triiger: Timeouts in 3 days if ther are no new sectors</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART Reallocated Sectors Count has been registered</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},5 Reallocated].delta(7d)}&gt;0</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},5 Reallocated].delta(7d)}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART Reallocated Sectors Count has been registered</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
+&#13;
+Trigger: Timeouts in 7 days if there are no new reallocated sectors.</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Spin_Retry_Count].delta(7d)}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART Spin Retry Count has been registered</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url>https://kb.acronis.com/content/9110</url>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description>Spin retry event is logged each time the drive was unable to spin its platters up to the rated rotation speed in the due time. Spin-up attempt was aborted and retried. This typically indicates severe controller or bearing problem, but may be sometimes caused by power supply problems.&#13;
+Trigger: Timeouts in 7 days if there are no spin retry events.</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last()}&gt;99 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].delta(1d)}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART UltraDMA CRC Error Count too high: {ITEM.LASTVALUE}. Check cable!</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url>http://www.z-a-recovery.com/man-smart.htm</url>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description>Low value of this attribute typically indicates that something is wrong with the connectors and/or cables. Disk-to-host transfers are protected by CRC error detection code when Ultra-DMA 66 or 100 is used. So if the data gets garbled between the disk and the host machine, the receiving controller senses this and the retransmission is initiated. Such a situation is called &quot;UDMA CRC error&quot;. Once the problem is rectified (typically by replacing a cable), the attribute value returns to the normal levels pretty quick.&#13;
+&#13;
+Triger: Timeouts in 1 day if there are no new errors.</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},SSD wearout].last()}&lt;5</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SSD wearout (&lt;5% left)</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},SSD wearout].last()}&lt;10</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SSD wearout (&lt;10% left)</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SSD wearout (&lt;5% left)</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},SSD wearout].last()}&lt;5</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                </discovery_rule>
+            </discovery_rules>
+            <httptests/>
+            <macros>
+                <macro>
+                    <macro>{$TEMP_CRIT:&quot;HDD&quot;}</macro>
+                    <value>65</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN:&quot;HDD&quot;}</macro>
+                    <value>50</value>
+                </macro>
+            </macros>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+</zabbix_export>
