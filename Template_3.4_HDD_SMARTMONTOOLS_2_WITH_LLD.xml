@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2017-09-02T23:30:34Z</date>
+    <date>2017-09-04T05:17:51Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -615,7 +615,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: SSD Wearout: (ID 177 WLC/233 MWI)</name>
+                            <name>{#DISKNAME}: ID 177 WLC/ ID 233 MWI (SSD Wearout)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -994,7 +994,7 @@ Trigger: Timeouts in 7 days if there are no spin retry events.</description>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last()}&gt;99 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].delta(1d)}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last()}&gt;100 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].delta(1d)}&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{#DISKNAME}: SMART UltraDMA CRC Error Count too high: {ITEM.LASTVALUE}. Check cable!</name>
