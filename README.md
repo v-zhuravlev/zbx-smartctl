@@ -60,6 +60,13 @@ UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles
 UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
+
+# Examples
+Items in 3.4:  
+![image](https://user-images.githubusercontent.com/14870891/30012649-3b1cc758-914a-11e7-82d5-9c80abb1328f.png)
+
+
+
 # License
 GPL v3 or newer.
 
