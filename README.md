@@ -53,13 +53,20 @@ UserParameter=uHDD.model.[*],for /F "tokens=3*  usebackq" %a in (`""%ProgramFile
 UserParameter=uHDD.sn.[*],for /F "tokens=3 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Serial Number""`) do @echo %a
 UserParameter=uHDD.errorlog.[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -l error $1 | find "ATA Error Count""`) do @echo %a
 #### 3.4
-UserParameter=uHDD.A[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1`) do @echo %a
-UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1`) do @echo %a
-UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1`) do @echo %a
+UserParameter=uHDD.A[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1"`) do @echo %a
+UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1"`) do @echo %a
+UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1"`) do @echo %a
 ### Discovery
 UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
+Note: disks like `/dev/csmi0,0` might not work when testing with zabbix_get but still would be good via Zabbix agent:
+```
+[vagrant@zabbix-lab ~]$ zabbix_get -k uHDD.A["/dev/csmi0,0"] -s 192.168.56.1
+smartctl 6.4 2015-06-04 r4109 [i686-w64-mingw32-win7(64)-sp1] (sf-6.4-1)
+Copyright (C) 2002-15, Bruce Allen, Christian Franke, www.smartmontools.org
+Smartctl open device: /dev/csmi0 failed: Invalid argument
+```
 
 # Examples
 Items in 3.4:  
