@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2017-09-04T05:17:51Z</date>
+    <date>2017-09-28T11:25:32Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -149,13 +149,7 @@
                             </applications>
                             <valuemap/>
                             <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>test result: +(.+)
-\1</params>
-                                </step>
-                            </preprocessing>
+                            <preprocessing/>
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype/>
@@ -878,6 +872,28 @@ Device serial number has changed. Ack to close</description>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
 {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last()}&lt;100</expression>
                                     <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILING_NOW&quot;)}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: one or more SMART attributes are FAILING_NOW</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description>{ITEM.VALUE}</description>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
