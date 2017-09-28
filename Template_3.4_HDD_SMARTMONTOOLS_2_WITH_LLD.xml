@@ -886,7 +886,7 @@ Device serial number has changed. Ack to close</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>{ITEM.VALUE}</description>
+                            <description>Check test result output for details.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
