@@ -18,12 +18,12 @@ Add the following lines in zabbix_agentd.conf file:
 UserParameter=uHDD[*], sudo smartctl -A $1| grep -i "$2"| tail -1| cut -c 88-|cut -f1 -d' '
 UserParameter=uHDD.model.[*],sudo smartctl -i $1 |grep -i "Device Model"| cut -f2 -d: |tr -d " "
 UserParameter=uHDD.sn.[*],sudo smartctl -i $1 |grep -i "Serial Number"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.health.[*],sudo smartctl -H $1 |grep -i "test"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " "
+UserParameter=uHDD.health.[*],sudo smartctl -H $1 |grep -i "test"| cut -f2 -d: |tr -d " " || true
+UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " " || true
 #### 3.4
 UserParameter=uHDD.A[*],sudo smartctl -A $1
 UserParameter=uHDD.i[*],sudo smartctl -i $1
-UserParameter=uHDD.health[*],sudo smartctl -H $1
+UserParameter=uHDD.health[*],sudo smartctl -H $1 || true
 ### Discovery
 UserParameter=uHDD.discovery,sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
