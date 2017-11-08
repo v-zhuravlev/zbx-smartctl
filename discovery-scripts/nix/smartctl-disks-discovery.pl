@@ -2,11 +2,16 @@
 use warnings;
 use strict;
 
+use Data::Dumper;
+
+
+
+
 #must be run as root
 my $VERSION = 0.9;
 
 #add path if needed into $smartctl_cmd
-my $smartctl_cmd = "smartctl";
+my $smartctl_cmd = "/usr/sbin/smartctl";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
@@ -60,7 +65,35 @@ sub get_smart_disks {
 
     $disk->{smart_enabled} = 0;
 
-    chomp( $disk->{disk_name} );
+
+                my @cmd_label_ret = `ls -l /dev/disk/by-partlabel/ | awk '{ print substr(\$0, index(\$0,\$9)) }'`;
+                my %partlabel_map;
+                chomp @cmd_label_ret;
+                foreach (@cmd_label_ret)
+                {
+                        (my $name = $_) =~ s/(\w+\-\w+).*/$1/;
+                        (my $path = $_) =~ s/.*\///;    
+                        $partlabel_map{"/dev/".$path} = $name;
+                }
+                $disk->{disk_partname} = $partlabel_map{$disk->{disk_name}."1"}; #fixme: hardcoded 1 to match the discname /dev/sda to the used partition /dev/sda1 
+
+                my @cmd_path_ret = `ls -l /dev/disk/by-path/ | awk '{ print substr(\$0, index(\$0,\$9)) }'`;
+                my %path_map;
+                chomp @cmd_path_ret;
+                foreach (@cmd_path_ret)
+                {
+                        (my $name = $_) =~ s/\s.*//g;
+                        (my $path = $_) =~ s/.*\///;    
+                        $path_map{"/dev/".$path} = $name;
+                }
+                $disk->{disk_path} = $path_map{$disk->{disk_name}."1"}; #fixme: hardcoded 1 to match the discname /dev/sda to the used partition /dev/sda1 
+   
+
+
+
+
+
+                chomp( $disk->{disk_name} );
     chomp( $disk->{disk_args} );
 
     #my $testline = "open failed: Two devices connected, try '-d usbjmicron,[01]'";
@@ -110,13 +143,15 @@ sub get_smart_disks {
 
         }
         elsif ( $line =~ /^SMART.+?: +(.+)$/ ) {
-
             if ( $1 =~ /Enabled/ ) {
                 $disk->{smart_enabled} = 1;
             }
             elsif ( $1 =~ /Unavailable/ ) {
                 `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
             }
+                                                ####
+                                                #sheinich
+                                                ##
 
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
@@ -147,6 +182,8 @@ sub json_discovery {
         print "\t\t{\n";
         print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
         #print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
+        print "\t\t\t\"{#DISK_PARTNAME}\":\"".$disk->{disk_partname}."\"\n" if $disk->{disk_partname};
+        print "\t\t\t\"{#DISK_PATH}\":\"".$disk->{disk_path}."\"\n" if $disk->{disk_path};
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\"\n";
         print "\t\t}";
 
