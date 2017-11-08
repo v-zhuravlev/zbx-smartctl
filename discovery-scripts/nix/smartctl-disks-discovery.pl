@@ -2,10 +2,6 @@
 use warnings;
 use strict;
 
-use Data::Dumper;
-
-
-
 
 #must be run as root
 my $VERSION = 0.9;
@@ -65,7 +61,6 @@ sub get_smart_disks {
 
     $disk->{smart_enabled} = 0;
 
-
                 my @cmd_label_ret = `ls -l /dev/disk/by-partlabel/ | awk '{ print substr(\$0, index(\$0,\$9)) }'`;
                 my %partlabel_map;
                 chomp @cmd_label_ret;
@@ -86,15 +81,9 @@ sub get_smart_disks {
                         (my $path = $_) =~ s/.*\///;    
                         $path_map{"/dev/".$path} = $name;
                 }
-                $disk->{disk_path} = $path_map{$disk->{disk_name}."1"}; #fixme: hardcoded 1 to match the discname /dev/sda to the used partition /dev/sda1 
-   
-
-
-
-
-
+                $disk->{disk_path} = $path_map{$disk->{disk_name}."1"}; #fixme: hardcoded 1 to match the discname /dev/sda to the used partition /dev/sda1
                 chomp( $disk->{disk_name} );
-    chomp( $disk->{disk_args} );
+                chomp( $disk->{disk_args} );
 
     #my $testline = "open failed: Two devices connected, try '-d usbjmicron,[01]'";
     #my $testline = "open device: /dev/sdc [USB JMicron] failed: Two devices connected, try '-d usbjmicron,[01]'";
@@ -149,9 +138,6 @@ sub get_smart_disks {
             elsif ( $1 =~ /Unavailable/ ) {
                 `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
             }
-                                                ####
-                                                #sheinich
-                                                ##
 
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
@@ -182,8 +168,8 @@ sub json_discovery {
         print "\t\t{\n";
         print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
         #print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
-        print "\t\t\t\"{#DISK_PARTNAME}\":\"".$disk->{disk_partname}."\"\n" if $disk->{disk_partname};
-        print "\t\t\t\"{#DISK_PATH}\":\"".$disk->{disk_path}."\"\n" if $disk->{disk_path};
+        print "\t\t\t\"{#DISK_PARTNAME}\":\"".$disk->{disk_partname}."\",\n" if $disk->{disk_partname};
+        print "\t\t\t\"{#DISK_PATH}\":\"".$disk->{disk_path}."\",\n" if $disk->{disk_path};
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\"\n";
         print "\t\t}";
 
