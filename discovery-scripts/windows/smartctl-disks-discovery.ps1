@@ -1,4 +1,4 @@
-$smartctl = "C:\Program Files\smartmontools\bin\smartctl.exe"
+$smartctl = "C:\Zabbix\smartmontools\bin\smartctl.exe"
 
 if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null) 
 { 
@@ -25,16 +25,25 @@ foreach ($disk in $disks)
                 $smart_enabled = 0
             }
 
+    $disk_type = $disk.Model
+
+             if($disk_type -match 'SSD|KINGSTON') {            
+                $disk_type = 0
+            } else {            
+                $disk_type = 1
+            }     
+
+
     
     if ($idx -lt $disks.Count-1)
     {
-        $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +"`n`t},`n"
+        $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#DISK_STATUS}`":`""+$smart_enabled+","+$disk_type+"`"" +"`n`t},`n"
         write-host $line
     }
     elseif ($idx -ge $disks.Count-1)
     {
      
-        $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +"`n`t}"
+        $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#DISK_STATUS}`":`""+$smart_enabled+","+$disk_type+"`"" +"`n`t}"
         write-host $line
     }
     $idx++;
