@@ -3,7 +3,7 @@ use warnings;
 use strict;
 
 #must be run as root
-my $VERSION = 0.9;
+my $VERSION = 0.10;
 
 #add path if needed into $smartctl_cmd
 my $smartctl_cmd = "smartctl";
