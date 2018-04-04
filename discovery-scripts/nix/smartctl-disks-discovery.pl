@@ -14,7 +14,14 @@ my @smart_disks;
 if ( $^O eq 'darwin' ) {    # if MAC OSX
 
     while ( glob('/dev/disk*') ) {
-        if ( $_ =~ /\/(disk+[0-9])$/ ) { push @input_disks, $1; }
+        if ( $_ =~ /\/(disk+[0-9])$/ ) { 
+            push @input_disks,
+              {
+                disk_name => $1,
+                disk_args => '',
+                subdisk   => 0
+              };
+        }
     }
 }
 else {
