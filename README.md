@@ -37,7 +37,8 @@ dpkg-buildpackage -tc -Zgzip
 Powershell required.
 
 - Make sure that smartmontools utils are installed:
-- install the script smartctl-disks-discovery.ps1
+- install the script smartctl-disks-discovery-ide.ps1 or smartctl-disks-discovery-raid.ps1
+- uncomment and comment nessesary discovery string
 - test the script by running it with
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1".
@@ -57,7 +58,11 @@ UserParameter=uHDD.A[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\sma
 UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1"`) do @echo %a
 UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1"`) do @echo %a
 ### Discovery
-UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
+#Uncomment for intel RAID mode	
+##UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files\Zabbix Agent\smartctl-disks-discovery-raid.ps1"
+
+##Uncomment for AHCI or IDE modes
+UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files\Zabbix Agent\smartctl-disks-discovery-ide.ps1"
 ```
 
 # Examples
