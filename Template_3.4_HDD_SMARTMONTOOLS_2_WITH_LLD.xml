@@ -75,7 +75,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                            <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             <delay>5m</delay>
                             <history>1d</history>
                             <trends>0</trends>
@@ -117,7 +117,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>uHDD.health[&quot;{#DISKNAME}&quot;]</key>
+                            <key>uHDD.health[&quot;{#DISKCMD}&quot;]</key>
                             <delay>5m</delay>
                             <history>7d</history>
                             <trends>0</trends>
@@ -159,7 +159,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                            <key>uHDD.i[&quot;{#DISKCMD}&quot;]</key>
                             <delay>1h</delay>
                             <history>1d</history>
                             <trends>0</trends>
@@ -243,7 +243,7 @@
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.i[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -293,7 +293,7 @@
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.i[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.i[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -344,7 +344,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -394,7 +394,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -446,7 +446,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -497,7 +497,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -555,7 +555,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -605,7 +605,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -664,7 +664,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -714,7 +714,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -764,7 +764,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.A[&quot;{#DISKNAME}&quot;]</key>
+                                <key>uHDD.A[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                     </item_prototypes>
@@ -879,7 +879,7 @@ Device serial number has changed. Ack to close</description>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILING_NOW&quot;)}=1</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILING_NOW&quot;)}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{#DISKNAME}: one or more SMART attributes are FAILING_NOW</name>
@@ -894,7 +894,7 @@ Device serial number has changed. Ack to close</description>
                             <dependencies>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -918,7 +918,7 @@ Trigger: Timeouts in 7 days if there are no new reallocated sectors.</descriptio
                             <dependencies>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -948,7 +948,7 @@ Triiger: Timeouts in 3 days if ther are no new sectors</description>
                                 </dependency>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -972,7 +972,7 @@ Trigger: Timeouts in 7 days if there are no new reallocated sectors.</descriptio
                             <dependencies>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -996,7 +996,7 @@ Trigger: Timeouts in 7 days if there are no spin retry events.</description>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKNAME}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{#DISKNAME}: SMART test status: FAILED!</name>
