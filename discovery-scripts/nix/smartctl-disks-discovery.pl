@@ -79,7 +79,7 @@ sub get_smart_disks {
         #foreach my $line ($testline) {
         #print $line;
         #Some disks have "Number" and some "number", so
-        if ( $line =~ /^Serial (N|n)umber: +(.+)$/ ) {
+        if ( $line =~ /^(S|s)erial (N|n)umber: +(.+)$/ ) {
 
             #print "Serial number is ".$2."\n";
             if ( grep /$2/, @global_serials ) {
@@ -152,8 +152,8 @@ sub json_discovery {
         print ",\n" if not $first;
         $first = 0;
         print "\t\t{\n";
-        print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
-        #print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
+        print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}."\",\n";
+        print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\"\n";
         print "\t\t}";
 
