@@ -6,17 +6,18 @@ if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null)
    exit
 }
 
-$disks = GET-WMIOBJECT -query "SELECT * from win32_diskdrive"
+
 $idx = 0
 
-[char[]] $abc_array = ([char]'a'..[char]'z')
+$smart_scanresults = & $smartctl "--scan" 
 
 write-host "{"
 write-host " `"data`":[`n"
-foreach ($disk in $disks)
+foreach ($smart_scanresult in $smart_scanresults)
 {
  
-    $smartctl_disk_name = "/dev/hd" + $abc_array[$idx]
+    
+    $smartctl_disk_name = $smart_scanresult.Substring(0,$smart_scanresult.IndexOf(" "))
     $smart_enabled = & $smartctl "-i" $smartctl_disk_name | select-string "SMART.+Enabled$"
  
              if($smart_enabled) {            
@@ -26,12 +27,12 @@ foreach ($disk in $disks)
             }
 
     
-    if ($idx -lt $disks.Count-1)
+    if ($idx -lt  $smart_scanresults.Count-1)
     {
         $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +"`n`t},`n"
         write-host $line
     }
-    elseif ($idx -ge $disks.Count-1)
+    elseif ($idx -ge  $smart_scanresults.Count-1)
     {
      
         $line= "`t{`n " + "`t`t`"{#DISKNAME}`":`""+$smartctl_disk_name+"`""+ ",`n" + "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +"`n`t}"
