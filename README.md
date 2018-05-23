@@ -15,10 +15,12 @@ Add the following lines in zabbix_agentd.conf file:
 ```
 #############SMARTMONTOOLS
 ###DEPRECATED. USE for 2.x-3.2 templates
-UserParameter=uHDD[*], sudo smartctl -A $1| grep -i "$2"| tail -1| cut -c 88-|cut -f1 -d' '
-UserParameter=uHDD.model.[*],sudo smartctl -i $1 |grep -i "Device Model"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.sn.[*],sudo smartctl -i $1 |grep -i "Serial Number"| cut -f2 -d: |tr -d " "
-UserParameter=uHDD.health.[*],sudo smartctl -H $1 |grep -i "test"| cut -f2 -d: |tr -d " " || true
+UserParameter=uHDD[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
+UserParameter=uHDD.value[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$4 }'
+UserParameter=uHDD.raw_value[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
+UserParameter=uHDD.model.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Device Model/ { print $$2 }'
+UserParameter=uHDD.sn.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Serial Number/ { print $$2 }'
+UserParameter=uHDD.health.[*],sudo smartctl -H $1 | awk -F ': +' '$$0 ~ /test/ { print $$2 }'
 UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " " || true
 #### 3.4
 UserParameter=uHDD.A[*],sudo smartctl -A $1
@@ -48,6 +50,8 @@ You should receive JSON object in the output output
 #############SMARTMON
 ###DEPRECATED. USE for 2.x-3.2 templates
 UserParameter=uHDD[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
+UserParameter=uHDD.value[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
+UserParameter=uHDD.raw_value[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
 UserParameter=uHDD.health.[*], for /F "tokens=6 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1 | find "test""`) do @echo %a
 UserParameter=uHDD.model.[*],for /F "tokens=3*  usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Device Model""`) do @echo %a %b
 UserParameter=uHDD.sn.[*],for /F "tokens=3 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Serial Number""`) do @echo %a
