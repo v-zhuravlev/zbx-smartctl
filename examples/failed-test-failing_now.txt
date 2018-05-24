@@ -1,0 +1,9 @@
+smartctl -H /dev/sdc
+smartctl 6.5 2016-01-24 r4214 [x86_64-linux-4.4.0-96-generic] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+Please note the following marginal Attributes:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+184 End-to-End_Error        0x0032   063   063   099    Old_age   Always   FAILING_NOW 37

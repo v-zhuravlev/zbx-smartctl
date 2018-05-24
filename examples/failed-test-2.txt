@@ -1,0 +1,11 @@
+smartctl -H /dev/sdc
+
+smartctl 6.2 2017-02-27 r4394 [x86_64-linux-3.10.0-693.2.2.el7.x86_64] (local build)
+Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: FAILED!
+Drive failure expected in less than 24 hours. SAVE ALL DATA.
+Failed Attributes:
+ID# ATTRIBUTE_NAME FLAG VALUE WORST THRESH TYPE UPDATED WHEN_FAILED RAW_VALUE
+5 Reallocated_Sector_Ct 0x0033 009 009 010 Pre-fail Always FAILING_NOW 7461

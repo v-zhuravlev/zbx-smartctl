@@ -8,8 +8,9 @@ This is the template for Zabbix providing SMART monitoring for HDD using smartct
 ### Linux/BSD/Mac OSX
 
 - Make sure that smartmontools utils are installed:
-- install the script smartctl-disks-discovery.pl in /etc/zabbix/scripts/
-- test the script by running it. You should receive JSON object in the script output
+- (optional) install `sg3-utils` if you need to monitor hardware RAIDs. See [#29](https://github.com/v-zhuravlev/zbx-smartctl/pull/29)
+- Install the script smartctl-disks-discovery.pl in /etc/zabbix/scripts/
+- Test the script by running it. You should receive JSON object in the script output
 - add the following permissions into /etc/sudoers:
 
 ```
@@ -39,6 +40,7 @@ UserParameter=uHDD.discovery,sudo /etc/zabbix/scripts/smartctl-disks-discovery.p
 #### Building deb package
 
 You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu distributions:
+
 ```shell
 dpkg-buildpackage -tc -Zgzip
 ```
@@ -98,13 +100,31 @@ Please keep in mind key concepts when submitting a PR:
   - {#DISKTYPE} - 0 - HDD, 1 - SSD, 2 - Other(ODD etc)
   To make sure that the sources of these macro is available everywhere, it is best to use output of `smartctl -i` or `smartctl --scan-open`. Other macros may be added, but try to edit both windows and nix scripts at the same time.
 
-P.S. MacOS currently doesn't support many macros such as {#DISKTYPE}.
 
 Please also keep in mind things require improvement (welcome!)
 
 - Absolute paths used(especially in Windows(UserParameters,inside powershell script))
 - Discovery scripts should probably fail if not run under Admin/root(since its impossible to collect proper data)
 - usbjmicron is not implemented in Windows, only in Linux discovery script
+- There are no tests. It's nice to run discovery scripts automatically using `/examples` directory contents as mocks. So it's easier to accept PRs. Btw you can also PR your outputs to examples folder
+- I don't have MacOS around so sometimes recent changes break stuff there since I can't test it properly 
+
+
+## Features per platform
+|Feature/OS |Linux | Win | MacOS|
+|-|-|-|-|
+|Discovery with smartctl --scan-open| Y | Y |
+|Discovery with sg_scan | Y |  | 
+|Disks deduplication by serial number | Y | Y |Y
+| Handling usbjmicron (see perl script)|  Y |  |
+| SAS disks support |   |  |
+| SSD or HHD classification, {#DISKTYPE} | Y | Y |Y 
+| {#DISKNAME} | Y | Y |Y 
+| {#DISKCMD} | Y | Y |Y 
+| {#DISKMODEL} | Y | Y |Y 
+| {#DISKSN} | Y | Y |Y 
+
+
 
 ## License
 

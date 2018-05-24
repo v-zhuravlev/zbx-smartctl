@@ -1,0 +1,2 @@
+/dev/sda -d sat # /dev/sda [SAT], ATA device
+/dev/sdb -d sat # /dev/sdb [SAT], ATA device
