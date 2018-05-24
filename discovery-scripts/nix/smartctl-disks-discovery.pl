@@ -19,8 +19,7 @@ if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smart
             push @input_disks,
               {
                 disk_name => $1,
-                disk_args => '',
-                subdisk   => 0
+                disk_args => ''
               };
         }
     }
@@ -43,8 +42,7 @@ else {
             push @input_disks,
               {
                 disk_name => $disk_name,
-                disk_args => $disk_args,
-                subdisk   => 0
+                disk_args => $disk_args
               };
         }
 
@@ -67,8 +65,7 @@ else {
                     push @input_disks,
                         {
                             disk_name => $disk_name,
-                            disk_args => $disk_args,
-                            subdisk   => 0
+                            disk_args => $disk_args
                         };
             }
 
@@ -81,6 +78,11 @@ else {
 foreach my $disk (@input_disks) {
 
     my @output_arr;
+    #initialize disk defaults:
+    $disk->{disk_model}='';
+    $disk->{disk_sn}='';
+    $disk->{subdisk}=0;
+
     if ( @output_arr = get_smart_disks($disk) ) {
         push @smart_disks, @output_arr;
     }
