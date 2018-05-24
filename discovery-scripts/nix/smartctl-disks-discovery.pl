@@ -3,7 +3,7 @@ use warnings;
 use strict;
 
 #must be run as root
-my $VERSION = 0.10;
+my $VERSION = 0.11;
 
 #add path if needed into $smartctl_cmd
 my $smartctl_cmd = "smartctl";
@@ -11,14 +11,17 @@ my @input_disks;
 my @global_serials;
 my @smart_disks;
 
-if ( $^O eq 'darwin' ) {    # if MAC OSX
+if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smartctl --scan-open)
 
     while ( glob('/dev/disk*') ) {
         if ( $_ =~ /\/(disk+[0-9])$/ ) { 
             push @input_disks,
               {
                 disk_name => $1,
-                disk_args => '',
+                disk_args => '',#stub
+                disk_sn => '', #stub
+                disk_model => '', #stub
+                disk_type => 1, #wild guess :)
                 subdisk   => 0
               };
         }
@@ -75,23 +78,78 @@ sub get_smart_disks {
     #if ($disk->{subdisk} == 1) {
     #$testline = "/dev/sdb -d usbjmicron,$disk->{disk_args} # /dev/sdb [USB JMicron], ATA device";
     #}
-    foreach my $line (`$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`) {
+    my @smartctl_output = `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
+    foreach my $line (@smartctl_output) {
         #foreach my $line ($testline) {
         #print $line;
-        #Some disks have "Number" and some "number", so
-        if ( $line =~ /^Serial (N|n)umber: +(.+)$/ ) {
+        if ( $line =~ /^SMART.+?: +(.+)$/ ) {
+
+            if ( $1 =~ /Enabled/ ) {
+                $disk->{smart_enabled} = 1;
+            }
+            elsif ( $1 =~ /Unavailable/ ) {
+                `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
+            }
+
+            #if SMART is disabled then try to enable it (also offline tests etc)
+            elsif ( $1 =~ /Disabled/ ) {
+                foreach (`smartctl -s on -o on -S on $disk->{disk_name} $disk->{disk_args}`)
+                {
+                    if (/SMART Enabled/) { $disk->{smart_enabled} = 1; }
+                }
+            }
+        }
+    }
+    
+    foreach my $line (@smartctl_output) {
+        
+        if ( $line =~ /^serial number: +(.+)$/i ) {
 
             #print "Serial number is ".$2."\n";
-            if ( grep /$2/, @global_serials ) {
+            if ( grep /$1/, @global_serials ) {
 
-                #print "disk already exist skipping\n";
+                #print "disk already exists skipping\n";
                 return;
             }
             else {
-                push @global_serials, $2;
+                $disk->{disk_sn} = $1;
+                if ($disk->{smart_enabled} eq 1){
+                    push @global_serials, $1;
+                }
             }
         }
-        elsif ( $line =~ /Permission denied/ ) {
+        elsif ( $line =~ /^Device Model: +(.+)$/ ) {
+                $disk->{disk_model} = $1;
+        }
+        
+        if ( $line =~ /Rotation Rate: (.+)/ ) {
+
+            if ( $1 =~ /Solid State Device/ ) {
+                $disk->{disk_type} = 1;
+            }
+            elsif( $1 =~ /rpm/ ) {
+                $disk->{disk_type} = 0;
+            }
+        }
+        if ( !exists($disk->{disk_type})) {
+
+                $disk->{disk_type} = 2;
+                foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_name} $disk->{disk_args} 2>&1`){
+
+                    #search for Spin_Up_Time or Spin_Retry_Count
+                    if ($extended_line  =~ /Spin_/){
+                        $disk->{disk_type} = 0;
+                        last;
+                    }
+                    #search for SSD in uppercase
+                    elsif ($extended_line  =~ / SSD /){
+                        $disk->{disk_type} = 1;
+                        last;
+                    }
+                }
+        }
+
+        if ( $line =~ /Permission denied/ ) {
 
             warn $line;
 
@@ -116,24 +174,7 @@ sub get_smart_disks {
             return @disks;
 
         }
-        elsif ( $line =~ /^SMART.+?: +(.+)$/ ) {
-
-            if ( $1 =~ /Enabled/ ) {
-                $disk->{smart_enabled} = 1;
-            }
-            elsif ( $1 =~ /Unavailable/ ) {
-                `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
-            }
-
-            #if SMART is disabled then try to enable it (also offline tests etc)
-            elsif ( $1 =~ /Disabled/ ) {
-                foreach (`smartctl -s on -o on -S on $disk->{disk_name} $disk->{disk_args}`)
-                {
-                    if (/SMART Enabled/) { $disk->{smart_enabled} = 1; }
-                }
-            }
-
-        }
+        
     }
     push @disks, $disk;
     return @disks;
@@ -152,9 +193,12 @@ sub json_discovery {
         print ",\n" if not $first;
         $first = 0;
         print "\t\t{\n";
-        print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
-        #print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
-        print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\"\n";
+        print "\t\t\t\"{#DISKMODEL}\":\"".$disk->{disk_model}."\",\n";
+        print "\t\t\t\"{#DISKSN}\":\"".$disk->{disk_sn}."\",\n";
+        print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}."\",\n";
+        print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
+        print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\",\n";
+        print "\t\t\t\"{#DISKTYPE}\":\"".$disk->{disk_type}."\"\n";
         print "\t\t}";
 
     }
