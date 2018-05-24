@@ -3,11 +3,11 @@ use warnings;
 use strict;
 
 #must be run as root
-my $VERSION = 0.11;
+my $VERSION = 1.0;
 
 #add path if needed into $smartctl_cmd
 my $smartctl_cmd = "smartctl";
-my $sg_scan_cmd = "sg_scan";
+my $sg_scan_cmd = "/usr/bin/sg_scan";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
