@@ -19,10 +19,7 @@ if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smart
             push @input_disks,
               {
                 disk_name => $1,
-                disk_args => '',#stub
-                disk_sn => '', #stub
-                disk_model => '', #stub
-                disk_type => 1, #wild guess :)
+                disk_args => '',
                 subdisk   => 0
               };
         }
