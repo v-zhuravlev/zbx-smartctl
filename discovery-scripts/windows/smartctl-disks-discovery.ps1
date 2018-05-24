@@ -58,11 +58,27 @@ foreach ($smart_scanresult in $smart_scanresults)
         }
     }
     # Device Model
+    $model = [string] ""
     $model= $line | select-string "Device Model:"
     $model=$model -replace "Device Model:"
-    if ($model) {
-        $disk_model=$model.trim() 
-    }   
+    if ($model)
+    {
+        $disk_model=$model.trim()
+    }
+    # Device Model(for SAS)
+    $model= $line | select-string "Vendor:"
+    $model=$model -replace "Vendor:"
+    if ($model)
+    {
+        $disk_model=$model.trim()    
+    }
+    $model= $line | select-string "Product:"
+    $model=$model -replace "Product:"
+    if ($model)
+    {
+        $disk_model+=" "+$model.trim()
+    }
+    
     
 
     # Is it HDD, SSD or ODD
