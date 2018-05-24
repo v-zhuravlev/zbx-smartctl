@@ -116,6 +116,7 @@ Please also keep in mind things require improvement (welcome!)
 |Discovery with smartctl --scan-open| Y | Y |
 |Discovery with sg_scan | Y |  | 
 |Disks deduplication by serial number | Y | Y |Y
+|Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
 | SAS disks support |   |  |
 | SSD or HHD classification, {#DISKTYPE} | Y | Y |Y 
