@@ -70,7 +70,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},5 Reallocated]</key>
+                            <key>uHDD["{#DISKCMD}",5 Reallocated]</key>
                             <delay>7200</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -114,7 +114,7 @@
                             <snmp_community/>
                             <multiplier>1</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},Power_On]</key>
+                            <key>uHDD["{#DISKCMD}",Power_On]</key>
                             <delay>7200</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -158,7 +158,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},Spin_Retry_Count]</key>
+                            <key>uHDD["{#DISKCMD}",Spin_Retry_Count]</key>
                             <delay>7200</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -202,7 +202,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},Temperature_Celsius]</key>
+                            <key>uHDD["{#DISKCMD}",Temperature_Celsius]</key>
                             <delay>600</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -246,7 +246,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},Current_Pending_Sector]</key>
+                            <key>uHDD["{#DISKCMD}",Current_Pending_Sector]</key>
                             <delay>7200</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -290,7 +290,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},Offline_Uncorrectable]</key>
+                            <key>uHDD["{#DISKCMD}",Offline_Uncorrectable]</key>
                             <delay>7200</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -334,7 +334,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[{#DISKNAME},UDMA_CRC_Error]</key>
+                            <key>uHDD["{#DISKCMD}",UDMA_CRC_Error]</key>
                             <delay>7200</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -378,7 +378,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD.critical[{#DISKNAME}]</key>
+                            <key>uHDD.critical["{#DISKCMD}"]</key>
                             <delay>900</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -396,7 +396,7 @@
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
-                            <params>last(&quot;uHDD[{#DISKNAME},5 Reallocated]&quot;)+last(&quot;uHDD[{#DISKNAME},Spin_Retry_Count]&quot;)+last(&quot;uHDD[{#DISKNAME},Current_Pending_Sector]&quot;)+last(&quot;uHDD[{#DISKNAME},Offline_Uncorrectable]&quot;)</params>
+                            <params>last(&quot;uHDD["{#DISKCMD}",5 Reallocated]&quot;)+last(&quot;uHDD["{#DISKCMD}",Spin_Retry_Count]&quot;)+last(&quot;uHDD["{#DISKCMD}",Current_Pending_Sector]&quot;)+last(&quot;uHDD["{#DISKCMD}",Offline_Uncorrectable]&quot;)</params>
                             <ipmi_sensor/>
                             <data_type>0</data_type>
                             <authtype>0</authtype>
@@ -422,7 +422,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD.model.[{#DISKNAME}]</key>
+                            <key>uHDD.model.["{#DISKCMD}"]</key>
                             <delay>86400</delay>
                             <history>7</history>
                             <trends>0</trends>
@@ -466,7 +466,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD.sn.[{#DISKNAME}]</key>
+                            <key>uHDD.sn.["{#DISKCMD}"]</key>
                             <delay>86400</delay>
                             <history>3</history>
                             <trends>0</trends>
@@ -510,7 +510,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD.health.[{#DISKNAME}]</key>
+                            <key>uHDD.health.["{#DISKCMD}"]</key>
                             <delay>7200</delay>
                             <history>3</history>
                             <trends>0</trends>
@@ -551,7 +551,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.[{#DISKNAME}].diff(0)}=1</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.["{#DISKCMD}"].diff(0)}=1</expression>
                             <name>[HDD.{#DISKNAME}] disk has been changed</name>
                             <url/>
                             <status>0</status>
@@ -561,7 +561,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},5 Reallocated].last(0)}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",5 Reallocated].last(0)}&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART, Reallocated Sectors Count has been registered 3</name>
                             <url/>
                             <status>0</status>
@@ -571,7 +571,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].last()}&gt;0 and ({Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].last(0,604800)}-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].last()})&lt;&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].last()}&gt;0 and ({Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].last(0,604800)}-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].last()})&lt;&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART critical errors total: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
@@ -581,7 +581,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].last()}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].last()}&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART Critical error total: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
@@ -591,7 +591,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Current_Pending_Sector].last(0)}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Current_Pending_Sector].last(0)}&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART Current_Pending_Sector has been registered</name>
                             <url/>
                             <status>0</status>
@@ -601,7 +601,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Spin_Retry_Count].last()}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Spin_Retry_Count].last()}&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART Spin Retry Count has been registered</name>
                             <url/>
                             <status>0</status>
@@ -611,7 +611,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health.[{#DISKNAME}].str(&quot;FAILED!&quot;)}=1</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health.["{#DISKCMD}"].str(&quot;FAILED!&quot;)}=1</expression>
                             <name>[HDD.{#DISKNAME}] SMART status: FAILED!</name>
                             <url/>
                             <status>0</status>
@@ -621,7 +621,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last()}&gt;99 and ({Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last(,604800)}-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},UDMA_CRC_Error].last()})&lt;&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",UDMA_CRC_Error].last()}&gt;99 and ({Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",UDMA_CRC_Error].last(,604800)}-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",UDMA_CRC_Error].last()})&lt;&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART UltraDMA CRC Error Count too high: {ITEM.LASTVALUE}. Check cable!</name>
                             <url>http://www.z-a-recovery.com/man-smart.htm</url>
                             <status>0</status>
@@ -631,7 +631,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].change(0)}&gt;0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical[{#DISKNAME}].prev(0)}&gt;0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].change(0)}&gt;0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.critical["{#DISKCMD}"].prev(0)}&gt;0</expression>
                             <name>[HDD.{#DISKNAME}] SMART new error!</name>
                             <url/>
                             <status>0</status>
@@ -641,7 +641,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].avg(1800)}&gt;50 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].nodata(1800)}=0</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Temperature_Celsius].avg(1800)}&gt;50 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Temperature_Celsius].nodata(1800)}=0</expression>
                             <name>[HDD.{#DISKNAME}] Disk temperature: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
@@ -651,7 +651,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last(0)}&gt;65 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[{#DISKNAME},Temperature_Celsius].last(0)}&lt;100</expression>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Temperature_Celsius].last(0)}&gt;65 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD["{#DISKCMD}",Temperature_Celsius].last(0)}&lt;100</expression>
                             <name>[HDD.{#DISKNAME}] Disk temperature: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
