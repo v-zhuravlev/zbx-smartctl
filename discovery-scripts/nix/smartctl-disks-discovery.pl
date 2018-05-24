@@ -7,6 +7,7 @@ my $VERSION = 0.11;
 
 #add path if needed into $smartctl_cmd
 my $smartctl_cmd = "smartctl";
+my $sg_scan_cmd = "sg_scan";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
@@ -49,6 +50,33 @@ else {
                 subdisk   => 0
               };
         }
+
+    }
+
+    if (-x $sg_scan_cmd){
+        foreach my $line (`$sg_scan_cmd -i`) {
+            ## sg_scan -i
+            # https://github.com/v-zhuravlev/zbx-smartctl/pull/29
+            #/dev/sg0: scsi0 channel=0 id=0 lun=0
+            #    ATA       TOSHIBA MG03ACA1  FL1D [rmb=0 cmdq=1 pqual=0 pdev=0x0] 
+            #/dev/sg1: scsi0 channel=1 id=0 lun=0
+            #    Dell      Virtual Disk      1028 [rmb=0 cmdq=1 pqual=0 pdev=0x0] 
+            #/dev/sg2: scsi0 channel=0 id=1 lun=0
+            #    ATA       TOSHIBA MG03ACA1  FL1D [rmb=0 cmdq=1 pqual=0 pdev=0x0]
+            if ($line =~ /(\/(.+?)):/){
+                    my ($disk_name) = $1;
+                    my ($disk_args) = "";
+
+                    push @input_disks,
+                        {
+                            disk_name => $disk_name,
+                            disk_args => $disk_args,
+                            subdisk   => 0
+                        };
+            }
+
+        }
+
 
     }
 }
