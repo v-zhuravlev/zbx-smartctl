@@ -98,6 +98,7 @@ Please keep in mind key concepts when submitting a PR:
   - {#DISKCMD} - System disk name with -d param to be used in running smartctl
   - {#SMART_ENABLED} - 1 or 0
   - {#DISKTYPE} - 0 - HDD, 1 - SSD, 2 - Other(ODD etc)
+  
   To make sure that the sources of these macro is available everywhere, it is best to use output of `smartctl -i` or `smartctl --scan-open`. Other macros may be added, but try to edit both windows and nix scripts at the same time.
 
 
