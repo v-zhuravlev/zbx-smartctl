@@ -99,13 +99,18 @@ sub get_smart_disks {
 
     chomp( $disk->{disk_name} );
     chomp( $disk->{disk_args} );
+    
+    $disk->{disk_cmd} = $disk->{disk_name};
+    if (length($disk->{disk_args}) > 0){
+        $disk->{disk_cmd}.=q{ }.$disk->{disk_args};
+    }
 
     #my $testline = "open failed: Two devices connected, try '-d usbjmicron,[01]'";
     #my $testline = "open device: /dev/sdc [USB JMicron] failed: Two devices connected, try '-d usbjmicron,[01]'";
     #if ($disk->{subdisk} == 1) {
     #$testline = "/dev/sdb -d usbjmicron,$disk->{disk_args} # /dev/sdb [USB JMicron], ATA device";
     #}
-    my @smartctl_output = `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
+    my @smartctl_output = `$smartctl_cmd -i $disk->{disk_cmd} 2>&1`;
     foreach my $line (@smartctl_output) {
         #foreach my $line ($testline) {
         #print $line;
@@ -115,12 +120,12 @@ sub get_smart_disks {
                 $disk->{smart_enabled} = 1;
             }
             elsif ( $1 =~ /Unavailable/ ) {
-                `$smartctl_cmd -i $disk->{disk_name} $disk->{disk_args} 2>&1`;
+                `$smartctl_cmd -i $disk->{disk_cmd} 2>&1`;
             }
 
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
-                foreach (`smartctl -s on -o on -S on $disk->{disk_name} $disk->{disk_args}`)
+                foreach (`smartctl -s on -o on -S on $disk->{disk_cmd}`)
                 {
                     if (/SMART Enabled/) { $disk->{smart_enabled} = 1; }
                 }
@@ -161,7 +166,7 @@ sub get_smart_disks {
         if ( !exists($disk->{disk_type})) {
 
                 $disk->{disk_type} = 2;
-                foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_name} $disk->{disk_args} 2>&1`){
+                foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_cmd} 2>&1`){
 
                     #search for Spin_Up_Time or Spin_Retry_Count
                     if ($extended_line  =~ /Spin_/){
@@ -223,7 +228,7 @@ sub json_discovery {
         print "\t\t\t\"{#DISKMODEL}\":\"".$disk->{disk_model}."\",\n";
         print "\t\t\t\"{#DISKSN}\":\"".$disk->{disk_sn}."\",\n";
         print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}."\",\n";
-        print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_name}.q{ }.$disk->{disk_args}."\",\n";
+        print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_cmd}."\",\n";
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\",\n";
         print "\t\t\t\"{#DISKTYPE}\":\"".$disk->{disk_type}."\"\n";
         print "\t\t}";
