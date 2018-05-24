@@ -10,7 +10,7 @@ This is the template for Zabbix providing SMART monitoring for HDD using smartct
 - Make sure that smartmontools utils are installed:
 - (optional) install `sg3-utils` if you need to monitor hardware RAIDs. See [#29](https://github.com/v-zhuravlev/zbx-smartctl/pull/29)
 - Install the script smartctl-disks-discovery.pl in /etc/zabbix/scripts/
-- Test the script by running it. You should receive JSON object in the script output
+- Test the script by running it as sudo. You should receive JSON object in the script output
 - add the following permissions into /etc/sudoers:
 
 ```
