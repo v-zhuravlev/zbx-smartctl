@@ -387,7 +387,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>190.+Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
+                                    <params>Airflow_Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
 \1</params>
                                 </step>
                             </preprocessing>

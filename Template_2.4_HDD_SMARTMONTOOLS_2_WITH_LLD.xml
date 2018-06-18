@@ -199,7 +199,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>uHDD[&quot;{#DISKCMD}&quot;,190 Airflow]</key>
+                            <key>uHDD[&quot;{#DISKCMD}&quot;,Airflow]</key>
                             <delay>300</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -584,9 +584,9 @@ Intel SSDs report a normalized value from 100, a new drive, to a minimum of 1. I
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>(({TRIGGER.VALUE}=0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airflow].avg(5m)}&gt;{$TEMP_CRIT}) or&#13;
-({TRIGGER.VALUE}=1 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airflow].avg(5m)}&gt;{$TEMP_CRIT}-3))&#13;
-and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airflow].last()}&lt;100</expression>
+                            <expression>(({TRIGGER.VALUE}=0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow].avg(5m)}&gt;{$TEMP_CRIT}) or&#13;
+({TRIGGER.VALUE}=1 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow].avg(5m)}&gt;{$TEMP_CRIT}-3))&#13;
+and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow].last()}&lt;100</expression>
                             <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
@@ -595,8 +595,8 @@ and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airfl
                             <type>0</type>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>({TRIGGER.VALUE}=0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airflow].avg(5m)}&gt;{$TEMP_WARN}) or&#13;
-({TRIGGER.VALUE}=1 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,190 Airflow].avg(5m)}&gt;{$TEMP_WARN}-3)</expression>
+                            <expression>({TRIGGER.VALUE}=0 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow].avg(5m)}&gt;{$TEMP_WARN}) or&#13;
+({TRIGGER.VALUE}=1 and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow].avg(5m)}&gt;{$TEMP_WARN}-3)</expression>
                             <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>1</status>
