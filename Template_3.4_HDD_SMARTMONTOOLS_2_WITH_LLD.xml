@@ -657,7 +657,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(177 Wear_Leveling_Count|202 Percent_Lifetime_Used|233 Media_Wearout_Indicator) +0x[0-9a-z]+ +([0-9]+)
+                                    <params>(177 Wear_Leveling_Count|202 Percent_Lifetime_Used|233 Media_Wearout_Indicator|231 SSD_Life_Left) +0x[0-9a-z]+ +([0-9]+)
 \2</params>
                                 </step>
                             </preprocessing>
