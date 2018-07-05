@@ -79,11 +79,11 @@ foreach ($smart_scanresult in $smart_scanresults)
         
         #search for Spin_Up_Time or Spin_Retry_Count
         if ($extended_line  | select-string "Spin_" -CaseSensitive){
-            $disk_type="0"
+            $disk_type = "0"
         }
         #search for SSD in uppercase
         elseif ($extended_line  | select-string " SSD " -CaseSensitive){
-            $disk_type="1"
+            $disk_type = "1"
         }
         else {
             $disk_type = "2"
