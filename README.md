@@ -120,6 +120,7 @@ Please also keep in mind things require improvement (welcome!)
 |Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
 | SAS disks support |   |  |
+| NVMe disks support |   |  |
 | SSD or HHD classification, {#DISKTYPE} | Y | Y |Y 
 | {#DISKNAME} | Y | Y |Y 
 | {#DISKCMD} | Y | Y |Y 
