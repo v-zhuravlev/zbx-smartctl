@@ -11,17 +11,17 @@ $idx = 0
 $global_serials
 $smart_scanresults = & $smartctl "--scan-open" 
 
-$disk_args
-$disk_name
-$disk_type
-$disk_model
-$disk_sn
 
 write-host "{"
 write-host " `"data`":[`n"
 foreach ($smart_scanresult in $smart_scanresults)
 {
     
+    $disk_args = ""
+    $disk_name = ""
+    $disk_type = ""
+    $disk_model = ""
+    $disk_sn = ""
 
     if ($smart_scanresult -match '(-d) ([A-Za-z0-9,\+]+)'){
         $disk_args = $matches[1]+$matches[2]
@@ -42,20 +42,25 @@ foreach ($smart_scanresult in $smart_scanresults)
     # Device sn
     $sn = $line | select-string "serial number:"
     $sn = $sn -ireplace "serial number:"
-    $disk_sn=$sn.trim()
-    if ($global_serials -contains $disk_sn ){
-        continue
-        #skip duplicated disk, go to next one
-    } else {
-        #add only smart capable disks to global serials
-        if ($smart_enabled -eq 1){
-            $global_serials+=$disk_sn
+    if ($sn) {
+        $disk_sn=$sn.trim()
+    
+        if ($global_serials -contains $disk_sn ){
+            continue
+            #skip duplicated disk, go to next one
+        } else {
+            #add only smart capable disks to global serials
+            if ($smart_enabled -eq 1){
+                $global_serials+=$disk_sn
+            }
         }
     }
     # Device Model
     $model= $line | select-string "Device Model:"
     $model=$model -replace "Device Model:"
-    $disk_model=$model.trim()    
+    if ($model) {
+    $disk_model=$model.trim() 
+    }   
     
 
     # Is it HDD, SSD or ODD
