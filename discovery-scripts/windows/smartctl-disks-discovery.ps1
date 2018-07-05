@@ -17,6 +17,7 @@ write-host " `"data`":[`n"
 foreach ($smart_scanresult in $smart_scanresults)
 {
     
+    $idx++;
     $disk_args = ""
     $disk_name = ""
     $disk_type = ""
@@ -99,16 +100,12 @@ foreach ($smart_scanresult in $smart_scanresults)
             "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +",`n" +
             "`t`t`"{#DISKTYPE}`":`""+$disk_type+"`"" +"`n`t" +
            "}"
-    if ($idx -lt  $smart_scanresults.Count-1)
+    if ($idx -lt  $smart_scanresults.Count)
     {
         $jsonline += ",`n"
     }
-    elseif ($idx -ge  $smart_scanresults.Count-1)
-    {
-        
-    }
     write-host $jsonline
-    $idx++;
+    
 }
 write-host
 write-host " ]"
