@@ -59,7 +59,7 @@ foreach ($smart_scanresult in $smart_scanresults)
     $model= $line | select-string "Device Model:"
     $model=$model -replace "Device Model:"
     if ($model) {
-    $disk_model=$model.trim() 
+        $disk_model=$model.trim() 
     }   
     
 
