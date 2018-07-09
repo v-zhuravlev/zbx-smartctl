@@ -7,16 +7,18 @@ if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null)
 }
 
 
+$idx = 0
 $global_serials
 $smart_scanresults = & $smartctl "--scan-open" 
-$disks = @()
 
+$json = ""
 
-
-
+write-host "{"
+write-host " `"data`":["
 foreach ($smart_scanresult in $smart_scanresults)
 {
     
+    $idx++;
     $disk_args = ""
     $disk_name = ""
     $disk_type = ""
@@ -88,18 +90,27 @@ foreach ($smart_scanresult in $smart_scanresults)
             $disk_type = "2"
         }
     }
+              
+    if ($idx -eq 1)
+    {
+        
+    } else
+    {
+        $json +=  ",`n"
+    }
+    
+    $json += "`t {`n " +
+            "`t`t`"{#DISKSN}`":`""+$disk_sn+"`""+ ",`n" +        
+            "`t`t`"{#DISKMODEL}`":`""+$disk_model+"`""+ ",`n" +        
+            "`t`t`"{#DISKNAME}`":`""+$disk_name+"`""+ ",`n" +
+            "`t`t`"{#DISKCMD}`":`""+$disk_name+" "+$disk_args+"`"" +",`n" + 
+            "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +",`n" +
+            "`t`t`"{#DISKTYPE}`":`""+$disk_type+"`"" +"`n" +
+           "`t }"    
 
-    #remove [ordered] for powershell v2
-    $disks += [ordered]@{
-         '{#DISKSN}'= $disk_sn;
-         '{#DISKMODEL}'=$disk_model;
-         '{#DISKNAME}'=$disk_name;
-         '{#DISKCMD}' = $disk_name+" "+$disk_args;
-         '{#SMART_ENABLED}'=$smart_enabled;
-         '{#DISKTYPE}'=$disk_type
-        };   
+    
+    
 }
-
-#JSON LLD
-$json_disks = @{data= $disks}| ConvertTo-Json -Depth 2
-Write-Host $json_disks
+write-host $json
+write-host " ]"
+write-host "}"
