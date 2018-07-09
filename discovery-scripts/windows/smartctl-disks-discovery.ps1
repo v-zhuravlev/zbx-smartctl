@@ -11,9 +11,10 @@ $idx = 0
 $global_serials
 $smart_scanresults = & $smartctl "--scan-open" 
 
+$json = ""
 
 write-host "{"
-write-host " `"data`":[`n"
+write-host " `"data`":["
 foreach ($smart_scanresult in $smart_scanresults)
 {
     
@@ -60,7 +61,7 @@ foreach ($smart_scanresult in $smart_scanresults)
     $model= $line | select-string "Device Model:"
     $model=$model -replace "Device Model:"
     if ($model) {
-    $disk_model=$model.trim() 
+        $disk_model=$model.trim() 
     }   
     
 
@@ -89,24 +90,27 @@ foreach ($smart_scanresult in $smart_scanresults)
             $disk_type = "2"
         }
     }
-
-         
-
-    $jsonline= "`t{`n " +
+              
+    if ($idx -eq 1)
+    {
+        
+    } else
+    {
+        $json +=  ",`n"
+    }
+    
+    $json += "`t {`n " +
             "`t`t`"{#DISKSN}`":`""+$disk_sn+"`""+ ",`n" +        
             "`t`t`"{#DISKMODEL}`":`""+$disk_model+"`""+ ",`n" +        
             "`t`t`"{#DISKNAME}`":`""+$disk_name+"`""+ ",`n" +
             "`t`t`"{#DISKCMD}`":`""+$disk_name+" "+$disk_args+"`"" +",`n" + 
             "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +",`n" +
-            "`t`t`"{#DISKTYPE}`":`""+$disk_type+"`"" +"`n`t" +
-           "}"
-    if ($idx -lt  $smart_scanresults.Count)
-    {
-        $jsonline += ",`n"
-    }
-    write-host $jsonline
+            "`t`t`"{#DISKTYPE}`":`""+$disk_type+"`"" +"`n" +
+           "`t }"    
+
+    
     
 }
-write-host
+write-host $json
 write-host " ]"
 write-host "}"
