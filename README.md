@@ -83,6 +83,8 @@ UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File
 
 Items in 3.4:
 ![image](https://user-images.githubusercontent.com/14870891/30012649-3b1cc758-914a-11e7-82d5-9c80abb1328f.png)
+Catch SSD problems in Zabbix 2.4:
+![image](https://user-images.githubusercontent.com/14870891/45471572-30d43580-b73a-11e8-8aa9-6d3260162ef3.png)
 
 ## Contributing
 
