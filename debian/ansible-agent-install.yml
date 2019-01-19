@@ -18,7 +18,9 @@
       src: ../zabbix_smartctl.conf
       dest: /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf
   - name: "Create scripts directory"
-    file: path=/etc/zabbix/scripts state=directory
+    file: 
+      path: /etc/zabbix/scripts
+      state: directory
   - name: "Copy script"
     copy:
       src: ../discovery-scripts/nix/smartctl-disks-discovery.pl
