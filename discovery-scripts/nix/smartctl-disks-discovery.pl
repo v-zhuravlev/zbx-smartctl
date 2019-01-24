@@ -132,6 +132,13 @@ sub get_smart_disks {
             }
         }
     }
+
+    foreach my $line (@smartctl_output) {
+        # Areca: filter out empty slots
+        if ( $line =~ /^Read Device Identity failed: empty IDENTIFY data/ ) {
+            return;
+        }
+    }
     
     my $vendor = '';
     my $product = '';
