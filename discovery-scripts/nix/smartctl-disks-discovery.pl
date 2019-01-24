@@ -119,10 +119,6 @@ sub get_smart_disks {
             if ( $1 =~ /Enabled/ ) {
                 $disk->{smart_enabled} = 1;
             }
-            elsif ( $1 =~ /Unavailable/ ) {
-                `$smartctl_cmd -i $disk->{disk_cmd} 2>&1`;
-            }
-
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
                 foreach (`smartctl -s on -o on -S on $disk->{disk_cmd}`)
@@ -134,6 +130,12 @@ sub get_smart_disks {
     }
 
     foreach my $line (@smartctl_output) {
+        # filter out non-disk devices (enclosure, cd/dvd)
+        if ( $line =~ /^Device type: +(.+)$/ ) {
+                if ( $1 ne "disk" ) {
+                    return;
+                }
+        }
         # Areca: filter out empty slots
         if ( $line =~ /^Read Device Identity failed: empty IDENTIFY data/ ) {
             return;
@@ -207,6 +209,22 @@ sub get_smart_disks {
         
     }
 
+    if ( $disk->{subdisk} == 0 and $vendor eq "Areca" and $product eq "RAID controller" ) {
+        for (my $i = 1; $i <= 16; $i++) {
+            push @disks,
+                get_smart_disks(
+                    {
+                        disk_name => $disk->{disk_name},
+                        disk_args => "-d areca,$i",
+                        disk_model => '',
+                        disk_sn => '',
+                        subdisk   => 1
+                    }
+                );
+        }
+        return @disks;
+    }
+
     if ( !exists($disk->{disk_type})) {
 
             $disk->{disk_type} = 2;
@@ -223,22 +241,6 @@ sub get_smart_disks {
                     last;
                 }
             }
-    }
-
-    if ( $disk->{subdisk} == 0 and $vendor eq "Areca" and $product eq "RAID controller" ) {
-        for (my $i = 1; $i <= 16; $i++) {
-            push @disks,
-                get_smart_disks(
-                    {
-                        disk_name => $disk->{disk_name},
-                        disk_args => "-d areca,$i",
-                        disk_model => '',
-                        disk_sn => '',
-                        subdisk   => 1
-                    }
-                );
-        }
-        return @disks;
     }
   
     push @disks, $disk;
