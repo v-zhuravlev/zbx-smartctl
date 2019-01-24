@@ -238,6 +238,7 @@ sub get_smart_disks {
                     }
                 );
         }
+        return @disks;
     }
   
     push @disks, $disk;
