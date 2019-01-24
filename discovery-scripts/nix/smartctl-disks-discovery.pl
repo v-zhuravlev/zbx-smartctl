@@ -133,6 +133,8 @@ sub get_smart_disks {
         }
     }
     
+    my $vendor = '';
+    my $product = '';
     foreach my $line (@smartctl_output) {
         
         if ( $line =~ /^serial number: +(.+)$/i ) {
@@ -152,6 +154,12 @@ sub get_smart_disks {
         }
         elsif ( $line =~ /^Device Model: +(.+)$/ ) {
                 $disk->{disk_model} = $1;
+        }
+        elsif ( $line =~ /^Vendor: +(.+)$/ ) {
+                $vendor = $1;
+        }
+        elsif ( $line =~ /^Product: +(.+)$/ ) {
+                $product = $1;
         }
         
         if ( $line =~ /Rotation Rate: (.+)/ ) {
@@ -208,6 +216,22 @@ sub get_smart_disks {
         }
         
     }
+
+    if ( $disk->{subdisk} == 0 and $vendor eq "Areca" and $product eq "RAID controller" ) {
+        for (my $i = 1; $i <= 16; $i++) {
+            push @disks,
+                get_smart_disks(
+                    {
+                        disk_name => $disk->{disk_name},
+                        disk_args => "-d areca,$i",
+                        disk_model => '',
+                        disk_sn => '',
+                        subdisk   => 1
+                    }
+                );
+        }
+    }
+  
     push @disks, $disk;
     return @disks;
 
