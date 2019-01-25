@@ -103,6 +103,9 @@ sub get_smart_disks {
     $disk->{disk_cmd} = $disk->{disk_name};
     if (length($disk->{disk_args}) > 0){
         $disk->{disk_cmd}.=q{ }.$disk->{disk_args};
+        if ( $disk->{subdisk} == 1 and $disk->{disk_args} =~ /-d\s+[^,\s]+,(\S+)/) {
+            $disk->{disk_name} .= " ($1)";
+        }
     }
 
     #my $testline = "open failed: Two devices connected, try '-d usbjmicron,[01]'";
