@@ -236,7 +236,7 @@
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>[Dd]evice [Mm]odel: +(.+)
+                                    <params>(?:[Dd]evice [Mm]odel|[Mm]odel [Nn]umber): +(.+)
 \1</params>
                                 </step>
                             </preprocessing>
