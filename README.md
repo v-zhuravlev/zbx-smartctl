@@ -1,3 +1,5 @@
+# zbx-smartctl
+
 ## Description
 
 This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.
@@ -17,15 +19,19 @@ chmod u+x /etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
 
 - Test the script by running it as sudo. You should receive JSON object in the script output
-- add the following permissions into /etc/sudoers:
+- add the following permissions into /etc/sudoers using `visudo`:
 
-```
-zabbix ALL= (ALL) NOPASSWD: /usr/sbin/smartctl,/etc/zabbix/scripts/smartctl-disks-discovery.pl
+```text
+Cmnd_Alias SMARTCTL = /usr/sbin/smartctl
+Cmnd_Alias SMART_DISCOVERY = /etc/zabbix/scripts/smartctl-disks-discovery.pl
+zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMART_DISCOVERY
+Defaults!SMARTCTL !logfile, !syslog, !pam_session
+Defaults!SMART_DISCOVERY !logfile, !syslog, !pam_session
 ```
 
 Add the following lines in zabbix_agentd.conf file:
 
-```
+```text
 #############SMARTMONTOOLS
 ###DEPRECATED. USE for 2.x-3.2 templates
 UserParameter=uHDD[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
@@ -67,7 +73,7 @@ You should receive JSON object in the output.
 
 - Add the following lines in zabbix_agentd.conf file (note the path to smartctl.exe):
 
-```
+```text
 #############SMARTMON
 ###DEPRECATED. USE for 2.x-3.2 templates
 UserParameter=uHDD[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
@@ -118,22 +124,22 @@ Please also keep in mind things require improvement (welcome!)
 - There are no tests. It's nice to run discovery scripts automatically using `/examples` directory contents as mocks. So it's easier to accept PRs. Btw you can also PR your outputs to examples folder
 - I don't have MacOS around so sometimes recent changes break stuff there since I can't test it properly 
 
-
 ## Features per platform
+
 |Feature/OS |Linux | Win | MacOS|
 |-|-|-|-|
 |Discovery with smartctl --scan-open| Y | Y |
-|Discovery with sg_scan | Y |  | 
+|Discovery with sg_scan | Y |  |
 |Disks deduplication by serial number | Y | Y |Y
 |Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
 | SAS disks support |   |  |
 | NVMe disks support |   |  |
-| SSD or HHD classification, {#DISKTYPE} | Y | Y |Y 
-| {#DISKNAME} | Y | Y |Y 
-| {#DISKCMD} | Y | Y |Y 
-| {#DISKMODEL} | Y | Y |Y 
-| {#DISKSN} | Y | Y |Y 
+| SSD or HHD classification, {#DISKTYPE} | Y | Y |Y
+| {#DISKNAME} | Y | Y |Y
+| {#DISKCMD} | Y | Y |Y
+| {#DISKMODEL} | Y | Y |Y
+| {#DISKSN} | Y | Y |Y
 
 ## Troubleshooting
 

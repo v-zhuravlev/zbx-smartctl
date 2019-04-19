@@ -1,3 +1,6 @@
 Defaults:zabbix !requiretty
-
-zabbix ALL=(ALL) NOPASSWD: /usr/sbin/smartctl,/etc/zabbix/scripts/smartctl-disks-discovery.pl
+Cmnd_Alias SMARTCTL = /usr/sbin/smartctl
+Cmnd_Alias SMART_DISCOVERY = /etc/zabbix/scripts/smartctl-disks-discovery.pl
+zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMART_DISCOVERY
+Defaults!SMARTCTL !logfile, !syslog, !pam_session
+Defaults!SMART_DISCOVERY !logfile, !syslog, !pam_session
