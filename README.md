@@ -129,7 +129,9 @@ Please also keep in mind things require improvement (welcome!)
 | {#DISKMODEL} | Y | Y |Y 
 | {#DISKSN} | Y | Y |Y 
 
+## Troubleshooting
 
+`smartctl` might be slow to respond when discovering disks. Increase `Timeout=` if having issues.  
 
 ## License
 
