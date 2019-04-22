@@ -143,7 +143,23 @@ Please also keep in mind things require improvement (welcome!)
 
 ## Troubleshooting
 
-`smartctl` might be slow to respond when discovering disks. Increase `Timeout=` if having issues.  
+1. `smartctl` might be slow to respond when discovering disks. Increase `Timeout=` if having issues.  
+2. SELinux. Turn it off or add a selinux policy:
+
+```text
+yum install policycoreutils-python
+semanage permissive -a zabbix_agent_t
+semodule -DB
+# from zabbox_server issue:
+zabbix_get -s host -k uHDD.discovery
+zabbix_get -s host -k uHDD.i[/dev/sda]
+
+cat /var/log/audit/audit.log | grep zabbix_agent_t | grep denied | audit2allow -M zabbix_smartctl
+semodule -i zabbix_smartctl.pp
+semanage permissive -d zabbix_agent_t
+semodule -B
+```
+
 
 ## License
 
