@@ -1,0 +1,94 @@
+smartctl -a /dev/sda -d sat+megaraid,00
+smartctl 5.43 2016-09-28 r4347 [x86_64-linux-2.6.32-754.12.1.el6.x86_64] (local build)
+Copyright (C) 2002-12 by Bruce Allen, http://smartmontools.sourceforge.net
+ 
+=== START OF INFORMATION SECTION ===
+Model Family:     Samsung based SSDs
+Device Model:     Samsung SSD 850 EVO 500GB
+Serial Number:    ZZZZZZZZZZZZZZZ
+LU WWN Device Id: 5 002538 da0187891
+Firmware Version: EMT01B6Q
+User Capacity:    500,107,862,016 bytes [500 GB]
+Sector Size:      512 bytes logical/physical
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   8
+ATA Standard is:  ATA-8-ACS revision 4c
+Local Time is:    Fri Apr 19 15:59:23 2019 CEST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+ 
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+Warning: This result is based on an Attribute check.
+ 
+General SMART Values:
+Offline data collection status:  (0x00) Offline data collection activity
+                                        was never started.
+                                        Auto Offline Data Collection: Disabled.
+Self-test execution status:      (  17) The self-test routine was aborted by
+                                        the host.
+Total time to complete Offline
+data collection:                (    0) seconds.
+Offline data collection
+capabilities:                    (0x53) SMART execute Offline immediate.
+                                        Auto Offline data collection on/off support.
+                                        Suspend Offline collection upon new
+                                        command.
+                                        No Offline surface scan supported.
+                                        Self-test supported.
+                                        No Conveyance Self-test supported.
+                                        Selective Self-test supported.
+SMART capabilities:            (0x0003) Saves SMART data before entering
+                                        power-saving mode.
+                                        Supports SMART auto save timer.
+Error logging capability:        (0x01) Error logging supported.
+                                        General Purpose Logging supported.
+Short self-test routine
+recommended polling time:        (   2) minutes.
+Extended self-test routine
+recommended polling time:        ( 265) minutes.
+SCT capabilities:              (0x003d) SCT Status supported.
+                                        SCT Error Recovery Control supported.
+                                        SCT Feature Control supported.
+                                        SCT Data Table supported.
+ 
+SMART Attributes Data Structure revision number: 1
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  5 Reallocated_Sector_Ct   0x0033   099   099   010    Pre-fail  Always       -       1
+  9 Power_On_Hours          0x0032   093   093   000    Old_age   Always       -       33983
+ 12 Power_Cycle_Count       0x0032   099   099   000    Old_age   Always       -       5
+177 Wear_Leveling_Count     0x0013   028   028   000    Pre-fail  Always       -       1530
+179 Used_Rsvd_Blk_Cnt_Tot   0x0013   099   099   010    Pre-fail  Always       -       1
+181 Program_Fail_Cnt_Total  0x0032   100   100   010    Old_age   Always       -       0
+182 Erase_Fail_Count_Total  0x0032   099   099   010    Old_age   Always       -       1
+183 Runtime_Bad_Block       0x0013   099   099   010    Pre-fail  Always       -       1
+187 Uncorrectable_Error_Cnt 0x0032   100   100   000    Old_age   Always       -       0
+190 Airflow_Temperature_Cel 0x0032   074   057   000    Old_age   Always       -       26
+195 ECC_Error_Rate          0x001a   200   200   000    Old_age   Always       -       0
+199 CRC_Error_Count         0x003e   100   100   000    Old_age   Always       -       0
+235 POR_Recovery_Count      0x0012   099   099   000    Old_age   Always       -       3
+241 Total_LBAs_Written      0x0032   099   099   000    Old_age   Always       -       232349537446
+ 
+SMART Error Log Version: 1
+No Errors Logged
+ 
+Warning! SMART Self-Test Log Structure error: invalid SMART checksum.
+SMART Self-test log structure revision number 1
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+# 1  Short offline       Aborted by host               10%      5012         -
+ 
+Warning! SMART Selective Self-Test Log Structure error: invalid SMART checksum.
+SMART Selective self-test log data structure revision number 1
+ SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS
+    1        0        0  Not_testing
+    2        0        0  Not_testing
+    3        0        0  Not_testing
+    4        0        0  Not_testing
+    5        0        0  Not_testing
+  255        0    65535  Read_scanning was never started
+Selective self-test flags (0x0):
+  After scanning selected spans, do NOT read-scan remainder of disk.
+If Selective self-test is pending on power-up, resume after 0 minute delay.
+ 
+====================================================================================

@@ -1,0 +1,42 @@
+smartctl -i -H -A /dev/nvme0n1
+smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-957.5.1.el7.x86_64] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Number:                       SAMSUNG MZVLB512HAJQ-00000
+Serial Number:                      ZZZZZZZZZZZZZZZ
+Firmware Version:                   EXA7301Q
+PCI Vendor/Subsystem ID:            0x144d
+IEEE OUI Identifier:                0x002538
+Total NVM Capacity:                 512,110,190,592 [512 GB]
+Unallocated NVM Capacity:           0
+Controller ID:                      4
+Number of Namespaces:               1
+Namespace 1 Size/Capacity:          512,110,190,592 [512 GB]
+Namespace 1 Utilization:            18,870,272,000 [18.8 GB]
+Namespace 1 Formatted LBA Size:     512
+Local Time is:                      Mon Apr 22 14:40:43 2019 CEST
+
+=== START OF SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART/Health Information (NVMe Log 0x02, NSID 0x1)
+Critical Warning:                   0x00
+Temperature:                        30 Celsius
+Available Spare:                    100%
+Available Spare Threshold:          10%
+Percentage Used:                    0%
+Data Units Read:                    5,450,838 [2.79 TB]
+Data Units Written:                 172,552 [88.3 GB]
+Host Read Commands:                 469,749,169
+Host Write Commands:                14,437,203
+Controller Busy Time:               160
+Power Cycles:                       6
+Power On Hours:                     153
+Unsafe Shutdowns:                   2
+Media and Data Integrity Errors:    0
+Error Information Log Entries:      0
+Warning  Comp. Temperature Time:    0
+Critical Comp. Temperature Time:    0
+Temperature Sensor 1:               30 Celsius
+Temperature Sensor 2:               33 Celsius
