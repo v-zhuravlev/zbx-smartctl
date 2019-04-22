@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-04-22T13:09:12Z</date>
+    <date>2019-04-22T16:28:02Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -1286,109 +1286,6 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 197 Current Pending Sector Count</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>uSSD[&quot;{#DISKCMD}&quot;,Current_Pending_Sector]</key>
-                            <delay>0</delay>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
-However, some drives will not immediately remap such sectors when written; instead the drive will first attempt to write to the problem sector and if the write operation is successful then the sector will be marked good (in this case, the &quot;Reallocation Event Count&quot; (0xC4) will not be increased). This is a serious shortcoming, for if such a drive contains marginal sectors that consistently fail only after some time has passed following a successful write operation, then the drive will never remap these problem sectors.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>SMART monitoring (smartctl)</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>197 Current_Pending_Sector.+ ([0-9]+)
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype>
-                                <key>uSSD.get[&quot;{#DISKCMD}&quot;]</key>
-                            </master_item_prototype>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#DISKNAME}: ID 198 (Offline) Uncorrectable Sector Count</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>uSSD[&quot;{#DISKCMD}&quot;,Offline_Uncorrectable]</key>
-                            <delay>0</delay>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>SMART monitoring (smartctl)</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>Offline_Uncorrectable.+ ([0-9]+)
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype>
-                                <key>uSSD.get[&quot;{#DISKCMD}&quot;]</key>
-                            </master_item_prototype>
-                        </item_prototype>
-                        <item_prototype>
                             <name>{#DISKNAME}: ID 9 Power On Hours</name>
                             <type>18</type>
                             <snmp_community/>
@@ -1730,60 +1627,6 @@ Device serial number has changed. Ack to close</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
-                                    <recovery_expression/>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Offline_Uncorrectable].delta(7d)}&gt;0</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{#DISKNAME}: SMART (Offline) Uncorrectable Sector Count has been registered</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description>The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
-&#13;
-Trigger: Timeouts in 7 days if there are no new reallocated sectors.</description>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
-                                    <recovery_expression/>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Current_Pending_Sector].delta(3d)}&gt;0</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>{#DISKNAME}: SMART Current Pending Sector counter incremented</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
-However, some drives will not immediately remap such sectors when written; instead the drive will first attempt to write to the problem sector and if the write operation is successful then the sector will be marked good (in this case, the &quot;Reallocation Event Count&quot; (0xC4) will not be increased). This is a serious shortcoming, for if such a drive contains marginal sectors that consistently fail only after some time has passed following a successful write operation, then the drive will never remap these problem sectors.&#13;
-&#13;
-Triiger: Timeouts in 3 days if ther are no new sectors</description>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: SMART Reallocated Sectors Count has been registered</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,5 Reallocated].delta(7d)}&gt;0</expression>
-                                    <recovery_expression/>
-                                </dependency>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
