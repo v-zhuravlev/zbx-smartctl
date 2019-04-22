@@ -1,4 +1,4 @@
-zabbix-extra-smartctl (0.1ubuntu3) UNRELEASED; urgency=low
+zabbix-extra-smartctl (0.1ubuntu4) UNRELEASED; urgency=low
 
   [ Alexey Vazhnov ]
   * Initial release.
@@ -8,4 +8,7 @@ zabbix-extra-smartctl (0.1ubuntu3) UNRELEASED; urgency=low
   * add executable bit to script
   * postinst scripts added
 
- -- Alexander Lelyakin <Alexander.Lelyakin@kit.edu>  Fri, 03 Feb 2017 14:52:55 +0100
+  [ Vitaly Zhuravlev ]
+  * improved sudoers file
+
+ -- Vitaly Zhuravlev <zhuravlev.vitaly@gmail.com>  Fri, 19 Apr 2019 21:00:00 +0300
