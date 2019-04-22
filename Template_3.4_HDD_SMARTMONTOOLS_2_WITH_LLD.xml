@@ -20,7 +20,7 @@
             </groups>
             <applications>
                 <application>
-                    <name>Internal Items</name>
+                    <name>Internal items</name>
                 </application>
                 <application>
                     <name>Inventory</name>
@@ -102,7 +102,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Internal Items</name>
+                                    <name>Internal items</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -186,7 +186,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Internal Items</name>
+                                    <name>Internal items</name>
                                 </application>
                             </applications>
                             <valuemap/>
