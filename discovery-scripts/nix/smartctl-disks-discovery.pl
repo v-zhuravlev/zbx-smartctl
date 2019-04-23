@@ -6,7 +6,7 @@ use strict;
 my $VERSION = 1.0;
 
 #add path if needed into $smartctl_cmd
-my $smartctl_cmd = "smartctl";
+my $smartctl_cmd = "/usr/sbin/smartctl";
 die "Unable to find smartctl. Check that smartmontools package is installed.\n" unless (-x $smartctl_cmd);
 my $sg_scan_cmd = "/usr/bin/sg_scan";
 my @input_disks;
