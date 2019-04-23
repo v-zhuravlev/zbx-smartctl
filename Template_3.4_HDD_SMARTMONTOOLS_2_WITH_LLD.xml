@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-04-23T11:31:06Z</date>
+    <date>2019-04-23T12:27:05Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -202,8 +202,12 @@
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:[Dd]evice [Mm]odel|[Mm]odel [Nn]umber): +(.+)
-\1</params>
+                                    <params>(?:Vendor: +(.+)\nProduct:|[Dd]evice [Mm]odel:|[Mm]odel [Nn]umber:) +(.+)
+\1 \2</params>
+                                </step>
+                                <step>
+                                    <type>3</type>
+                                    <params><![CDATA[ ]]></params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -399,13 +403,13 @@ SAS: Not supported.</description>
                             <description>SATA: ID 198 (Offline) Uncorrectable Sector Count. The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
 https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes
 SAS: error counter log should be parsed with JS in Zabbix 4.2: read+write
-"Error counter log
+&quot;Error counter log
            Errors Corrected by           Total   Correction     Gigabytes    Total
                ECC          rereads/    errors   algorithm      processed    uncorrected
            fast | delayed   rewrites  corrected  invocations   [10^9 bytes]  errors
 read:    2242530    24029   1718309   2266559      30372     409777.659           0
 write:   1685701     2629      5464   1688330       2636      35228.365           0
-verify:     4400        2         2      4402          2        432.531           0". Should be added to SSD as well.</description>
+verify:     4400        2         2      4402          2        432.531           0&quot;. Should be added to SSD as well.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -1079,8 +1083,12 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:[Dd]evice [Mm]odel|[Mm]odel [Nn]umber): +(.+)
-\1</params>
+                                    <params>(?:Vendor: +(.+)\nProduct:|[Dd]evice [Mm]odel:|[Mm]odel [Nn]umber:) +(.+)
+\1 \2</params>
+                                </step>
+                                <step>
+                                    <type>3</type>
+                                    <params><![CDATA[ ]]></params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
