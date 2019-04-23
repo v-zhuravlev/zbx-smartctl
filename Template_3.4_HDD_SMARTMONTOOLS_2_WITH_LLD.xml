@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-04-23T10:53:19Z</date>
+    <date>2019-04-23T11:31:06Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -703,6 +703,12 @@ Device serial number has changed. Ack to close</description>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
@@ -726,6 +732,12 @@ Trigger: Timeouts in 7 days if there are no new reallocated sectors.</descriptio
                             <type>0</type>
                             <manual_close>1</manual_close>
                             <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
                                 <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
@@ -757,6 +769,12 @@ Triiger: Timeouts in 3 days if ther are no new sectors</description>
                                     <recovery_expression/>
                                 </dependency>
                                 <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
@@ -781,6 +799,12 @@ Trigger: Timeouts in 7 days if there are no new reallocated sectors.</descriptio
                             <manual_close>1</manual_close>
                             <dependencies>
                                 <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
@@ -803,6 +827,29 @@ Trigger: Timeouts in 7 days if there are no spin retry events.</description>
                             <type>0</type>
                             <manual_close>1</manual_close>
                             <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART status is not OK</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
@@ -1430,6 +1477,12 @@ Device serial number has changed. Ack to close</description>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
                                     <name>{#DISKNAME}: SMART test status: FAILED!</name>
                                     <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
                                     <recovery_expression/>
@@ -1450,6 +1503,35 @@ Device serial number has changed. Ack to close</description>
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
 &#13;
 Trigger: Timeouts in 7 days if there are no new reallocated sectors.</description>
+                            <type>0</type>
+                            <manual_close>1</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART status is not OK</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                                <dependency>
+                                    <name>{#DISKNAME}: SMART test status: FAILED!</name>
+                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].str(&quot;FAILED!&quot;)}=1</expression>
+                                    <recovery_expression/>
+                                </dependency>
+                            </dependencies>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SATA&quot;},ne)}=1 and&#13;
+{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.health[&quot;{#DISKCMD}&quot;].count(#1,{$SMARTCTL_OK_STATUS:&quot;SAS&quot;},ne)}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>{#DISKNAME}: SMART status is not OK</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
                             <type>0</type>
                             <manual_close>1</manual_close>
                             <dependencies>
@@ -1541,6 +1623,14 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
             </discovery_rules>
             <httptests/>
             <macros>
+                <macro>
+                    <macro>{$SMARTCTL_OK_STATUS:&quot;SAS&quot;}</macro>
+                    <value>OK</value>
+                </macro>
+                <macro>
+                    <macro>{$SMARTCTL_OK_STATUS:&quot;SATA&quot;}</macro>
+                    <value>PASSED</value>
+                </macro>
                 <macro>
                     <macro>{$TEMP_CRIT:&quot;HDD&quot;}</macro>
                     <value>65</value>
