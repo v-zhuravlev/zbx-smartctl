@@ -65,6 +65,14 @@ foreach ($smart_scanresult in $smart_scanresults)
     {
         $disk_model=$model.trim()
     }
+    # Model Number
+    $model = [string] ""
+    $model= $line | select-string "Model Number:"
+    $model=$model -replace "Model Number:"
+    if ($model)
+    {
+        $disk_model=$model.trim()
+    }
     # Device Model(for SAS)
     $model= $line | select-string "Vendor:"
     $model=$model -replace "Vendor:"
@@ -80,7 +88,6 @@ foreach ($smart_scanresult in $smart_scanresults)
     }
     
     
-
     # Is it HDD, SSD or ODD
     # The SMART Values for HDD/SSD are different sometimes
     # I have 2 Discovery-Rules with Filtering 0 or 1.                       

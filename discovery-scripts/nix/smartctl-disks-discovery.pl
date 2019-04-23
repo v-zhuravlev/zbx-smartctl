@@ -195,23 +195,28 @@ sub get_smart_disks {
                 }
             }
         }
-        elsif ( $line =~ /^Device Model: +(.+)$/ ) {
+        if ( $line =~ /^Device Model: +(.+)$/i ) {
+                $disk->{disk_model} = $1;
+        }
+
+        #for NVMe disks and some ATA: Model Number:
+        if ( $line =~ /^Model Number: +(.+)$/i ) {
                 $disk->{disk_model} = $1;
         }
         
         #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Vendor: +(.+)/ ) {
+        if ( $line =~ /Vendor: +(.+)$/i ) {
             $disk->{disk_model} = $1;
         }
         #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Product: +(.+)/ ) {
+        if ( $line =~ /Product: +(.+)$/i ) {
             $disk->{disk_model} .= q{ }.$1;
         }
 
         
-        if ( $line =~ /Rotation Rate: (.+)/ ) {
+        if ( $line =~ /Rotation Rate: (.+)/i ) {
 
-            if ( $1 =~ /Solid State Device/ ) {
+            if ( $1 =~ /Solid State Device/i ) {
                 $disk->{disk_type} = 1;
             }
             elsif( $1 =~ /rpm/ ) {
@@ -245,6 +250,10 @@ sub get_smart_disks {
 
         }
         
+    }
+    
+    if ( $disk->{disk_name} =~ /nvme/ ) {
+            $disk->{disk_type} = 1; # /dev/nvme is always SSD
     }
     # if disk_type is still unknown after parsing then rerun with extended -a:
     if ( $disk->{disk_type} == 2) {
