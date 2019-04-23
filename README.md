@@ -47,8 +47,8 @@ UserParameter=uHDD.i[*],sudo smartctl -i $1
 UserParameter=uHDD.health[*],sudo smartctl -H $1 || true
 ### With the latest template you only need these:
 UserParameter=uHDD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
-UserParameter=uHDD.discovery,sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl
-Alias=uSSD.discovery:uHDD.discovery
+UserParameter=uHDD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
+Alias=uSSD.discovery[*]:uHDD.discovery[*]
 Alias=uSSD.get[*]:uHDD.get[*]
 ```
 
@@ -92,8 +92,8 @@ UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\sma
 UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1"`) do @echo %a
 ### With the latest template you only need these:
 UserParameter=uHDD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
-UserParameter=uHDD.discovery,powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
-Alias=uSSD.discovery:uHDD.discovery
+UserParameter=uHDD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
+Alias=uSSD.discovery[*]:uHDD.discovery[*]
 Alias=uSSD.get[*]:uHDD.get[*]
 ```
 
@@ -136,6 +136,7 @@ Please also keep in mind things require improvement (welcome!)
 |-|-|-|-|
 |Discovery with smartctl --scan-open| Y | Y |
 |Discovery with sg_scan | Y |  |
+|Static discovery with {$SMARTCTL_STATIC_DISKS}| Y |  | Y
 |Disks deduplication by serial number | Y | Y |Y
 |Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
