@@ -263,7 +263,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 5 Reallocated Sectors Count</name>
+                            <name>{#DISKNAME}: Reallocated sectors count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -291,7 +291,9 @@
                             <privatekey/>
                             <port/>
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
+For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -303,7 +305,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>5 Reallocate.+ ([0-9]+)
+                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1179,7 +1181,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 5 Reallocated Sectors Count</name>
+                            <name>{#DISKNAME}: Reallocated sectors count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1207,7 +1209,9 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <privatekey/>
                             <port/>
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
+For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -1219,14 +1223,14 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>5 Reallocate.+ ([0-9]+)
+                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uSSD.get[&quot;{#DISKCMD}&quot;]</key>
+                                <key>uHDD.get[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
