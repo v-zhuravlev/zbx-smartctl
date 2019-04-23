@@ -9,6 +9,7 @@ my $VERSION = 1.0;
 my $smartctl_cmd = "/usr/sbin/smartctl";
 die "Unable to find smartctl. Check that smartmontools package is installed.\n" unless (-x $smartctl_cmd);
 my $sg_scan_cmd = "/usr/bin/sg_scan";
+my $nvme_cmd = "/usr/sbin/nvme";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
@@ -94,8 +95,27 @@ else {
             }
 
         }
+    }
 
+    if (-x $nvme_cmd){
+        foreach my $line (`$nvme_cmd list`) {
+            ## sg_scan -i
+            # Node             SN                   Model                                    Namespace Usage                      Format           FW Rev
+            # ---------------- -------------------- ---------------------------------------- --------- -------------------------- ---------------- --------
+            # /dev/nvme0n1     S3W8NX0M10ZZZZ       SAMSUNG MZVLB512HAJQ-00000               1          18.87  GB / 512.11  GB    512   B +  0 B   EXA7301Q
+            # /dev/nvme1n1     S3W8NX0M15ZZZZ       SAMSUNG MZVLB512HAJQ-00000               1         511.77  GB / 512.11  GB    512   B +  0 B   EXA7301Q
+            if ($line =~ /(\/(?:.+?))\s/){
+                    my ($disk_name) = $1;
+                    my ($disk_args) = "";
 
+                    push @input_disks,
+                        {
+                            disk_name => $disk_name,
+                            disk_args => $disk_args
+                        };
+            }
+
+        }
     }
 }
 
