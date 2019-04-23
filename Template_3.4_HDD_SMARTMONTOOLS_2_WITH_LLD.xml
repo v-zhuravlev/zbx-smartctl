@@ -20,12 +20,6 @@
             </groups>
             <applications>
                 <application>
-                    <name>Internal items</name>
-                </application>
-                <application>
-                    <name>Inventory</name>
-                </application>
-                <application>
                     <name>SMART monitoring (smartctl)</name>
                 </application>
             </applications>
@@ -108,7 +102,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Internal items</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -200,7 +194,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Inventory</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -250,7 +244,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Inventory</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1024,7 +1018,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Internal items</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1116,7 +1110,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Inventory</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1166,7 +1160,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Inventory</name>
+                                    <name>SMART monitoring (smartctl)</name>
                                 </application>
                             </applications>
                             <valuemap/>
