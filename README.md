@@ -139,7 +139,7 @@ Please also keep in mind things require improvement (welcome!)
 |Disks deduplication by serial number | Y | Y |Y
 |Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
-| SAS disks support |   |  |
+| SAS disks support | Y |  |
 | NVMe disks support |   |  |
 | SSD or HHD classification, {#DISKTYPE} | Y | Y |Y
 | {#DISKNAME} | Y | Y |Y
