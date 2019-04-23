@@ -57,19 +57,24 @@ Local Time is:                      Wed Jun 27 05:29:07 2018 RTZST
     def test_sata_attributes(self):
 
         attributes = [
-            {'name': '{#DISKNAME}: ID 5 Reallocated Sectors Count', 'flags': []},
-            {'name': '{#DISKNAME}: ID 9 Power On Hours', 'flags': []},
-            {'name': '{#DISKNAME}: ID 10 Spin Retry Count', 'flags': ['hdd_only']},
-            {'name': '{#DISKNAME}: ID 177/ID 202/ID 233 (SSD Wearout)', 'flags': ['ssd_only']},
-            {'name': '{#DISKNAME}: ID 190 Airflow Temperature', 'flags': []},
-            {'name': '{#DISKNAME}: ID 194 Temperature', 'flags': []},
-            {'name': '{#DISKNAME}: ID 197 Current Pending Sector Count', 'flags': ['hdd_only']},
-            {'name': '{#DISKNAME}: ID 198 (Offline) Uncorrectable Sector Count', 'flags': ['hdd_only']},
-            {'name': '{#DISKNAME}: ID 199 UltraDMA CRC Error Count', 'flags': []}
+            {'name': '{#DISKNAME}: ID 5 Reallocated sectors count', 'flags': []},
+            {'name': '{#DISKNAME}: ID 9 Power on hours', 'flags': []},
+            {'name': '{#DISKNAME}: ID 10 Spin retry count', 'flags': ['hdd_only', 'sata_only']},
+            {'name': '{#DISKNAME}: ID 177/202/233 SSD wearout', 'flags': ['ssd_only']},
+            {'name': '{#DISKNAME}: ID 190/194 Temperature', 'flags': []},
+            {'name': '{#DISKNAME}: ID 197 Current pending sector count', 'flags': ['hdd_only', 'sata_only']},
+            {'name': '{#DISKNAME}: ID 198 Uncorrectable errors count', 'flags': ['hdd_only', 'sata_only']},
+            {'name': '{#DISKNAME}: ID 199 CRC error count', 'flags': []}
         ]
         for a in attributes:
             for s in self.samples:
-                if s['disk_interface'] != 'sata':
+                # if s['disk_interface'] != 'sata':
+                #     continue
+                if s['disk_interface'] != 'sata' and 'sata_only' in a['flags']:
+                    continue
+                if s['disk_interface'] == 'sas' and a['name'] == '{#DISKNAME}: SSD wearout':
+                    continue
+                if s['disk_interface'] == 'nvme' and a['name'] == '{#DISKNAME}: Reallocated sectors count':
                     continue
                 if s['disk_type'] != 'ssd' and 'ssd_only' in a['flags']:
                     continue
