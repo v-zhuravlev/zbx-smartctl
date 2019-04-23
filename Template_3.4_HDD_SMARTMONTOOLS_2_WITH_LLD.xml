@@ -263,7 +263,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Reallocated sectors count</name>
+                            <name>{#DISKNAME}: ID 5 Reallocated sectors count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -316,7 +316,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 197 Current Pending Sector Count</name>
+                            <name>{#DISKNAME}: ID 197 Current pending sector count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -343,9 +343,10 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
+                            <description>SATA: ID 197 Current Pending Sector Count. Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased. Read errors on a sector will not remap the sector immediately (since the correct value cannot be read and so the value to remap is not known, and also it might become readable later); instead, the drive firmware remembers that the sector needs to be remapped, and will remap it the next time it's written.&#13;
 However, some drives will not immediately remap such sectors when written; instead the drive will first attempt to write to the problem sector and if the write operation is successful then the sector will be marked good (in this case, the &quot;Reallocation Event Count&quot; (0xC4) will not be increased). This is a serious shortcoming, for if such a drive contains marginal sectors that consistently fail only after some time has passed following a successful write operation, then the drive will never remap these problem sectors.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes
+SAS: Not supported.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -368,7 +369,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 198 (Offline) Uncorrectable Sector Count</name>
+                            <name>{#DISKNAME}: ID 198 Uncorrectable errors count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -395,8 +396,16 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
-https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</description>
+                            <description>SATA: ID 198 (Offline) Uncorrectable Sector Count. The total count of uncorrectable errors when reading/writing a sector. A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.&#13;
+https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes
+SAS: error counter log should be parsed with JS in Zabbix 4.2: read+write
+"Error counter log
+           Errors Corrected by           Total   Correction     Gigabytes    Total
+               ECC          rereads/    errors   algorithm      processed    uncorrected
+           fast | delayed   rewrites  corrected  invocations   [10^9 bytes]  errors
+read:    2242530    24029   1718309   2266559      30372     409777.659           0
+write:   1685701     2629      5464   1688330       2636      35228.365           0
+verify:     4400        2         2      4402          2        432.531           0". Should be added to SSD as well.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -419,7 +428,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Power on hours</name>
+                            <name>{#DISKNAME}: ID 9 Power on hours</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -477,7 +486,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 10 Spin Retry Count</name>
+                            <name>{#DISKNAME}: ID 10 Spin retry count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -504,7 +513,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Count of retry of spin start attempts. This attribute stores a total count of the spin start attempts to reach the fully operational speed (under the condition that the first attempt was unsuccessful). An increase of this attribute value is a sign of problems in the hard disk mechanical subsystem.</description>
+                            <description>SATA: ID 10 Spin_Retry_Count. Count of retry of spin start attempts. This attribute stores a total count of the spin start attempts to reach the fully operational speed (under the condition that the first attempt was unsuccessful). An increase of this attribute value is a sign of problems in the hard disk mechanical subsystem.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -527,7 +536,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Temperature</name>
+                            <name>{#DISKNAME}: ID 190/194 Temperature</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -580,7 +589,7 @@ NVMe: Supported</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 199 UltraDMA CRC Error Count</name>
+                            <name>{#DISKNAME}: ID 199 CRC error count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -607,7 +616,9 @@ NVMe: Supported</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>The count of errors in data transfer via the interface cable as determined by ICRC (Interface Cyclic Redundancy Check).</description>
+                            <description>SATA: ID 199 CRC Error Count. The count of errors in data transfer via the interface cable as determined by ICRC (Interface Cyclic Redundancy Check).
+SAS: mapped to 'Non-medium error count'
+NVMe: mapped to 'Media and Data Integrity Errors'</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -619,7 +630,7 @@ NVMe: Supported</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:UDMA_CRC_Error|CRC_Error_Count).+ ([0-9]+)
+                                    <params>(?:UDMA_CRC_Error|CRC_Error_Count|Non-medium error count:|Media and Data Integrity Errors:).+ ([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1129,7 +1140,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Reallocated sectors count</name>
+                            <name>{#DISKNAME}: ID 5 Reallocated sectors count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1182,7 +1193,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Power on hours</name>
+                            <name>{#DISKNAME}: ID 9 Power on hours</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1240,7 +1251,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: SSD wearout</name>
+                            <name>{#DISKNAME}: ID 177/202/233 SSD wearout</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1301,7 +1312,7 @@ NVMe: 'Available Spare:' value is used, where 100% idicated new drive and 0% ind
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: Temperature</name>
+                            <name>{#DISKNAME}: ID 190/194 Temperature</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1354,7 +1365,7 @@ NVMe: Supported</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 199 UltraDMA CRC Error Count</name>
+                            <name>{#DISKNAME}: ID 199 CRC error count</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1381,7 +1392,9 @@ NVMe: Supported</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>The count of errors in data transfer via the interface cable as determined by ICRC (Interface Cyclic Redundancy Check).</description>
+                            <description>SATA: ID 199 CRC Error Count. The count of errors in data transfer via the interface cable as determined by ICRC (Interface Cyclic Redundancy Check).
+SAS: mapped to 'Non-medium error count'
+NVMe: mapped to 'Media and Data Integrity Errors'</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -1393,7 +1406,7 @@ NVMe: Supported</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:UDMA_CRC_Error|CRC_Error_Count).+ ([0-9]+)
+                                    <params>(?:UDMA_CRC_Error|CRC_Error_Count|Non-medium error count:|Media and Data Integrity Errors:).+ ([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
