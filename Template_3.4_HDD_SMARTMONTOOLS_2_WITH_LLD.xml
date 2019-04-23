@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-04-22T16:28:02Z</date>
+    <date>2019-04-23T10:53:19Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -316,56 +316,6 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 190 Airflow Temperature</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature]</key>
-                            <delay>0</delay>
-                            <history>7d</history>
-                            <trends>90d</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units>°С</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Raw value</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>SMART monitoring (smartctl)</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>Airflow_Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype>
-                                <key>uHDD.get[&quot;{#DISKCMD}&quot;]</key>
-                            </master_item_prototype>
-                        </item_prototype>
-                        <item_prototype>
                             <name>{#DISKNAME}: ID 197 Current Pending Sector Count</name>
                             <type>18</type>
                             <snmp_community/>
@@ -577,7 +527,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 194 Temperature</name>
+                            <name>{#DISKNAME}: Temperature</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -604,7 +554,10 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Current internal temperature.</description>
+                            <description>Current drive temperature.
+SATA: Parses value from attribute ID 194 or ID 190.
+SAS: Supported
+NVMe: Supported</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -616,7 +569,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>194 Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
+                                    <params>(?:194 Temperature[^(\n]+|Airflow_Temperature[^(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -678,58 +631,6 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].last()}&lt;100</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].last()}&lt;100</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
-                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].last()}&lt;100</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.[&quot;{#DISKCMD}&quot;].diff()}=1  and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uHDD.sn.[&quot;{#DISKCMD}&quot;].strlen()}&gt;0</expression>
                             <recovery_mode>2</recovery_mode>
@@ -1234,56 +1135,6 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 190 Airflow Temperature</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature]</key>
-                            <delay>0</delay>
-                            <history>7d</history>
-                            <trends>90d</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units>°С</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Raw value</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>SMART monitoring (smartctl)</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>Airflow_Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype>
-                                <key>uSSD.get[&quot;{#DISKCMD}&quot;]</key>
-                            </master_item_prototype>
-                        </item_prototype>
-                        <item_prototype>
                             <name>{#DISKNAME}: Power on hours</name>
                             <type>18</type>
                             <snmp_community/>
@@ -1401,7 +1252,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 194 Temperature</name>
+                            <name>{#DISKNAME}: Temperature</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1428,7 +1279,10 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Current internal temperature.</description>
+                            <description>Current drive temperature.
+SATA: Parses value from attribute ID 194 or ID 190.
+SAS: Supported
+NVMe: Supported</description>
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
@@ -1440,7 +1294,7 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>194 Temperature[^(\n]+ ([0-9]+)( *\(.+\))?
+                                    <params>(?:194 Temperature[^(\n]+|Airflow_Temperature[^(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1502,58 +1356,6 @@ A value of 0% indicates that 100% of the expected lifetime has been used.</descr
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].last()}&lt;100</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>3</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].last()}&lt;100</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Airflow_Temperature].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
-                            <name>{#DISKNAME}: Disk airflow temperature: {ITEM.LASTVALUE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>1</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_CRIT:&quot;HDD&quot;} and&#13;
-{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].last()}&lt;100</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_CRIT:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                                <dependency>
-                                    <name>{#DISKNAME}: Disk temperature: {ITEM.LASTVALUE}</name>
-                                    <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&gt;{$TEMP_WARN:&quot;HDD&quot;}</expression>
-                                    <recovery_expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD[&quot;{#DISKCMD}&quot;,Temperature_Celsius].avg(5m)}&lt;{$TEMP_WARN:&quot;HDD&quot;}-3</recovery_expression>
-                                </dependency>
-                            </dependencies>
-                            <tags/>
-                        </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.sn.[&quot;{#DISKCMD}&quot;].diff()}=1  and {Template_HDD_SMARTMONTOOLS_2_WITH_LLD:uSSD.sn.[&quot;{#DISKCMD}&quot;].strlen()}&gt;0</expression>
                             <recovery_mode>2</recovery_mode>
