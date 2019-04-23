@@ -152,7 +152,7 @@
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>SMART overall-health self-assessment test result: (.+)
+                                    <params>(?:SMART overall-health self-assessment test result:|SMART Health Status:) +(.+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -971,7 +971,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>SMART overall-health self-assessment test result: (.+)
+                                    <params>(?:SMART overall-health self-assessment test result:|SMART Health Status:) +(.+)
 \1</params>
                                 </step>
                             </preprocessing>
