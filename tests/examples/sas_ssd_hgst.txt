@@ -1,0 +1,106 @@
+smartctl -x /dev/disk/by-partlabel/j1d01-ssd 
+smartctl 6.6 2016-05-31 r4324 [x86_64-linux-4.9.0-3-amd64] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Vendor:               HGST
+Product:              HUSMM1640ASS200
+Revision:             A360
+Compliance:           SPC-4
+User Capacity:        400,088,457,216 bytes [400 GB]
+Logical block size:   512 bytes
+Physical block size:  4096 bytes
+LU is resource provisioned, LBPRZ=1
+Rotation Rate:        Solid State Device
+Form Factor:          2.5 inches
+Logical Unit id:      0x5000cca04ec26364
+Serial number:        ZZZZZZZZZ
+Device type:          disk
+Transport protocol:   SAS (SPL-3)
+Local Time is:        Mon Nov  6 10:20:33 2017 CET
+SMART support is:     Available - device has SMART capability.
+SMART support is:     Enabled
+Temperature Warning:  Enabled
+Read Cache is:        Enabled
+Writeback Cache is:   Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART Health Status: OK
+
+Percentage used endurance indicator: 0%
+Current Drive Temperature:     28 C
+Drive Trip Temperature:        70 C
+
+Manufactured in week 30 of year 2017
+Specified cycle count over device lifetime:  0
+Accumulated start-stop cycles:  0
+Specified load-unload count over device lifetime:  0
+Accumulated load-unload cycles:  0
+defect list format 6 unknown
+Elements in grown defect list: 0
+
+Vendor (Seagate) cache information
+  Blocks sent to initiator = 3400674574336
+
+Error counter log:
+           Errors Corrected by           Total   Correction     Gigabytes    Total
+               ECC          rereads/    errors   algorithm      processed    uncorrected
+           fast | delayed   rewrites  corrected  invocations   [10^9 bytes]  errors
+read:          0        0         0         0          0         63.824           0
+write:         0        0         0         0          0         64.403           0
+
+Non-medium error count:        0
+
+No self-tests have been logged
+
+Background scan results log
+  Status: no scans active
+    Accumulated power on time, hours:minutes 1667:36 [100056 minutes]
+    Number of background scans performed: 0,  scan progress: 0.00%
+    Number of background medium scans performed: 0
+
+Protocol Specific port log page for SAS SSP
+relative target port id = 1
+  generation code = 6
+  number of phys = 1
+  phy identifier = 0
+    attached device type: expander device
+    attached reason: SMP phy control function
+    reason: unknown
+    negotiated logical link rate: phy enabled; 12 Gbps
+    attached initiator port: ssp=0 stp=0 smp=0
+    attached target port: ssp=0 stp=0 smp=1
+    SAS address = 0x5000cca04ec26365
+    attached SAS address = 0x500304800910187f
+    attached phy identifier = 1
+    Invalid DWORD count = 4
+    Running disparity error count = 4
+    Loss of DWORD synchronization = 3
+    Phy reset problem = 0
+    Phy event descriptors:
+     Invalid word count: 4
+     Running disparity error count: 4
+     Loss of dword synchronization count: 3
+     Phy reset problem count: 0
+relative target port id = 2
+  generation code = 6
+  number of phys = 1
+  phy identifier = 1
+    attached device type: expander device
+    attached reason: SMP phy control function
+    reason: unknown
+    negotiated logical link rate: phy enabled; 12 Gbps
+    attached initiator port: ssp=0 stp=0 smp=0
+    attached target port: ssp=0 stp=0 smp=1
+    SAS address = 0x5000cca04ec26366
+    attached SAS address = 0x50030480091018ff
+    attached phy identifier = 1
+    Invalid DWORD count = 4
+    Running disparity error count = 4
+    Loss of DWORD synchronization = 3
+    Phy reset problem = 0
+    Phy event descriptors:
+     Invalid word count: 4
+     Running disparity error count: 4
+     Loss of dword synchronization count: 3
+     Phy reset problem count: 0
