@@ -1,0 +1,45 @@
+smartctl 6.6 2017-11-05 r4594 [x86_64-w64-mingw32-win7-sp1] (sf-6.6-1)
+Copyright (C) 2002-17, Bruce Allen, Christian Franke, www.smartmontools.org
+=== START OF INFORMATION SECTION ===
+Model Family:     SandForce Driven SSDs
+Device Model:     KINGSTON SV300S37A120G
+Serial Number:    50026B766C01XXXX
+LU WWN Device Id: 5 0026b7 66c01a2a1
+Firmware Version: 60AABBF0
+User Capacity:    120 bytes [120 GB]
+Sector Size:      512 bytes logical/physical
+Rotation Rate:    Solid State Device
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   ATA8-ACS, ACS-2 T13/2015-D revision 3
+SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Tue Jun 19 00:00:42 2018 RTZ
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART Attributes Data Structure revision number: 10
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+1 Raw_Read_Error_Rate     0x0032   095   095   050    Old_age   Always       -       2/66714750
+5 Retired_Block_Count     0x0033   100   100   003    Pre-fail  Always       -       0
+9 Power_On_Hours_and_Msec 0x0032   093   093   000    Old_age   Always       -       6206h+47m+20.770s
+12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       87
+171 Program_Fail_Count      0x000a   100   100   000    Old_age   Always       -       0
+172 Erase_Fail_Count        0x0032   100   100   000    Old_age   Always       -       0
+174 Unexpect_Power_Loss_Ct  0x0030   000   000   000    Old_age   Offline      -       74
+177 Wear_Range_Delta        0x0000   000   000   000    Old_age   Offline      -       2
+181 Program_Fail_Count      0x000a   100   100   000    Old_age   Always       -       0
+182 Erase_Fail_Count        0x0032   100   100   000    Old_age   Always       -       0
+187 Reported_Uncorrect      0x0012   100   100   000    Old_age   Always       -       0
+189 Airflow_Temperature_Cel 0x0000   047   058   000    Old_age   Offline      -       47 (Min/Max -4/58)
+194 Temperature_Celsius     0x0022   047   058   000    Old_age   Always       -       47 (Min/Max -4/58)
+195 ECC_Uncorr_Error_Count  0x001c   110   110   000    Old_age   Offline      -       2/66714750
+196 Reallocated_Event_Count 0x0033   100   100   003    Pre-fail  Always       -       0
+201 Unc_Soft_Read_Err_Rate  0x001c   110   110   000    Old_age   Offline      -       2/66714750
+204 Soft_ECC_Correct_Rate   0x001c   110   110   000    Old_age   Offline      -       2/66714750
+230 Life_Curve_Status       0x0013   100   100   000    Pre-fail  Always       -       100
+231 SSD_Life_Left           0x0000   097   097   011    Old_age   Offline      -       4294967297
+233 SandForce_Internal      0x0032   000   000   000    Old_age   Always       -       15939
+234 SandForce_Internal      0x0032   000   000   000    Old_age   Always       -       20691
+241 Lifetime_Writes_GiB     0x0032   000   000   000    Old_age   Always       -       20691
+242 Lifetime_Reads_GiB      0x0032   000   000   000    Old_age   Always       -       314

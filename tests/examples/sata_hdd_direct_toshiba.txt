@@ -1,0 +1,44 @@
+smartctl -i -H -A /dev/sda
+smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-957.10.1.el7.x86_64] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     Toshiba 3.5" DT01ACA... Desktop HDD
+Device Model:     TOSHIBA DT01ACA050
+Serial Number:    ZZZZZZZZZ
+LU WWN Device Id: 5 000039 ff6d2b743
+Firmware Version: MS1OA750
+User Capacity:    500,107,862,016 bytes [500 GB]
+Sector Sizes:     512 bytes logical, 4096 bytes physical
+Rotation Rate:    7200 rpm
+Form Factor:      3.5 inches
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   ATA8-ACS T13/1699-D revision 4
+SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 3.0 Gb/s)
+Local Time is:    Mon Apr 22 16:16:26 2019 CEST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x000b   100   100   016    Pre-fail  Always       -       0
+  2 Throughput_Performance  0x0005   137   137   054    Pre-fail  Offline      -       87
+  3 Spin_Up_Time            0x0007   124   124   024    Pre-fail  Always       -       185 (Average 184)
+  4 Start_Stop_Count        0x0012   100   100   000    Old_age   Always       -       49
+  5 Reallocated_Sector_Ct   0x0033   100   100   005    Pre-fail  Always       -       0
+  7 Seek_Error_Rate         0x000b   100   100   067    Pre-fail  Always       -       0
+  8 Seek_Time_Performance   0x0005   118   118   020    Pre-fail  Offline      -       33
+  9 Power_On_Hours          0x0012   093   093   000    Old_age   Always       -       49759
+ 10 Spin_Retry_Count        0x0013   100   100   060    Pre-fail  Always       -       0
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       49
+192 Power-Off_Retract_Count 0x0032   100   100   000    Old_age   Always       -       502
+193 Load_Cycle_Count        0x0012   100   100   000    Old_age   Always       -       502
+194 Temperature_Celsius     0x0002   166   166   000    Old_age   Always       -       36 (Min/Max 23/42)
+196 Reallocated_Event_Count 0x0032   100   100   000    Old_age   Always       -       0
+197 Current_Pending_Sector  0x0022   100   100   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0008   100   100   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x000a   200   200   000    Old_age   Always       -       0
