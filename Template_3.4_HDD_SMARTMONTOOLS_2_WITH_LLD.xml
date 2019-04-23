@@ -469,7 +469,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 9 Power On Hours</name>
+                            <name>{#DISKNAME}: Power on hours</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -512,7 +512,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>Power_On_Hours.+ ([0-9]+)
+                                    <params>(?:Power_On_Hours.+ |Accumulated power on time, hours:minutes |Power On Hours:.+ )([0-9]+)
 \1</params>
                                 </step>
                                 <step>
@@ -1230,7 +1230,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <jmx_endpoint/>
                             <application_prototypes/>
                             <master_item_prototype>
-                                <key>uHDD.get[&quot;{#DISKCMD}&quot;]</key>
+                                <key>uSSD.get[&quot;{#DISKCMD}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -1284,7 +1284,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#DISKNAME}: ID 9 Power On Hours</name>
+                            <name>{#DISKNAME}: Power on hours</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1327,7 +1327,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>Power_On_Hours.+ ([0-9]+)
+                                    <params>(?:Power_On_Hours.+ |Accumulated power on time, hours:minutes |Power On Hours:.+ )([0-9]+)
 \1</params>
                                 </step>
                                 <step>
