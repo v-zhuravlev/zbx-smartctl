@@ -83,6 +83,7 @@ foreach my $disk (@input_disks) {
     $disk->{disk_model}='';
     $disk->{disk_sn}='';
     $disk->{subdisk}=0;
+    $disk->{disk_type}=2; # other
 
     if ( @output_arr = get_smart_disks($disk) ) {
         push @smart_disks, @output_arr;
@@ -164,23 +165,6 @@ sub get_smart_disks {
                 $disk->{disk_type} = 0;
             }
         }
-        if ( !exists($disk->{disk_type})) {
-
-                $disk->{disk_type} = 2;
-                foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_cmd} 2>&1`){
-
-                    #search for Spin_Up_Time or Spin_Retry_Count
-                    if ($extended_line  =~ /Spin_/){
-                        $disk->{disk_type} = 0;
-                        last;
-                    }
-                    #search for SSD in uppercase
-                    elsif ($extended_line  =~ / SSD /){
-                        $disk->{disk_type} = 1;
-                        last;
-                    }
-                }
-        }
 
         if ( $line =~ /Permission denied/ ) {
 
@@ -208,6 +192,23 @@ sub get_smart_disks {
 
         }
         
+    }
+    # if disk_type is still unknown after parsing then rerun with extended -a:
+    if ( $disk->{disk_type} == 2) {
+
+            foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_cmd} 2>&1`){
+
+                #search for Spin_Up_Time or Spin_Retry_Count
+                if ($extended_line  =~ /Spin_/){
+                    $disk->{disk_type} = 0;
+                    last;
+                }
+                #search for SSD in uppercase
+                elsif ($extended_line  =~ / SSD /){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
+            }
     }
     push @disks, $disk;
     return @disks;
