@@ -2,7 +2,7 @@ $smartctl = "C:\Program Files\smartmontools\bin\smartctl.exe"
 
 if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null) 
 { 
-   write-host "Unable to find smartctl"
+   write-host "Unable to find smartctl. Check that smartmontools package is installed"
    exit
 }
 
