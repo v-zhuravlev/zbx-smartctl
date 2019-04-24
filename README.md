@@ -23,10 +23,10 @@ chmod u+x /etc/zabbix/scripts/smartctl-disks-discovery.pl
 
 ```text
 Cmnd_Alias SMARTCTL = /usr/sbin/smartctl
-Cmnd_Alias SMART_DISCOVERY = /etc/zabbix/scripts/smartctl-disks-discovery.pl
-zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMART_DISCOVERY
+Cmnd_Alias SMARTCTL_DISCOVERY = /etc/zabbix/scripts/smartctl-disks-discovery.pl
+zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMARTCTL_DISCOVERY
 Defaults!SMARTCTL !logfile, !syslog, !pam_session
-Defaults!SMART_DISCOVERY !logfile, !syslog, !pam_session
+Defaults!SMARTCTL_DISCOVERY !logfile, !syslog, !pam_session
 ```
 
 Add the following lines in zabbix_agentd.conf file:
@@ -159,7 +159,7 @@ semanage permissive -a zabbix_agent_t
 semodule -DB
 # from zabbox_server issue:
 zabbix_get -s host -k uHDD.discovery
-zabbix_get -s host -k uHDD.i[/dev/sda]
+zabbix_get -s host -k uHDD.get[/dev/sda]
 
 cat /var/log/audit/audit.log | grep zabbix_agent_t | grep denied | audit2allow -M zabbix_smartctl
 semodule -i zabbix_smartctl.pp
