@@ -70,10 +70,10 @@ Defaults!SMARTCTL !logfile, !syslog, !pam_session
 Defaults!SMARTCTL_DISCOVERY !logfile, !syslog, !pam_session
 ```
 
-Add the following lines in zabbix_agentd.conf file:
+Copy zabbix_smartctl.conf to /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf with the following contents:
 
 ```text
-#############SMARTMONTOOLS
+#############ZBX-SMARTCTL V1.4
 ### DEPRECATED. USE for 2.x-3.2 templates
 UserParameter=uHDD[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
 UserParameter=uHDD.value[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$4 }'
@@ -82,11 +82,11 @@ UserParameter=uHDD.model.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Device M
 UserParameter=uHDD.sn.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Serial Number/ { print $$2 }'
 UserParameter=uHDD.health.[*],sudo smartctl -H $1 | awk -F ': +' '$$0 ~ /test/ { print $$2 }'
 UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " " || true
-### DEPRECATED. The following were used in the first version of template for 3.4
+### DEPRECATED. The following were used in the first version of the template for 3.4
 UserParameter=uHDD.A[*],sudo smartctl -A $1
 UserParameter=uHDD.i[*],sudo smartctl -i $1
 UserParameter=uHDD.health[*],sudo smartctl -H $1 || true
-### With the latest template you only need these:
+### With the latest 3.4 template you only need these:
 UserParameter=uHDD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
 UserParameter=uSSD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
 UserParameter=uHDD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
@@ -122,7 +122,7 @@ You should receive JSON object in the output.
 - Add the following lines in zabbix_agentd.conf file (note the path to smartctl.exe):
 
 ```text
-#############SMARTMON
+#############ZBX-SMARTCTL V1.4
 ###DEPRECATED. USE for 2.x-3.2 templates
 UserParameter=uHDD[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
 UserParameter=uHDD.value[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
@@ -131,11 +131,11 @@ UserParameter=uHDD.health.[*], for /F "tokens=6 usebackq" %a in (`""%ProgramFile
 UserParameter=uHDD.model.[*],for /F "tokens=3*  usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Device Model""`) do @echo %a %b
 UserParameter=uHDD.sn.[*],for /F "tokens=3 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Serial Number""`) do @echo %a
 UserParameter=uHDD.errorlog.[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -l error $1 | find "ATA Error Count""`) do @echo %a
-### DEPRECATED. The following were used in the first version of template for 3.4
+### DEPRECATED. The following were used in the first version of the template for 3.4
 UserParameter=uHDD.A[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1"`) do @echo %a
 UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1"`) do @echo %a
 UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1"`) do @echo %a
-### With the latest template you only need these:
+### With the latest 3.4 template you only need these:
 UserParameter=uHDD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
 UserParameter=uHDD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 UserParameter=uSSD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a

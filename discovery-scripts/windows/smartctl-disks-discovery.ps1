@@ -1,3 +1,4 @@
+# VERSION = 1.4
 $smartctl = "C:\Program Files\smartmontools\bin\smartctl.exe"
 
 if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null) 

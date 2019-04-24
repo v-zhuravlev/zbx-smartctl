@@ -3,7 +3,7 @@ use warnings;
 use strict;
 
 #must be run as root
-my $VERSION = 1.0;
+my $VERSION = 1.4;
 
 #add path if needed into $smartctl_cmd
 my $smartctl_cmd = "/usr/sbin/smartctl";
