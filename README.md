@@ -15,6 +15,7 @@ Zabbix server 3.4+ is recommended with dependendent items support but there are 
   - Discover Hardware RAID with `sg_scan` (nix only)
   - Discover NVMe devices with `nvme-cli` (nix only)
   - Handling usbjmicron (nix only)
+  - Handling Areca SATA RAID (nix only)
   - Try to enable SMART if it is disabled(nix, macos, windows)
   - (new) static discovery (nix only)
   - HDD(0), SSD/NVMe(1), `other`(2) classification in {#DISKTYPE} macro (nix, macos, windows)
