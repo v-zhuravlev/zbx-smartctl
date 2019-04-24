@@ -13,6 +13,29 @@ my @input_disks;
 my @global_serials;
 my @smart_disks;
 
+# by providing additional positional arguments you can add disks that are hardly discovered otherwise.
+# for example to force discovery of the following disks provide '/dev/sda_-d_sat+megaraid,00 /dev/sda_-d_sat+megaraid,01' as arguments
+if (@ARGV>0) {
+    foreach my $disk_line (@ARGV) {
+        $disk_line =~ s/_/ /g;
+        my ($disk_name) = $disk_line =~ /(\/(.+?))(?:$|\s)/;
+        my ($disk_args) = $disk_line =~ /(-d [A-Za-z0-9,\+]+)/;
+        if (!defined($disk_args)) {
+           $disk_args = '';
+        }
+
+
+        if ( $disk_name and defined($disk_args) ) {
+            push @input_disks,
+                {
+                    disk_name => $disk_name,
+                    disk_args => $disk_args
+                };
+        }
+    }
+}
+
+
 if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smartctl --scan-open)
 
     while ( glob('/dev/disk*') ) {
@@ -36,7 +59,7 @@ else {
         #"/dev/bus/0 -d megaraid,01" for megaraid
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
-        my ($disk_name) = $_ =~ /(\/(.+?))\s/;
+        my ($disk_name) = $_ =~ /(\/(.+?))(?:$|\s)/;
         my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,\+]+)/;
 
         if ( $disk_name and $disk_args ) {

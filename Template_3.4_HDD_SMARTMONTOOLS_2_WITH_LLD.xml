@@ -30,7 +30,7 @@
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>uHDD.discovery</key>
+                    <key>uHDD.discovery[&quot;{$SMARTCTL_STATIC_DISKS}&quot;]</key>
                     <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -68,7 +68,14 @@
                         </conditions>
                     </filter>
                     <lifetime>30d</lifetime>
-                    <description/>
+                    <description>SMARTCTL_STATIC_DISKS - add additional disks in this macro with -d option. Replace all spaces with '_' inside each disk command. Separate multiple disks with space. &#13;
+For example, to discover 2 drives behind hardware RAID, set this macro on the host level:&#13;
+&#13;
+SMARTCTL_STATIC_DISKS = /dev/sda_-d_sat+megaraid,00 /dev/sda_-d_sat+megaraid,01&#13;
+&#13;
+Useful for disks that cannot be easily discovered such as disks hidden behind RAID or when agent is installed on Windows or Mac where automatic discovery is not so powerful. &#13;
+&#13;
+Setting this macro doesn't prevent any automatic attempts to discover disks using smartctl --scan-open and so on.</description>
                     <item_prototypes>
                         <item_prototype>
                             <name>{#DISKNAME}: smartctl</name>
@@ -911,7 +918,7 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>uSSD.discovery</key>
+                    <key>uSSD.discovery[&quot;{$SMARTCTL_STATIC_DISKS}&quot;]</key>
                     <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -949,7 +956,14 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                         </conditions>
                     </filter>
                     <lifetime>30d</lifetime>
-                    <description/>
+                    <description>SMARTCTL_STATIC_DISKS - add additional disks in this macro with -d option. Replace all spaces with '_' inside each disk command. Separate multiple disks with space. &#13;
+For example, to discover 2 drives behind hardware RAID, set this macro on the host level:&#13;
+&#13;
+SMARTCTL_STATIC_DISKS = /dev/sda_-d_sat+megaraid,00 /dev/sda_-d_sat+megaraid,01&#13;
+&#13;
+Useful for disks that cannot be easily discovered such as disks hidden behind RAID or when agent is installed on Windows or Mac where automatic discovery is not so powerful. &#13;
+&#13;
+Setting this macro doesn't prevent any automatic attempts to discover disks using smartctl --scan-open and so on.</description>
                     <item_prototypes>
                         <item_prototype>
                             <name>{#DISKNAME}: smartctl</name>
@@ -1651,6 +1665,10 @@ Triger: Timeouts in 1 day if there are no new errors.</description>
                 <macro>
                     <macro>{$SMARTCTL_OK_STATUS:&quot;SATA&quot;}</macro>
                     <value>PASSED</value>
+                </macro>
+                <macro>
+                    <macro>{$SMARTCTL_STATIC_DISKS}</macro>
+                    <value/>
                 </macro>
                 <macro>
                     <macro>{$TEMP_CRIT:&quot;HDD&quot;}</macro>
