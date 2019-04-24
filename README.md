@@ -137,11 +137,12 @@ Please also keep in mind things require improvement (welcome!)
 |Discovery with smartctl --scan-open| Y | Y |
 |Discovery with sg_scan | Y |  |
 |Static discovery with {$SMARTCTL_STATIC_DISKS}| Y |  | Y
+|Discovery with nvme | Y |  |
 |Disks deduplication by serial number | Y | Y |Y
 |Try to enable SMART if it is disabled | Y |   |Y
 | Handling usbjmicron (see perl script)|  Y |  |
 | SAS disks support | Y |  |
-| NVMe disks support |   |  |
+| NVMe disks support | Y | | |
 | SSD or HHD classification, {#DISKTYPE} | Y | Y |Y
 | {#DISKNAME} | Y | Y |Y
 | {#DISKCMD} | Y | Y |Y

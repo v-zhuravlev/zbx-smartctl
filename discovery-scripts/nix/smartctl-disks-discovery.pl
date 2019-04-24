@@ -9,6 +9,7 @@ my $VERSION = 1.0;
 my $smartctl_cmd = "/usr/sbin/smartctl";
 die "Unable to find smartctl. Check that smartmontools package is installed.\n" unless (-x $smartctl_cmd);
 my $sg_scan_cmd = "/usr/bin/sg_scan";
+my $nvme_cmd = "/usr/sbin/nvme";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
@@ -94,8 +95,27 @@ else {
             }
 
         }
+    }
 
+    if (-x $nvme_cmd){
+        foreach my $line (`$nvme_cmd list`) {
+            ## sg_scan -i
+            # Node             SN                   Model                                    Namespace Usage                      Format           FW Rev
+            # ---------------- -------------------- ---------------------------------------- --------- -------------------------- ---------------- --------
+            # /dev/nvme0n1     S3W8NX0M10ZZZZ       SAMSUNG MZVLB512HAJQ-00000               1          18.87  GB / 512.11  GB    512   B +  0 B   EXA7301Q
+            # /dev/nvme1n1     S3W8NX0M15ZZZZ       SAMSUNG MZVLB512HAJQ-00000               1         511.77  GB / 512.11  GB    512   B +  0 B   EXA7301Q
+            if ($line =~ /(\/(?:.+?))\s/){
+                    my ($disk_name) = $1;
+                    my ($disk_args) = "";
 
+                    push @input_disks,
+                        {
+                            disk_name => $disk_name,
+                            disk_args => $disk_args
+                        };
+            }
+
+        }
     }
 }
 
@@ -175,23 +195,28 @@ sub get_smart_disks {
                 }
             }
         }
-        elsif ( $line =~ /^Device Model: +(.+)$/ ) {
+        if ( $line =~ /^Device Model: +(.+)$/i ) {
+                $disk->{disk_model} = $1;
+        }
+
+        #for NVMe disks and some ATA: Model Number:
+        if ( $line =~ /^Model Number: +(.+)$/i ) {
                 $disk->{disk_model} = $1;
         }
         
         #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Vendor: +(.+)/ ) {
+        if ( $line =~ /Vendor: +(.+)$/i ) {
             $disk->{disk_model} = $1;
         }
         #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Product: +(.+)/ ) {
+        if ( $line =~ /Product: +(.+)$/i ) {
             $disk->{disk_model} .= q{ }.$1;
         }
 
         
-        if ( $line =~ /Rotation Rate: (.+)/ ) {
+        if ( $line =~ /Rotation Rate: (.+)/i ) {
 
-            if ( $1 =~ /Solid State Device/ ) {
+            if ( $1 =~ /Solid State Device/i ) {
                 $disk->{disk_type} = 1;
             }
             elsif( $1 =~ /rpm/ ) {
@@ -226,6 +251,10 @@ sub get_smart_disks {
         }
         
     }
+    
+    if ( $disk->{disk_name} =~ /nvme/ ) {
+            $disk->{disk_type} = 1; # /dev/nvme is always SSD
+    }
     # if disk_type is still unknown after parsing then rerun with extended -a:
     if ( $disk->{disk_type} == 2) {
 
@@ -238,6 +267,11 @@ sub get_smart_disks {
                 }
                 #search for SSD in uppercase
                 elsif ($extended_line  =~ / SSD /){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
+                #search for NVME
+                elsif ($extended_line  =~ /NVMe/){
                     $disk->{disk_type} = 1;
                     last;
                 }
