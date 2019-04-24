@@ -148,6 +148,9 @@ sub get_smart_disks {
     $disk->{disk_cmd} = $disk->{disk_name};
     if (length($disk->{disk_args}) > 0){
         $disk->{disk_cmd}.=q{ }.$disk->{disk_args};
+        if ( $disk->{subdisk} == 1 and $disk->{disk_args} =~ /-d\s+[^,\s]+,(\S+)/) {
+            $disk->{disk_name} .= " ($1)";
+        }
     }
 
     #my $testline = "open failed: Two devices connected, try '-d usbjmicron,[01]'";
@@ -164,10 +167,6 @@ sub get_smart_disks {
             if ( $1 =~ /Enabled/ ) {
                 $disk->{smart_enabled} = 1;
             }
-            elsif ( $1 =~ /Unavailable/ ) {
-                `$smartctl_cmd -i $disk->{disk_cmd} 2>&1`;
-            }
-
             #if SMART is disabled then try to enable it (also offline tests etc)
             elsif ( $1 =~ /Disabled/ ) {
                 foreach (`smartctl -s on -o on -S on $disk->{disk_cmd}`)
@@ -177,8 +176,21 @@ sub get_smart_disks {
             }
         }
     }
-    
+    my $vendor = '';
+    my $product = '';
     foreach my $line (@smartctl_output) {
+        # SAS: filter out non-disk devices (enclosure, cd/dvd)
+        if ( $line =~ /^Device type: +(.+)$/ ) {
+                if ( $1 ne "disk" ) {
+                    return;
+                }
+        }
+        # Areca: filter out empty slots
+        if ( $line =~ /^Read Device Identity failed: empty IDENTIFY data/ ) {
+            return;
+        }
+    
+    
         
         if ( $line =~ /^serial number: +(.+)$/i ) {
 
@@ -203,16 +215,15 @@ sub get_smart_disks {
         if ( $line =~ /^Model Number: +(.+)$/i ) {
                 $disk->{disk_model} = $1;
         }
-        
         #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Vendor: +(.+)$/i ) {
-            $disk->{disk_model} = $1;
+        elsif ( $line =~ /^Vendor: +(.+)$/ ) {
+                $vendor = $1;
+                $disk->{disk_model} = $vendor;
         }
-        #for SAS disks: Model = Vendor + Product
-        if ( $line =~ /Product: +(.+)$/i ) {
-            $disk->{disk_model} .= q{ }.$1;
+        elsif ( $line =~ /^Product: +(.+)$/ ) {
+                $product = $1;
+                $disk->{disk_model} .= q{ }.$product;
         }
-
         
         if ( $line =~ /Rotation Rate: (.+)/i ) {
 
@@ -252,12 +263,28 @@ sub get_smart_disks {
         
     }
     
+    # Areca SATA RAID
+    if ( $disk->{subdisk} == 0 and $vendor eq "Areca" and $product eq "RAID controller" ) {
+        for (my $i = 1; $i <= 16; $i++) {
+            push @disks,
+                get_smart_disks(
+                    {
+                        disk_name => $disk->{disk_name},
+                        disk_args => "-d areca,$i",
+                        disk_model => '',
+                        disk_sn => '',
+                        subdisk   => 1
+                    }
+                );
+        }
+        return @disks;
+    }
+
     if ( $disk->{disk_name} =~ /nvme/ ) {
             $disk->{disk_type} = 1; # /dev/nvme is always SSD
     }
     # if disk_type is still unknown after parsing then rerun with extended -a:
     if ( $disk->{disk_type} == 2) {
-
             foreach my $extended_line (`$smartctl_cmd -a $disk->{disk_cmd} 2>&1`){
 
                 #search for Spin_Up_Time or Spin_Retry_Count
