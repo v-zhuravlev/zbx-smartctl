@@ -270,6 +270,11 @@ sub get_smart_disks {
                     $disk->{disk_type} = 1;
                     last;
                 }
+                #search for NVME
+                elsif ($extended_line  =~ /NVMe/){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
             }
     }
     push @disks, $disk;
