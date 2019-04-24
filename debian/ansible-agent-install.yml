@@ -6,9 +6,9 @@
   gather_facts: true
   tasks:
   - name: "Install smartmontools"
-    apt:
+    package:
       name: smartmontools
-      update_cache: yes
+      state: latest
   - name: "Copy sudoers file"
     copy:
       src: ../sudoers_zabbix_smartctl
