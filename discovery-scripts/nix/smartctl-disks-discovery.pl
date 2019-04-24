@@ -156,6 +156,16 @@ sub get_smart_disks {
                 $disk->{disk_model} = $1;
         }
         
+        #for SAS disks: Model = Vendor + Product
+        if ( $line =~ /Vendor: +(.+)/ ) {
+            $disk->{disk_model} = $1;
+        }
+        #for SAS disks: Model = Vendor + Product
+        if ( $line =~ /Product: +(.+)/ ) {
+            $disk->{disk_model} .= q{ }.$1;
+        }
+
+        
         if ( $line =~ /Rotation Rate: (.+)/ ) {
 
             if ( $1 =~ /Solid State Device/ ) {
