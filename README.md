@@ -47,9 +47,9 @@ UserParameter=uHDD.i[*],sudo smartctl -i $1
 UserParameter=uHDD.health[*],sudo smartctl -H $1 || true
 ### With the latest template you only need these:
 UserParameter=uHDD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
+UserParameter=uSSD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
 UserParameter=uHDD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
-Alias=uSSD.discovery[*]:uHDD.discovery[*]
-Alias=uSSD.get[*]:uHDD.get[*]
+UserParameter=uSSD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
 ```
 
 #### Building deb package
@@ -93,8 +93,8 @@ UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles
 ### With the latest template you only need these:
 UserParameter=uHDD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
 UserParameter=uHDD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
-Alias=uSSD.discovery[*]:uHDD.discovery[*]
-Alias=uSSD.get[*]:uHDD.get[*]
+UserParameter=uSSD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
+UserParameter=uSSD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
 ```
 
 ## Examples
