@@ -2,15 +2,56 @@
 
 ## Description
 
-This is the template for Zabbix providing SMART monitoring for HDD using smartctl utility.
-*main* branch has the template for Zabbix 3.4 with dependendent items support and also old templates for 3.2-3.0, 2.4, 2.2. Only devices with SMART enabled will be discovered.
+This is the template and discovery scripts for monitoring disks SMART attributes using smartmontools in Zabbix.  
+Zabbix server 3.4+ is recommended with dependendent items support but there are also older templates for 3.2, 3.0, 2.4, 2.2 provided as is. Discovery scripts should work with them too.
+
+### Main features
+
+- Supports SATA, SAS and NVMe devices
+- Disks discovery:
+  - Two discovery scripts - for Linux/BSD/MacOS and Windows
+  - Simple discovery in MacOS by scanning `/dev/disk/*` (macos)
+  - Discover with smartctl --scan-open (nix, windows)
+  - Discover Hardware RAID with `sg_scan` (nix only)
+  - Discover NVMe devices with `nvme-cli` (nix only)
+  - Handling usbjmicron (nix only)
+  - Try to enable SMART if it is disabled(nix, macos, windows)
+  - (new) static discovery (nix only)
+  - HDD(0), SSD/NVMe(1), `other`(2) classification in {#DISKTYPE} macro (nix, macos, windows)
+  - LLD macros in output: {#DISKNAME}, {#DISKCMD}, {#DISKTYPE}, {#DISKMODEL}, {#DISKSN}. {#SMART_ENABLED} (nix, macos, windows)
+- Templates:
+  - For all templates:
+    - Zabbix agent required with UserParameter
+    - LLD discovery of disks
+    - 'Problems first' approach. Collect items that can help to detect disk failures
+    - Skip disks if SMART_ENABLED != 1
+    - SATA devices support
+  - 3.4+ template:
+    - Two discovery rules: for HDD and SSD/NVMe to reduce the number of unsupported
+    - Server side regex parsing, so, very simple UserParameters in agent configs
+    - No excessive calls to disks. Collect all items in the single smartctl run
+    - SAS devices support
+    - NVMe devices support
+    - Static discovery support with {$SMARTCTL_STATIC_DISKS}
+
+#### About static discovery
+
+Static discovery is useful for disks that cannot be easily discovered, such as disks hidden behind some hardware RAIDs or when agent is installed on Windows or Mac where automatic discovery is not so powerful.
+
+`{$SMARTCTL_STATIC_DISKS}` - If some disks cannot be discovered automatically no matter how hard you try, you can add additional disks with -d option in this macro on the host level. Such disks will be discovered in addition to any disks that will be discovered with smartctl --scan-open, sg_scan and so on.
+
+Replace all spaces with `_` inside each disk command. Separate multiple disks with space ' '.
+For example, to discover 2 drives behind hardware RAID, set this macro on the host level:
+
+`{$SMARTCTL_STATIC_DISKS} = /dev/sda_-d_sat+megaraid,00 /dev/sda_-d_sat+megaraid,01`
 
 ## Installation
 
 ### Linux/BSD/Mac OSX
 
-- Make sure that smartmontools utils are installed:
-- (optional) install `sg3-utils` if you need to monitor hardware RAIDs. See [#29](https://github.com/v-zhuravlev/zbx-smartctl/pull/29)
+- Make sure that smartmontools package is installed
+- (optional) Install `sg3-utils` if you need to monitor hardware RAIDs. See [#29](https://github.com/v-zhuravlev/zbx-smartctl/pull/29)
+- (optional) Install `nvme-cli` if you need to monitor NVMe devices.  
 - Install the script `smartctl-disks-discovery.pl` in `/etc/zabbix/scripts/`, then run:
 
 ```text
@@ -60,13 +101,17 @@ You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu dist
 dpkg-buildpackage -tc -Zgzip
 ```
 
+#### Ansible playbook
+
+There is an ansible playbook available in this repo, feel free to try it.
+
 ### Windows
 
 Powershell required.
 
-- Make sure that smartmontools utils are installed:
-- install the script smartctl-disks-discovery.ps1
-- test the script by running it with:
+- Make sure that smartmontools package is installed
+- Install the script smartctl-disks-discovery.ps1
+- Test the script by running it with:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1".
@@ -110,49 +155,29 @@ Please keep in mind key concepts when submitting a PR:
 
 - The template should work with Windows, Linux, MacOS.
 - Discovery scripts should not have any dependencies (apart from smartctl)
-- Discovery scripts deduplicates disks (using serial number as unique id)
+- Discovery scripts should deduplicate disks (using serial number as unique id)
 - Discovery scripts should output the following set of macros:
   - {#DISKSN} - Disk serial number
   - {#DISKMODEL} - Disk model
   - {#DISKNAME} - Disk name you would like to use in item name
   - {#DISKCMD} - System disk name with -d param to be used in running smartctl
   - {#SMART_ENABLED} - 1 or 0
-  - {#DISKTYPE} - 0 - HDD, 1 - SSD, 2 - Other(ODD etc)
+  - {#DISKTYPE} - 0 - HDD, 1 - SSD/NVMe, 2 - Other(ODD etc)
   
   To make sure that the sources of these macro is available everywhere, it is best to use output of `smartctl -i` or `smartctl --scan-open`. Other macros may be added, but try to edit both windows and nix scripts at the same time.
 
-
-Please also keep in mind things require improvement (welcome!)
+Please also keep in mind things that require improvement (welcome!)
 
 - Absolute paths used(especially in Windows(UserParameters,inside powershell script))
-- Discovery scripts should probably fail if not run under Admin/root(since its impossible to collect proper data)
+- Discovery script should probably fail if not run under Admin/root(since its impossible to collect proper data)
 - usbjmicron is not implemented in Windows, only in Linux discovery script
-- There are no tests. It's nice to run discovery scripts automatically using `/examples` directory contents as mocks. So it's easier to accept PRs. Btw you can also PR your outputs to examples folder
-- I don't have MacOS around so sometimes recent changes break stuff there since I can't test it properly 
-
-## Features per platform
-
-|Feature/OS |Linux | Win | MacOS|
-|-|-|-|-|
-|Discovery with smartctl --scan-open| Y | Y |
-|Discovery with sg_scan | Y |  |
-|Static discovery with {$SMARTCTL_STATIC_DISKS}| Y |  | Y
-|Discovery with nvme | Y |  |
-|Disks deduplication by serial number | Y | Y |Y
-|Try to enable SMART if it is disabled | Y |   |Y
-| Handling usbjmicron (see perl script)|  Y |  |
-| SAS disks support | Y |  |
-| NVMe disks support | Y | | |
-| SSD or HHD classification, {#DISKTYPE} | Y | Y |Y
-| {#DISKNAME} | Y | Y |Y
-| {#DISKCMD} | Y | Y |Y
-| {#DISKMODEL} | Y | Y |Y
-| {#DISKSN} | Y | Y |Y
+- nvme discovery is not implemented in Windows, only in Linux discovery script
+- There are no proper tests. It's nice to run discovery scripts automatically using `/tests/examples` directory contents as mocks. So it's easier to accept PRs. BTW you can also PR your outputs to examples folder
+- MacOS disks discovery is very limited. Feel free to improve it.
 
 ## Troubleshooting
 
-1. `smartctl` might be slow to respond when discovering disks. Increase `Timeout=` if having issues.  
-2. SELinux. Turn it off or add a selinux policy:
+1. SELinux. Turn it off or add a selinux policy:
 
 ```text
 yum install policycoreutils-python
@@ -167,7 +192,6 @@ semodule -i zabbix_smartctl.pp
 semanage permissive -d zabbix_agent_t
 semodule -B
 ```
-
 
 ## License
 
