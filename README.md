@@ -12,6 +12,7 @@ Zabbix server 3.4+ is recommended with dependendent items support but there are 
   - Two discovery scripts - for Linux/BSD/MacOS and Windows
   - Simple discovery in MacOS by scanning `/dev/disk/*` (macos)
   - Discover with smartctl --scan-open (nix, windows)
+  - Discover NVMe devices with smartctl --scan-open -dnvme (nix, windows)
   - Discover Hardware RAID with `sg_scan` (nix only)
   - Discover NVMe devices with `nvme-cli` (nix only)
   - Handling usbjmicron (nix only)
