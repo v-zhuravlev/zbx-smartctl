@@ -53,15 +53,7 @@ For example, to discover 2 drives behind hardware RAID, set this macro on the ho
 - Make sure that smartmontools package is installed
 - (optional) Install `sg3-utils` if you need to monitor hardware RAIDs. See [#29](https://github.com/v-zhuravlev/zbx-smartctl/pull/29)
 - (optional) Install `nvme-cli` if you need to monitor NVMe devices.  
-- Install the script `smartctl-disks-discovery.pl` in `/etc/zabbix/scripts/`, then run:
-
-```text
-chown zabbix:zabbix /etc/zabbix/scripts/smartctl-disks-discovery.pl
-chmod u+x /etc/zabbix/scripts/smartctl-disks-discovery.pl
-```
-
-- Test the script by running it as sudo. You should receive JSON object in the script output
-- add the following permissions into /etc/sudoers using `visudo`:
+- Copy the following contents of `sudoers_zabbix_smartctl` file to `/etc/sudoers.d/sudoers_zabbix_smartctl`:
 
 ```text
 Cmnd_Alias SMARTCTL = /usr/sbin/smartctl
@@ -71,28 +63,18 @@ Defaults!SMARTCTL !logfile, !syslog, !pam_session
 Defaults!SMARTCTL_DISCOVERY !logfile, !syslog, !pam_session
 ```
 
-Copy zabbix_smartctl.conf to /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf with the following contents:
-
+- Copy `zabbix_smartctl.conf` to `/etc/zabbix/zabbix_agentd.d`
+- Copy script `smartctl-disks-discovery.pl` to `/etc/zabbix/scripts`
+  - Then run
+  
 ```text
-#############ZBX-SMARTCTL V1.4
-### DEPRECATED. USE for 2.x-3.2 templates
-UserParameter=uHDD[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
-UserParameter=uHDD.value[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$4 }'
-UserParameter=uHDD.raw_value[*],sudo smartctl -A $1 | awk '$$0 ~ /$2/ { print $$10 }'
-UserParameter=uHDD.model.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Device Model/ { print $$2 }'
-UserParameter=uHDD.sn.[*],sudo smartctl -i $1 | awk -F ': +' '$$0 ~ /Serial Number/ { print $$2 }'
-UserParameter=uHDD.health.[*],sudo smartctl -H $1 | awk -F ': +' '$$0 ~ /test/ { print $$2 }'
-UserParameter=uHDD.errorlog.[*],sudo smartctl -l error $1 |grep -i "ATA Error Count"| cut -f2 -d: |tr -d " " || true
-### DEPRECATED. The following were used in the first version of the template for 3.4
-UserParameter=uHDD.A[*],sudo smartctl -A $1
-UserParameter=uHDD.i[*],sudo smartctl -i $1
-UserParameter=uHDD.health[*],sudo smartctl -H $1 || true
-### With the latest 3.4 template you only need these:
-UserParameter=uHDD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
-UserParameter=uSSD.get[*],sudo smartctl -i -H -A -l error -l background $1 || true
-UserParameter=uHDD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
-UserParameter=uSSD.discovery[*],sudo /etc/zabbix/scripts/smartctl-disks-discovery.pl $1
+chown zabbix:zabbix /etc/zabbix/scripts/smartctl-disks-discovery.pl
+chmod u+x /etc/zabbix/scripts/smartctl-disks-discovery.pl
 ```
+
+- Test the discovery script by running it as sudo. You should receive JSON object in the script output.
+- Restart zabbix-agent
+
 
 #### Building deb package
 
@@ -108,40 +90,33 @@ There is an ansible playbook available in this repo, feel free to try it.
 
 ### Windows
 
-Powershell required.
-
-- Make sure that smartmontools package is installed
-- Install the script smartctl-disks-discovery.ps1
-- Test the script by running it with:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1".
-```
-
-You should receive JSON object in the output.
-
-- Add the following lines in zabbix_agentd.conf file (note the path to smartctl.exe):
+- Install [smartmontools](https://www.smartmontools.org/wiki/Download#InstalltheWindowspackage), prefer default installation path
+- Install Zabbix agent using [official MSI package](https://www.zabbix.com/download_agents), prefer default installation path
+- Copy script `smartctl-disks-discovery.ps1` to `Zabbix Agent` folder
+- Copy file `zabbix_smartctl.win.conf` to `Zabbix Agent\zabbix_agentd.conf.d` folder
+  - Check that path to smartmontools bin folder and to discovery script `smartctl-disks-discovery.ps1` are correct
+- Restart Zabbix Agent service
+- Test items
+  - Test discovery and retrieval of disks data:
 
 ```text
-#############ZBX-SMARTCTL V1.4
-###DEPRECATED. USE for 2.x-3.2 templates
-UserParameter=uHDD[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
-UserParameter=uHDD.value[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
-UserParameter=uHDD.raw_value[*], for /F "tokens=10 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1 | find "$2""`) do @echo %a
-UserParameter=uHDD.health.[*], for /F "tokens=6 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1 | find "test""`) do @echo %a
-UserParameter=uHDD.model.[*],for /F "tokens=3*  usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Device Model""`) do @echo %a %b
-UserParameter=uHDD.sn.[*],for /F "tokens=3 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1 | find "Serial Number""`) do @echo %a
-UserParameter=uHDD.errorlog.[*], for /F "tokens=4 usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -l error $1 | find "ATA Error Count""`) do @echo %a
-### DEPRECATED. The following were used in the first version of the template for 3.4
-UserParameter=uHDD.A[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -A $1"`) do @echo %a
-UserParameter=uHDD.i[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i $1"`) do @echo %a
-UserParameter=uHDD.health[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -H $1"`) do @echo %a
-### With the latest 3.4 template you only need these:
-UserParameter=uHDD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
-UserParameter=uHDD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
-UserParameter=uSSD.get[*], for /F "tokens=* usebackq" %a in (`""%ProgramFiles%\smartmontools\bin\smartctl.exe" -i -H -A -l error -l background $1"`) do @echo %a
-UserParameter=uSSD.discovery[*],powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Program Files (x86)\Zabbix Agent\smartctl-disks-discovery.ps1"
+PS C:\Program Files\Zabbix Agent> .\zabbix_agentd.exe -c .\zabbix_agentd.conf -t uHDD.discovery
+uHDD.discovery                                [t|{
+ "data":[
+         {
+                "{#DISKSN}":"ZZZZZZZZZZZZ",
+                "{#DISKMODEL}":"THNSN5512GPUK TOSHIBA",
+                "{#DISKNAME}":"/dev/sda",
+                "{#DISKCMD}":"/dev/sda -dnvme",
+                "{#SMART_ENABLED}":"0",
+                "{#DISKTYPE}":"1"
+         }
+ ]
+}]
+PS C:\Program Files\Zabbix Agent> .\zabbix_agentd.exe -c .\zabbix_agentd.conf -t uHDD.get["/dev/sda -d nvme"]
+uHDD.get[/dev/nvme1]                          [t|smartctl 6.6 2017-11-05 r4594 [x86_64-w64-mingw32-w10-b17134] (sf-6.6-1)..DISK OUTPUT HERE.....]
 ```
+
 
 ## Examples
 
