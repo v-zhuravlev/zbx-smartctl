@@ -98,7 +98,7 @@ foreach ($smart_scanresult in $smart_scanresults)
     $Drive = $line  | select-string "Rotation Rate:" 
     if($Drive -like "*Solid State Device*") {$disk_type = "1"} 
     elseif ($Drive -like "*rpm*") {$disk_type = "0"}
-    else { 
+    else {
         #Can't determine, lets go extended
         $extended_line = & $smartctl "-a" $disk_name $disk_args
         
@@ -114,8 +114,31 @@ foreach ($smart_scanresult in $smart_scanresults)
         elseif ($extended_line  | select-string "NVMe" -CaseSensitive){
             $disk_type = "1"
         }
+        elseif ($extended_line | select-string "177 Wear_Leveling" -CaseSensitive) {
+            $disk_type = "1"
+        }
+        elseif ($extended_line | select-string "231 SSD_Life_Left" -CaseSensitive) {
+            $disk_type = "1"
+        }
+        elseif ($extended_line | select-string "233 Media_Wearout_" -CaseSensitive) {
+            $disk_type = "1"
+        }
         else {
             $disk_type = "2"
+        }
+    }
+
+    if ($sn) {
+        $disk_sn=$sn.trim()
+    
+        if ($global_serials -contains $disk_sn ){
+            continue
+            #skip duplicated disk, go to next one
+        } else {
+            #add only smart capable disks to global serials
+            if ($smart_enabled -eq 1){
+                $global_serials+=$disk_sn
+            }
         }
     }
               

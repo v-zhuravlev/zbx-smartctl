@@ -302,6 +302,21 @@ sub get_smart_disks {
                     $disk->{disk_type} = 1;
                     last;
                 }
+                #search for 177 Wear Leveling Count(present only on SSD):
+                elsif ($extended_line  =~ /177 Wear_Leveling/){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
+                #search for 231 SSD_Life_Left (present only on SSD)
+                elsif ($extended_line  =~ /231 SSD_Life_Left/){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
+                #search for 233 Media_Wearout_Indicator (present only on SSD)
+                elsif ($extended_line  =~ /233 Media_Wearout_/){
+                    $disk->{disk_type} = 1;
+                    last;
+                }
             }
     }
     push @disks, $disk;
