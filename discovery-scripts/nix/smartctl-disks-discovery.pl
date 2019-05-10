@@ -127,6 +127,7 @@ foreach my $disk (@input_disks) {
     $disk->{disk_sn}='';
     $disk->{subdisk}=0;
     $disk->{disk_type}=2; # other
+    $disk->{disk_tt}='{\$TEMP_WARN:\'HDD\'}';
 
     if ( @output_arr = get_smart_disks($disk) ) {
         push @smart_disks, @output_arr;
@@ -158,7 +159,7 @@ sub get_smart_disks {
     #if ($disk->{subdisk} == 1) {
     #$testline = "/dev/sdb -d usbjmicron,$disk->{disk_args} # /dev/sdb [USB JMicron], ATA device";
     #}
-    my @smartctl_output = `$smartctl_cmd -i $disk->{disk_cmd} 2>&1`;
+    my @smartctl_output = `$smartctl_cmd -a $disk->{disk_cmd} 2>&1`;
     foreach my $line (@smartctl_output) {
         #foreach my $line ($testline) {
         #print $line;
@@ -235,6 +236,11 @@ sub get_smart_disks {
             }
         }
 
+        if ( $line =~ /^Drive Trip Temperature: +([0-9]{1,3}) +C$/ ) {
+		if ( $1 > 0 ) {
+		  $disk->{disk_tt} = $1;
+                }
+        }
         if ( $line =~ /Permission denied/ ) {
 
             warn $line;
@@ -341,7 +347,8 @@ sub json_discovery {
         print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}."\",\n";
         print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_cmd}."\",\n";
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\",\n";
-        print "\t\t\t\"{#DISKTYPE}\":\"".$disk->{disk_type}."\"\n";
+        print "\t\t\t\"{#DISKTYPE}\":\"".$disk->{disk_type}."\",\n";
+        print "\t\t\t\"{#DISKTT}\":\"".$disk->{disk_tt}."\"\n";
         print "\t\t}";
 
     }
