@@ -135,23 +135,10 @@ foreach ($smart_scanresult in $smart_scanresults)
         }
     }
 
-    if ($sn) {
-        $disk_sn=$sn.trim()
-    
-        if ($global_serials -contains $disk_sn ){
-            continue
-            #skip duplicated disk, go to next one
-        } else {
-            #add only smart capable disks to global serials
-            if ($smart_enabled -eq 1){
-                $global_serials+=$disk_sn
-            }
-        }
-    }
-              
+
     if ($idx -eq 1)
     {
-        
+
     } else
     {
         $json +=  ",`n"
