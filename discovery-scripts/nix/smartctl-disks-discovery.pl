@@ -50,8 +50,10 @@ if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smart
     }
 }
 else {
-    for (`$smartctl_cmd --scan-open`.
-         `$smartctl_cmd --scan-open -dnvme`) {
+    foreach my $line (@{[
+        `$smartctl_cmd --scan-open`,
+        `$smartctl_cmd --scan-open -dnvme`
+        ]}) {
 
         #my $testline = "# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open" ;
         #for ($testline) {
@@ -61,8 +63,8 @@ else {
         #"/dev/bus/0 -d megaraid,01" for megaraid
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
-        my ($disk_name) = $_ =~ /(\/(.+?))(?:$|\s)/;
-        my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,\+]+)/;
+        my ($disk_name) = $line =~ /(\/(.+?))(?:$|\s)/;
+        my ($disk_args) = $line =~ /(-d [A-Za-z0-9,\+]+)/;
 
         if ( $disk_name and $disk_args ) {
             push @input_disks,
