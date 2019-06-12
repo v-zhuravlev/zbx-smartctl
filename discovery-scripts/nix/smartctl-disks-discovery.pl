@@ -324,6 +324,14 @@ sub get_smart_disks {
 
 }
 
+
+
+sub escape_json_string {
+    my $string = shift;
+    $string =~  s/(\\|")/\\$1/g;
+    return $string;
+}
+
 sub json_discovery {
     my $disks = shift;
 
@@ -336,10 +344,10 @@ sub json_discovery {
         print ",\n" if not $first;
         $first = 0;
         print "\t\t{\n";
-        print "\t\t\t\"{#DISKMODEL}\":\"".$disk->{disk_model}."\",\n";
-        print "\t\t\t\"{#DISKSN}\":\"".$disk->{disk_sn}."\",\n";
-        print "\t\t\t\"{#DISKNAME}\":\"".$disk->{disk_name}."\",\n";
-        print "\t\t\t\"{#DISKCMD}\":\"".$disk->{disk_cmd}."\",\n";
+        print "\t\t\t\"{#DISKMODEL}\":\"".escape_json_string($disk->{disk_model})."\",\n";
+        print "\t\t\t\"{#DISKSN}\":\"".escape_json_string($disk->{disk_sn})."\",\n";
+        print "\t\t\t\"{#DISKNAME}\":\"".escape_json_string($disk->{disk_name})."\",\n";
+        print "\t\t\t\"{#DISKCMD}\":\"".escape_json_string($disk->{disk_cmd})."\",\n";
         print "\t\t\t\"{#SMART_ENABLED}\":\"".$disk->{smart_enabled}."\",\n";
         print "\t\t\t\"{#DISKTYPE}\":\"".$disk->{disk_type}."\"\n";
         print "\t\t}";
