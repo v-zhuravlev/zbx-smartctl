@@ -50,7 +50,10 @@ if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smart
     }
 }
 else {
-    for (`$smartctl_cmd --scan-open`) {
+    foreach my $line (@{[
+        `$smartctl_cmd --scan-open`,
+        `$smartctl_cmd --scan-open -dnvme`
+        ]}) {
 
         #my $testline = "# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open" ;
         #for ($testline) {
@@ -60,8 +63,8 @@ else {
         #"/dev/bus/0 -d megaraid,01" for megaraid
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
-        my ($disk_name) = $_ =~ /(\/(.+?))(?:$|\s)/;
-        my ($disk_args) = $_ =~ /(-d [A-Za-z0-9,\+]+)/;
+        my ($disk_name) = $line =~ /(\/(.+?))(?:$|\s)/;
+        my ($disk_args) = $line =~ /(-d [A-Za-z0-9,\+]+)/;
 
         if ( $disk_name and $disk_args ) {
             push @input_disks,
@@ -193,19 +196,7 @@ sub get_smart_disks {
     
         
         if ( $line =~ /^serial number: +(.+)$/i ) {
-
-            #print "Serial number is ".$2."\n";
-            if ( grep /$1/, @global_serials ) {
-
-                #print "disk already exists skipping\n";
-                return;
-            }
-            else {
                 $disk->{disk_sn} = $1;
-                if ($disk->{smart_enabled} eq 1){
-                    push @global_serials, $1;
-                }
-            }
         }
         if ( $line =~ /^Device Model: +(.+)$/i ) {
                 $disk->{disk_model} = $1;
@@ -280,8 +271,9 @@ sub get_smart_disks {
         return @disks;
     }
 
-    if ( $disk->{disk_name} =~ /nvme/ ) {
+    if ( $disk->{disk_name} =~ /nvme/ or $disk->{disk_args} =~ /nvme/) {
             $disk->{disk_type} = 1; # /dev/nvme is always SSD
+            $disk->{smart_enabled} = 1;
     }
     # if disk_type is still unknown after parsing then rerun with extended -a:
     if ( $disk->{disk_type} == 2) {
@@ -319,6 +311,17 @@ sub get_smart_disks {
                 }
             }
     }
+    
+    # push to global serials list
+    if ($disk->{smart_enabled} == 1){
+        #print "Serial number is ".$disk->{disk_sn}."\n";
+        if ( grep /$disk->{disk_sn}/, @global_serials ) {
+            # print "disk already exists skipping\n";
+            return;
+        }
+        push @global_serials, $disk->{disk_sn};
+    }
+
     push @disks, $disk;
     return @disks;
 
