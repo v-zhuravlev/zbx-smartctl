@@ -13,7 +13,7 @@
             <name>Template_HDD_SMARTMONTOOLS_2_WITH_LLD</name>
             <description>https://github.com/v-zhuravlev/zbx-smartctl&#13;
 3.4 version with dependent items. Please check your UserParameters.
-Template version: v1.4</description>
+Template version: v1.5</description>
             <groups>
                 <group>
                     <name>Templates</name>
