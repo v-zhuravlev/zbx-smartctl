@@ -1,7 +1,7 @@
 # VERSION = 1.4
 $smartctl = "$Env:Programfiles\smartmontools\bin\smartctl.exe"
 
-if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null) 
+if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null)
 { 
    write-host "Unable to find smartctl. Check that smartmontools package is installed"
    exit
@@ -11,7 +11,7 @@ if ((Get-Command $smartctl -ErrorAction SilentlyContinue) -eq $null)
 $idx = 0
 $global_serials
 $smart_scanresults = & $smartctl "--scan-open"
-$smart_scanresults += & $smartctl "--scan-open" '-dnvme'
+$smart_scanresults += & $smartctl "--scan-open" "-dnvme"
 
 $json = ""
 
@@ -73,7 +73,7 @@ foreach ($smart_scanresult in $smart_scanresults)
     $model=$model -replace "Vendor:"
     if ($model)
     {
-        $disk_model=$model.trim()    
+        $disk_model=$model.trim()
     }
     $model= $line | select-string "Product:"
     $model=$model -replace "Product:"
@@ -85,7 +85,7 @@ foreach ($smart_scanresult in $smart_scanresults)
     
     # Is it HDD, SSD/NVMe or ODD
     # The SMART Values for HDD/SSD are different sometimes
-    # I have 2 Discovery-Rules with Filtering 0 or 1.                       
+    # I have 2 Discovery-Rules with Filtering 0 or 1.
     # 0 is for HDD
     # 1 is for SSD/NVMe
     # 2 is for ODD and will be ignored
@@ -145,16 +145,15 @@ foreach ($smart_scanresult in $smart_scanresults)
     }
     
     $json += "`t {`n " +
-            "`t`t`"{#DISKSN}`":`""+$disk_sn+"`""+ ",`n" +        
-            "`t`t`"{#DISKMODEL}`":`""+$disk_model+"`""+ ",`n" +        
+            "`t`t`"{#DISKSN}`":`""+$disk_sn+"`""+ ",`n" +
+            "`t`t`"{#DISKMODEL}`":`""+$disk_model+"`""+ ",`n" +
             "`t`t`"{#DISKNAME}`":`""+$disk_name+"`""+ ",`n" +
-            "`t`t`"{#DISKCMD}`":`""+$disk_name+" "+$disk_args+"`"" +",`n" + 
+            "`t`t`"{#DISKCMD}`":`""+$disk_name+" "+$disk_args+"`"" +",`n" +
             "`t`t`"{#SMART_ENABLED}`":`""+$smart_enabled+"`"" +",`n" +
             "`t`t`"{#DISKTYPE}`":`""+$disk_type+"`"" +"`n" +
-           "`t }"    
+           "`t }"
 
-    
-    
+
 }
 write-host $json
 write-host " ]"
