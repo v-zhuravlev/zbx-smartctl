@@ -337,7 +337,7 @@ sub json_discovery {
 
     my $first = 1;
     print "{\n";
-    print "\t\"data\":[\n\n";
+    print "\t\"data\":[\n";
 
     foreach my $disk ( @{$disks} ) {
 
