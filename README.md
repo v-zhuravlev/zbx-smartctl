@@ -148,7 +148,6 @@ Please also keep in mind things that require improvement (welcome!)
 - Absolute paths used(especially in Windows(UserParameters,inside powershell script))
 - Discovery script should probably fail if not run under Admin/root(since its impossible to collect proper data)
 - usbjmicron is not implemented in Windows, only in Linux discovery script
-- nvme discovery is not implemented in Windows, only in Linux discovery script
 - There are no proper tests. It's nice to run discovery scripts automatically using `/tests/examples` directory contents as mocks. So it's easier to accept PRs. BTW you can also PR your outputs to examples folder
 - MacOS disks discovery is very limited. Feel free to improve it.
 
