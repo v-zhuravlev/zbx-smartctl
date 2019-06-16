@@ -165,7 +165,7 @@ sub get_smart_disks {
     foreach my $line (@smartctl_output) {
         #foreach my $line ($testline) {
         #print $line;
-        if ( $line =~ /^SMART.+?: +(.+)$/ ) {
+        if ( $line =~ /^(?:SMART.+?: +|Device supports SMART and is +)(.+)$/ ) {
 
             if ( $1 =~ /Enabled/ ) {
                 $disk->{smart_enabled} = 1;
