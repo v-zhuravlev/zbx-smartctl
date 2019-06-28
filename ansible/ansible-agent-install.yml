@@ -13,6 +13,8 @@
     copy:
       src: ../sudoers_zabbix_smartctl
       dest: /etc/sudoers.d/sudoers_zabbix_smartctl
+      validate: "visudo -cf %s"
+      mode: 0440
   - name: "Copy agent config"
     copy:
       src: ../zabbix_smartctl.conf
