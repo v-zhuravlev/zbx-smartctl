@@ -1,4 +1,6 @@
 #!/usr/bin/perl
+# vim:ts=4:sw=4:sts=4:et
+
 use warnings;
 use strict;
 
@@ -139,6 +141,25 @@ foreach my $disk (@input_disks) {
 
 json_discovery( \@smart_disks );
 
+sub linux_disk_by_id {
+    my $disk = shift;
+    opendir(my $dbidd, '/dev/disk/by-id');
+    while (my $devlink = readdir($dbidd)) {
+        if ($devlink =~ /^ata-/) {
+            $devlink = '/dev/disk/by-id/' . $devlink;
+            if (-l $devlink) {
+                my $realdev = readlink($devlink);
+                $realdev =~ s/^\.\.\/\.\./\/dev/;
+                if ($realdev eq $disk) {
+                    $disk = $devlink;
+                }
+            }
+        }
+    }
+    closedir($dbidd);
+    return $disk;
+}
+
 sub get_smart_disks {
     my $disk = shift;
     my @disks;
@@ -147,6 +168,10 @@ sub get_smart_disks {
 
     chomp( $disk->{disk_name} );
     chomp( $disk->{disk_args} );
+    
+    if ($^O eq 'linux') {
+        $disk->{disk_name} = &linux_disk_by_id($disk->{disk_name});
+    }
     
     $disk->{disk_cmd} = $disk->{disk_name};
     if (length($disk->{disk_args}) > 0){
