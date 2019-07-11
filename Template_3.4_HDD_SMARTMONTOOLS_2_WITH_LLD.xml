@@ -1048,7 +1048,7 @@ Setting this macro doesn't prevent any automatic attempts to discover disks usin
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:SMART overall-health self-assessment test result:|SMART Health Status:) +(.+)
+                                    <params>(?:SMART overall-health self-assessment test result:|SMART Health Status:) +\b([\S ]+)
 \1</params>
                                 </step>
                             </preprocessing>
