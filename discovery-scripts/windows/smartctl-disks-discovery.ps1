@@ -11,7 +11,7 @@ $idx = 0
 $global_serials
 $smart_scanresults = & $smartctl "--scan-open"
 $smart_nvme = & $smartctl "--scan-open" "-dnvme"
-# bug fix. more than one disk
+
 if ($smart_nvme)
 {
     $smart_scanresults += $smart_nvme
