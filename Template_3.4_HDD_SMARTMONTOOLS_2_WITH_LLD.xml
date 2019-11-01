@@ -305,6 +305,7 @@ Setting this macro doesn't prevent any automatic attempts to discover disks usin
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
 https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
 For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For Kingston disks, mapped to 'ID 5 Retired Block Count'&#13;
 For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
@@ -1193,6 +1194,7 @@ Setting this macro doesn't prevent any automatic attempts to discover disks usin
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
 https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
 For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For Kingston disks, mapped to 'ID 5 Retired Block Count'&#13;
 For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
