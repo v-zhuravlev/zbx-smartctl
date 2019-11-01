@@ -101,7 +101,6 @@ Writeback Cache is: Enabled
         preprocessing_params = self.root.findall(
             ".//item_prototype[name='" + name + "']/preprocessing/step/params")[0].text
         regex, _  = preprocessing_params.split("\n")
-        print(regex)
         m = re.search(regex, self.inventory_sata_1, re.MULTILINE)
         self.assertEqual(m.group(2), "THNSN5512GPUK TOSHIBA")
         m = re.search(regex, self.inventory_sata_2, re.MULTILINE)
@@ -123,13 +122,20 @@ Writeback Cache is: Enabled
         ]
         for a in attributes:
             for s in self.samples:
-                # if s['disk_interface'] != 'sata':
-                #     continue
+                # Skip, no ssd life left for this SAS device
+                if a['name'] == '{#DISKNAME}: ID 177/202/233 SSD wearout' and s['name'] == 'sas_ssd_hgst.txt':
+                    continue
+                # Skip, no power on hours for this sample.
+                if a['name'] == '{#DISKNAME}: ID 9 Power on hours' and s['name'] == 'sas_hdd_wd.txt':
+                    continue
+                # Skip no 199 CRC
+                if a['name'] == '{#DISKNAME}: ID 199 CRC error count' and s['name'] in ('sata_ssd_direct_kingston.txt', 'sas_hdd_seagate.txt'):
+                    continue
                 if s['disk_interface'] != 'sata' and 'sata_only' in a['flags']:
                     continue
                 if s['disk_interface'] == 'sas' and a['name'] == '{#DISKNAME}: SSD wearout':
                     continue
-                if s['disk_interface'] == 'nvme' and a['name'] == '{#DISKNAME}: Reallocated sectors count':
+                if s['disk_interface'] == 'nvme' and a['name'] == '{#DISKNAME}: ID 5 Reallocated sectors count':
                     continue
                 if s['disk_type'] != 'ssd' and 'ssd_only' in a['flags']:
                     continue
@@ -138,11 +144,9 @@ Writeback Cache is: Enabled
                 with self.subTest(name=s['name'], attrib=a):
                     (regex, group) = self.get_regex_from_template(a['name'])
                     try:
-                        # print(a['name'], s['name'])
                         m = re.search(regex, s['text'])
                         value = int(m.group(group))
                         self.assertGreaterEqual(value, 0)
-                        # self.assertLessEqual(value, 100)
                     except AttributeError:
-                        print("no attribute {} found on {}".format(
-                            a['name'], s['name']))
+                        self.fail("no attribute '{}' found in '{}' using regex '{}'".format(
+                            a['name'], s['name'], regex))
