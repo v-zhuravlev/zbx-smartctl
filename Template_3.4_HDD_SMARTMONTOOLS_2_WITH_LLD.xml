@@ -317,7 +317,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
+                                    <params>(?:5 Reallocate.+|5 Retired_Block_Count.+|Elements in grown defect list:.+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1205,7 +1205,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
+                                    <params>(?:5 Reallocate.+|5 Retired_Block_Count.+|Elements in grown defect list:.+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
