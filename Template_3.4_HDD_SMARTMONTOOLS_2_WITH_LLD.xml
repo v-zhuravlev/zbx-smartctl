@@ -1324,7 +1324,7 @@ NVMe: 'Available Spare:' value is used, where 100% idicated new drive and 0% ind
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:(?:177 Wear_Leveling_Count|202 Percent_Lifetime_Used|233 Media_Wearout_Indicator|231 SSD_Life_Left) +0x[0-9a-z]+|Available Spare:) +([0-9]+)
+                                    <params>(?:(?:177 Wear_Leveling_Count|202 Percent_Lifetime_Used|202 Percent_Lifetime_Remain|230 Media_Wearout_Indicator|233 Media_Wearout_Indicator|231 SSD_Life_Left) +0x[0-9a-z]+|Available Spare:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>

@@ -1,0 +1,31 @@
+smartctl -A /dev/sda -d sat+megaraid,5
+smartctl 7.0 2018-12-30 r4883 [x86_64-linux-3.10.0-957.10.1.el7.x86_64] (local build)
+Copyright (C) 2002-18, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x002f   100   100   000    Pre-fail  Always       -       0
+  5 Reallocate_NAND_Blk_Cnt 0x0032   100   100   010    Old_age   Always       -       0
+  9 Power_On_Hours          0x0032   100   100   000    Old_age   Always       -       3164
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       13
+171 Program_Fail_Count      0x0032   100   100   000    Old_age   Always       -       0
+172 Erase_Fail_Count        0x0032   100   100   000    Old_age   Always       -       0
+173 Ave_Block-Erase_Count   0x0032   091   091   000    Old_age   Always       -       140
+174 Unexpect_Power_Loss_Ct  0x0032   100   100   000    Old_age   Always       -       0
+180 Unused_Reserve_NAND_Blk 0x0033   000   000   000    Pre-fail  Always       -       42
+183 SATA_Interfac_Downshift 0x0032   100   100   000    Old_age   Always       -       0
+184 Error_Correction_Count  0x0032   100   100   000    Old_age   Always       -       0
+187 Reported_Uncorrect      0x0032   100   100   000    Old_age   Always       -       0
+194 Temperature_Celsius     0x0022   060   047   000    Old_age   Always       -       40 (Min/Max 0/53)
+196 Reallocated_Event_Count 0x0032   100   100   000    Old_age   Always       -       0
+197 Current_Pending_Sector  0x0032   100   100   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0030   100   100   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x0032   100   100   000    Old_age   Always       -       0
+202 Percent_Lifetime_Remain 0x0030   091   091   001    Old_age   Offline      -       9
+206 Write_Error_Rate        0x000e   100   100   000    Old_age   Always       -       0
+210 Success_RAIN_Recov_Cnt  0x0032   100   100   000    Old_age   Always       -       0
+246 Total_Host_Sector_Write 0x0032   100   100   000    Old_age   Always       -       53880021276
+247 Host_Program_Page_Count 0x0032   100   100   000    Old_age   Always       -       951778208
+248 FTL_Program_Page_Count  0x0032   100   100   000    Old_age   Always       -       3838313868
