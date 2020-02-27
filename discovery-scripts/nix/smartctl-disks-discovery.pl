@@ -145,7 +145,7 @@ sub linux_disk_by_id {
     my $disk = shift;
     opendir(my $dbidd, '/dev/disk/by-id');
     while (my $devlink = readdir($dbidd)) {
-        if ($devlink =~ /^ata-/) {
+        if ($devlink =~ /^(ata|scsi|usb)-/) {
             $devlink = '/dev/disk/by-id/' . $devlink;
             if (-l $devlink) {
                 my $realdev = readlink($devlink);
