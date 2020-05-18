@@ -63,6 +63,9 @@ zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMARTCTL_DISCOVERY
 Defaults!SMARTCTL !logfile, !syslog, !pam_session
 Defaults!SMARTCTL_DISCOVERY !logfile, !syslog, !pam_session
 ```
+```text
+chmod 440 /etc/sudoers.d/sudoers_zabbix_smartctl
+```
 
 - Copy `zabbix_smartctl.conf` to `/etc/zabbix/zabbix_agentd.d`
 - Copy script `smartctl-disks-discovery.pl` to `/etc/zabbix/scripts`
