@@ -560,7 +560,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units>°С</units>
+                            <units>°C</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1348,7 +1348,7 @@ NVMe: 'Available Spare:' value is used, where 100% idicated new drive and 0% ind
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units>°С</units>
+                            <units>°C</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
