@@ -1,0 +1,35 @@
+---
+- name: "Install smartmontools"
+  package:
+    name: smartmontools
+    state: latest
+
+- name: "Copy sudoers file"
+  copy:
+    src: ../files/sudoers_zabbix_smartctl
+    dest: /etc/sudoers.d/zabbix_smartctl
+    validate: "visudo -cf %s"
+    mode: 0440
+
+- name: "Copy agent config"
+  copy:
+    src: ../files/zabbix_smartctl.conf
+    dest: /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf
+
+- name: "Create scripts directory"
+  file: 
+    path: /etc/zabbix/scripts
+    state: directory
+
+- name: "Copy script"
+  copy:
+    src: ../files/smartctl-disks-discovery.pl
+    dest: /etc/zabbix/scripts/smartctl-disks-discovery.pl
+
+- name: "Ensure script is executable"
+  file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=a+x
+
+- name: "Restart zabbix-agent"
+  service:
+    name: zabbix-agent
+    state: restarted

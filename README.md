@@ -88,9 +88,10 @@ You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu dist
 dpkg-buildpackage -tc -Zgzip
 ```
 
-#### Ansible playbook
+#### Ansible Role
 
-There is an ansible playbook available in this repo, feel free to try it.
+There is an ansible role available in this repo, feel free to try it.
+To build the role run create_ansible_role.sh script then copy ansible-role-zabbix-smartctl to your ansible/roles directory
 
 ### Windows
 
