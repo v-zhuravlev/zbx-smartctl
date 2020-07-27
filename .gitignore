@@ -1,1 +1,2 @@
 *.pyc
+ansible-role-zabbix-smartmontools/files/*
