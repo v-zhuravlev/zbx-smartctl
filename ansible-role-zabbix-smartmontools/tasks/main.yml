@@ -11,10 +11,36 @@
     validate: "visudo -cf %s"
     mode: 0440
 
-- name: "Copy agent config"
+- name: "Check if zabbix_agent2 exists"
+  stat:
+    path: /etc/zabbix/zabbix_agent2.conf
+  register: zabbix_agent2_result
+
+- name: "If zabbix agent and /etc/zabbix/zabbix_agentd.d does not exist, create it"
+  file:
+    path: /etc/zabbix/zabbix_agentd.d
+    state: directory
+    mode: 755
+  when: not zabbix_agent2_result.stat.exists
+
+- name: "If zabbix2 agent and /etc/zabbix/zabbix_agent2.d does not exist, create it"
+  file:
+    path: /etc/zabbix/zabbix_agent2.d
+    state: directory
+    mode: 755
+  when: zabbix_agent2_result.stat.exists
+
+- name: "Copy agent config for zabbix"
   copy:
     src: ../files/zabbix_smartctl.conf
     dest: /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf
+  when: not zabbix_agent2_result.stat.exists
+
+- name: "Copy agent config for zabbix2"
+  copy:
+    src: ../files/zabbix_smartctl.conf
+    dest: /etc/zabbix/zabbix_agent2.d/zabbix_smartctl.conf
+  when: zabbix_agent2_result.stat.exists
 
 - name: "Create scripts directory"
   file: 
@@ -29,7 +55,13 @@
 - name: "Ensure script is executable"
   file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=a+x
 
+- name: "Restart zabbix-agent2"
+  service:
+    name: zabbiz-agent2
+  when: zabbix_agent2_result.stat.exists
+
 - name: "Restart zabbix-agent"
   service:
     name: zabbix-agent
     state: restarted
+  when: not zabbix_agent2_result.stat.exists
