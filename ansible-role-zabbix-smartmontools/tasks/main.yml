@@ -29,7 +29,7 @@
     group: zabbix
 
 - name: "Ensure script is executable"
-  file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=a+x
+  file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=u+x
 
 - name: "Restart zabbix-agent"
   service:
