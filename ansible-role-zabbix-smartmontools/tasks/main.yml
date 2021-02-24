@@ -17,7 +17,7 @@
     dest: /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf
 
 - name: "Create scripts directory"
-  file: 
+  file:
     path: /etc/zabbix/scripts
     state: directory
 
