@@ -25,6 +25,8 @@
   copy:
     src: ../files/smartctl-disks-discovery.pl
     dest: /etc/zabbix/scripts/smartctl-disks-discovery.pl
+    owner: zabbix
+    group: zabbix
 
 - name: "Ensure script is executable"
   file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=a+x
