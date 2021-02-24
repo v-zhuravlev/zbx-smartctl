@@ -27,9 +27,7 @@
     dest: /etc/zabbix/scripts/smartctl-disks-discovery.pl
     owner: zabbix
     group: zabbix
-
-- name: "Ensure script is executable"
-  file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=u+x
+    mode: 0744
 
 - name: "Restart zabbix-agent"
   service:
