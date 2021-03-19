@@ -43,7 +43,7 @@
   when: zabbix_agent2_result.stat.exists
 
 - name: "Create scripts directory"
-  file: 
+  file:
     path: /etc/zabbix/scripts
     state: directory
 
@@ -51,9 +51,9 @@
   copy:
     src: ../files/smartctl-disks-discovery.pl
     dest: /etc/zabbix/scripts/smartctl-disks-discovery.pl
-
-- name: "Ensure script is executable"
-  file: dest=/etc/zabbix/scripts/smartctl-disks-discovery.pl mode=a+x
+    owner: zabbix
+    group: zabbix
+    mode: 0744
 
 - name: "Restart zabbix-agent2"
   service:
