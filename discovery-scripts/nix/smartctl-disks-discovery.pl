@@ -10,6 +10,7 @@ my $smartctl_cmd = "/usr/sbin/smartctl";
 die "Unable to find smartctl. Check that smartmontools package is installed.\n" unless (-x $smartctl_cmd);
 my $sg_scan_cmd = "/usr/bin/sg_scan";
 my $nvme_cmd = "/usr/sbin/nvme";
+my $cciss_dev_dir = "/dev/cciss";
 my @input_disks;
 my @global_serials;
 my @smart_disks;
@@ -98,6 +99,24 @@ else {
             }
 
         }
+    }
+
+    if (-d $cciss_dev_dir){
+        #cciss_vol_status /dev/cciss/c0d0 -V should be used for listing of drives, but currently I have no servers
+        #with more than 1 drive with this contoller
+        
+	    opendir(DIR, $cciss_dev_dir);
+	    while (my $file = readdir(DIR)) {
+		next unless ($file =~ m/^c\d+d\d+$/);
+		my ($disk_name) = $cciss_dev_dir."/".$file;
+		my ($disk_args) = "-d cciss,0";
+
+		push @input_disks,
+		{
+			disk_name => $disk_name,
+			disk_args => $disk_args
+		};
+	    }
     }
 
     if (-x $nvme_cmd){
