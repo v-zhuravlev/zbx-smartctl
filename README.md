@@ -1,5 +1,10 @@
 # zbx-smartctl
 
+## Project status
+
+No active maintenance is provided for this project from my side. PRs are accepted though. Also, please let me know if you want to become a contributor or maintainer of this project.
+To monitor disks S.M.A.R.T. in Zabbix 5.4+, take a look at built-in agent 2 module: https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/module/smart_agent2
+
 ## Description
 
 This is the template and discovery scripts for monitoring disks SMART attributes using smartmontools in Zabbix.  
