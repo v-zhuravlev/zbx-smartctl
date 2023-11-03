@@ -591,7 +591,7 @@ NVMe: Supported</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:194 Temperature[^(\n]+|Airflow_Temperature[^(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
+                                    <params>(?:194 Temperature[^\(\n]+|Airflow_Temperature[^\(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1379,7 +1379,7 @@ NVMe: Supported</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:194 Temperature[^(\n]+|Airflow_Temperature[^(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
+                                    <params>(?:194 Temperature[^\(\n]+|Airflow_Temperature[^\(\n]+|Drive Temperature:|Temperature:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
