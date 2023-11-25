@@ -40,7 +40,8 @@ Zabbix server 3.4+ is recommended with dependendent items support but there are 
     - SAS devices support
     - NVMe devices support
     - Static discovery support with {$SMARTCTL_STATIC_DISKS}
-
+  - 4.0+ template: 
+    - The "Drive Trip Temperature" is added to the LLD discovery of disks and these discovered values, when available, is used for the warning. When the discovered "Drive Trip Temperature" is 0 or not set at all, then the "{$TEMP_WARN:'HDD'}" macro is used.
 #### About static discovery
 
 Static discovery is useful for disks that cannot be easily discovered, such as disks hidden behind some hardware RAIDs or when agent is installed on Windows or Mac where automatic discovery is not so powerful.
